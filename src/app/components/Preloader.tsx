@@ -75,34 +75,7 @@ export default function Preloader({ visible, onEnter }: PreloaderProps) {
         >
     
 
-          {/*
-            Existing logo draw stays unchanged. After drawing, the logo makes a
-            stronger 1.48x zoom, settles back to 1x, and waits for interaction.
-          */}
-          {/* <motion.div
-            className="relative"
-            initial={{ scale: 1.6, opacity: 0 }}
-            animate={{
-              scale: [1.6, 1, 1, 1.84, 1],
-              opacity: 1,
-            }}
-            transition={{
-              scale: {
-                duration: (reduce ? 1.15 : 5.85) * d,
-                times: [0, 0.4, 0.67, 0.84, 1],
-                ease: [0.16, 0.8, 0.24, 1],
-              },
-              opacity: {
-                duration: drawDuration * d,
-                ease: [0.16, 0.8, 0.24, 1],
-              },
-            }}
-            onAnimationComplete={() => setAwaitingInteraction(true)}
-          >
-            <SignatureLogo className="h-auto w-[250px] sm:w-[350px]" />
-
-          
-          </motion.div>        */}
+       
           <motion.div
   className="relative"
   initial={{ scale: 1.6, opacity: 0 }}

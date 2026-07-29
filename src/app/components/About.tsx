@@ -1,58 +1,343 @@
+import Image from "next/image";
 import Reveal from "./Reveal";
-import ImageReveal from "./ImageReveal";
+import aboutImage from "../assets/about-studio.png";
 
 export default function About() {
   return (
-    <section id="about" className="bg-panel py-[150px] px-[7vw]">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-        <Reveal>
-          <span className="eyebrow block mb-3.5">About the Studio</span>
-          <h2 className="font-serif text-[clamp(2rem,4vw,3.2rem)] text-ivory mb-6 leading-tight">
-            A studio built around
-            <br />
-            one idea — <em className="italic">infusion</em>.
-          </h2>
-          <span className="block font-serif italic text-gold-light text-xl mb-6">
-            Every space should feel infused with the life meant to fill it.
-          </span>
-          <p className="text-muted leading-[1.95] mb-5 text-[1.02rem]">
-            HPI Design Studio began as a small drafting table and a conviction: that good
-            design is never decorative first. It listens to how a family moves through a
-            morning, how light should fall across a reading chair at 5pm, how a threshold
-            should feel underfoot.
-          </p>
-          <p className="text-muted leading-[1.95] text-[1.02rem]">
-            We work across residences, studios and commercial interiors — pairing restrained
-            material palettes with a handmade attention to proportion, joinery and light.
-          </p>
-        </Reveal>
+    <section
+      id="about"
+      className="
+        relative overflow-hidden
+        bg-[#0b0b0a]
+        px-5 py-20
+        sm:px-8 sm:py-24
+        lg:px-[5vw] lg:py-[60px]
+      "
+    >
+      <div
+        className="
+          mx-auto grid w-full max-w-[1500px]
+          grid-cols-1 items-center gap-12
 
-        <div className="relative">
-          <ImageReveal
-            className="brackets relative aspect-[4/5] bg-[#0e0d0b]"
-            direction="right"
-            delay={0.08}
-            parallax={34}
-            hoverScale={1.045}
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_25%,rgba(230,197,131,0.15),transparent_24%),linear-gradient(145deg,#211d15_0%,#15120e_45%,#090908_100%)]" />
-            <div className="absolute inset-[9%] border border-gold/15" />
-            <div className="absolute left-[17%] top-[12%] h-[66%] w-[1px] bg-gold/25" />
-            <div className="absolute left-[17%] top-[51%] h-px w-[66%] bg-gold/25" />
-            <div className="absolute right-[13%] top-[18%] h-[38%] w-[42%] border border-ivory/10 bg-ivory/[0.02] backdrop-blur-[1px]" />
-            <div className="absolute bottom-[18%] left-[22%] h-[24%] w-[56%] border border-gold/15 bg-black/15" />
-            <span className="absolute inset-0 flex items-center justify-center font-serif italic text-gold-dim text-8xl opacity-50">
-              hpi
-            </span>
-            <span className="b-tr" />
-            <span className="b-br" />
-          </ImageReveal>
+          lg:grid-cols-[0.88fr_1.12fr]
+          lg:gap-16
 
-          <Reveal delay={0.55} className="absolute -bottom-7 -left-5 hidden sm:block">
-            <div className="border border-gold/25 bg-bg/90 px-5 py-3 backdrop-blur-md">
-              <span className="block text-[0.58rem] uppercase tracking-[0.32em] text-gold-light">
-                Form · Light · Life
+          xl:grid-cols-[0.82fr_1.18fr]
+          xl:gap-20
+        "
+      >
+        {/* Left image */}
+       {/* Left image */}
+<Reveal>
+  <div
+    className="
+      relative mx-auto w-full
+      max-w-[560px]
+      lg:max-w-none
+    "
+  >
+    {/* Main image wrapper */}
+    <div
+      className="
+        relative aspect-[4/5]
+        w-full overflow-hidden
+        rounded-sm
+        bg-[#151412]
+
+        sm:aspect-[5/4]
+        lg:aspect-[4/5]
+      "
+    >
+      <Image
+        src={aboutImage}
+        alt="Luxury interior designed by HPI Design Studio"
+        fill
+        priority
+        sizes="
+          (max-width: 640px) 100vw,
+          (max-width: 1024px) 90vw,
+          42vw
+        "
+        className="
+          object-cover
+          object-center
+          transition-transform
+          duration-700
+          hover:scale-[1.03]
+        "
+      />
+
+      {/* Light overlay */}
+      <div
+        className="
+          pointer-events-none
+          absolute inset-0
+          bg-gradient-to-t
+          from-black/35
+          via-transparent
+          to-black/5
+        "
+      />
+
+      {/* Inner border */}
+      <div
+        className="
+          pointer-events-none
+          absolute inset-4
+          border border-white/10
+        "
+      />
+    </div>
+
+    {/* Bottom-left decorative corner */}
+    <span
+      aria-hidden="true"
+      className="
+        pointer-events-none
+        absolute -bottom-3 -left-3
+        h-16 w-16
+        border-b border-l
+        border-gold/70
+      "
+    />
+
+    {/* Top-right decorative corner */}
+    <span
+      aria-hidden="true"
+      className="
+        pointer-events-none
+        absolute -right-3 -top-3
+        h-16 w-16
+        border-r border-t
+        border-gold/70
+      "
+    />
+
+    {/* Image label */}
+    <div
+      className="
+        absolute bottom-5 left-5
+        hidden border border-white/15
+        bg-black/70
+        px-5 py-3
+        backdrop-blur-md
+        sm:block
+      "
+    >
+      <span
+        className="
+          text-[9px] font-medium
+          uppercase tracking-[0.3em]
+          text-gold-light
+        "
+      >
+        HPI Design Studio
+      </span>
+    </div>
+  </div>
+</Reveal>
+
+        {/* Right content */}
+        <div>
+          <Reveal>
+            <div className="mb-5 flex items-center gap-4">
+              <span className="h-px w-10 bg-gold" />
+
+              <span
+                className="
+                  text-[10px] font-medium
+                  uppercase tracking-[0.34em]
+                  text-gold-light
+                "
+              >
+                About Us
               </span>
+            </div>
+          </Reveal>   
+
+          <Reveal delay={0.12}>
+            <h2
+              className="
+                mb-7
+                max-w-[760px]
+                font-serif font-semibold
+                text-4xl
+                leading-[1.08]
+                tracking-[-0.025em]
+                text-ivory
+              "
+            >
+                 Architecture shaped
+around real life.
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.18}>
+            <p
+              className="
+                mb-5 max-w-[760px]
+                text-[13px] leading-[1.95]
+                text-white/60
+
+                sm:text-[14px]
+                lg:text-[15px]
+              "
+            >
+              HPI Design Studio creates thoughtful architectural and
+              interior spaces shaped around the way people live. Our
+              work combines refined materials, balanced proportions
+              and carefully considered light to create spaces that
+              feel comfortable, functional and timeless.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.24}>
+            <p
+              className="
+                mb-8 max-w-[760px]
+                text-[13px] leading-[1.95]
+                text-white/60
+
+                sm:text-[14px]
+                lg:text-[15px]
+              "
+            >
+              From private residences and luxury interiors to
+              commercial environments, every project begins with
+              understanding the client, the site and the life the
+              space is meant to support. We believe good design should
+              feel natural, personal and quietly expressive.
+            </p>
+          </Reveal>
+
+          {/* Quote */}
+          <Reveal delay={0.3}>
+            <div
+              className="
+                relative mb-9
+                border-l border-gold
+                bg-white/[0.025]
+                px-6 py-5
+              "
+            >
+              <span
+                className="
+                  absolute -left-[5px] top-5
+                  h-2 w-2
+                  rotate-45
+                  bg-gold
+                "
+              />
+
+              <p
+                className="
+                  max-w-[680px]
+                  font-serif text-lg
+                  italic leading-[1.65]
+                  text-gold-light
+
+                  sm:text-xl
+                "
+              >
+                “Every space should feel infused with the life meant
+                to fill it.”
+              </p>
+            </div>
+          </Reveal>
+
+          {/* Simple information row */}
+          <Reveal delay={0.36}>
+            <div
+              className="
+                grid grid-cols-1
+                border-y border-white/10
+
+                sm:grid-cols-3
+              "
+            >
+              <div
+                className="
+                  border-b border-white/10
+                  py-5
+
+                  sm:border-b-0
+                  sm:border-r
+                  sm:pr-6
+                "
+              >
+                <span
+                  className="
+                    mb-2 block
+                    text-[9px] uppercase
+                    tracking-[0.28em]
+                    text-white/35
+                  "
+                >
+                  Approach
+                </span>
+
+                <span
+                  className="
+                    font-serif text-lg
+                    font-semibold text-ivory
+                  "
+                >
+                  Thoughtful
+                </span>
+              </div>
+
+              <div
+                className="
+                  border-b border-white/10
+                  py-5
+
+                  sm:border-b-0
+                  sm:border-r
+                  sm:px-6
+                "
+              >
+                <span
+                  className="
+                    mb-2 block
+                    text-[9px] uppercase
+                    tracking-[0.28em]
+                    text-white/35
+                  "
+                >
+                  Focus
+                </span>
+
+                <span
+                  className="
+                    font-serif text-lg
+                    font-semibold text-ivory
+                  "
+                >
+                  Detail
+                </span>
+              </div>
+
+              <div className="py-5 sm:pl-6">
+                <span
+                  className="
+                    mb-2 block
+                    text-[9px] uppercase
+                    tracking-[0.28em]
+                    text-white/35
+                  "
+                >
+                  Philosophy
+                </span>
+
+                <span
+                  className="
+                    font-serif text-lg
+                    font-semibold text-ivory
+                  "
+                >
+                  Form · Light · Life
+                </span>
+              </div>
             </div>
           </Reveal>
         </div>

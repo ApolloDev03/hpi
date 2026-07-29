@@ -1,24 +1,9 @@
-// import Image from "next/image";
-
-// export default function Footer() {
-//   return (
-//     <footer className="py-16 px-[7vw] pb-10 text-center border-t border-line">
-//       <div className="relative w-[70px] mx-auto mb-4 opacity-90">
-//         <Image src="/logo-white.png" alt="HPI Studio" width={680} height={503} className="w-full h-auto" />
-//       </div>
-//       <div className="text-muted text-[0.7rem] uppercase tracking-widest2">
-//         HPI Design Studio &nbsp;·&nbsp; Infused Your Dreams &nbsp;·&nbsp; © 2026
-//       </div>
-//     </footer>
-//   );
-// }
-
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import logo from "../assets/logo-white.png"
 import {
-  ArrowUpRight,
   Mail,
   MapPin,
   Phone,
@@ -34,7 +19,6 @@ const quickLinks = [
   { name: "Home", href: "#home" },
   { name: "About Us", href: "#about" },
   { name: "Projects", href: "#projects" },
-  { name: "Testimonials", href: "#testimonials" },
   { name: "Blogs", href: "#blogs" },
   { name: "Contact", href: "#contact" },
 ];
@@ -65,93 +49,193 @@ const socialLinks = [
     icon: FaLinkedinIn,
   },
 ];
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const handleScroll = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (!href.startsWith("#")) return;
+
+    event.preventDefault();
+
+    document.querySelector(href)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
-    <footer className="relative overflow-hidden bg-[#050505] text-white">
-      {/* Background decoration */}
-      <div className="pointer-events-none absolute -right-40 -top-40 h-[420px] w-[420px] rounded-full bg-[#d4af37]/10 blur-[130px]" />
-      <div className="pointer-events-none absolute -bottom-52 -left-36 h-[420px] w-[420px] rounded-full bg-[#d4af37]/5 blur-[130px]" />
+    <footer
+      id="contact"
+      className="
+        relative overflow-hidden
+        border-t border-white/10
+        bg-[#070706]
+        text-white
+      "
+    >
+      {/* Subtle background glow */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute
+          -right-40 top-0
+          h-[420px] w-[420px]
+          rounded-full
+          bg-gold/[0.06]
+          blur-[140px]
+        "
+      />
 
-      {/* Top CTA */}
-      <div className="relative border-b border-white/10">
-        <div className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
-          <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
-            <div>
-              <span className="mb-4 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.3em] text-[#d4af37]">
-                <span className="h-px w-8 bg-[#d4af37]" />
-                Start Your Project
-              </span>
-
-              <h2 className="max-w-3xl text-3xl font-light leading-tight sm:text-4xl lg:text-5xl">
-                Let&apos;s create a space that feels
-                <span className="font-medium text-[#d4af37]"> truly yours.</span>
-              </h2>
-            </div>
-
-            <Link
-              href="#contact"
-              className="group inline-flex min-h-14 items-center gap-4 rounded-full border border-[#d4af37] bg-[#d4af37] px-7 py-4 font-medium text-black transition-all duration-500 hover:bg-transparent hover:text-[#d4af37]"
-            >
-              Discuss Your Project
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white transition-all duration-500 group-hover:rotate-45 group-hover:bg-[#d4af37] group-hover:text-black">
-                <ArrowUpRight size={17} />
-              </span>
-            </Link>
-          </div>
-        </div>
+      {/* Large background word */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute
+          bottom-4 right-[3vw]
+          hidden select-none
+          font-serif text-[clamp(7rem,13vw,13rem)]
+          font-semibold uppercase
+          leading-none tracking-[-0.06em]
+          text-white/[0.018]
+          xl:block
+        "
+      >
+        Studio
       </div>
 
-      {/* Main footer */}
-      <div className="relative mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12">
+      <div
+        className="
+          relative z-10 mx-auto
+          w-full max-w-[1600px]
+          px-5
+          sm:px-8
+          lg:px-[5vw]
+        "
+      >
+       
+
+        {/* Main footer area */}
+        <div
+          className="
+            grid grid-cols-1 gap-12
+            py-14
+
+            sm:grid-cols-2
+
+            lg:grid-cols-[1.35fr_0.7fr_0.9fr_1.1fr]
+            lg:gap-14
+            lg:py-16
+          "
+        >
           {/* Brand */}
-          <div className="sm:col-span-2 lg:col-span-4">
-            <Link href="#home" className="inline-block">
+          <div className="sm:col-span-2 lg:col-span-1">
+            <Link
+              href="#home"
+              onClick={(event) =>
+                handleScroll(event, "#home")
+              }
+              className="inline-block"
+              aria-label="Go to homepage"
+            >
               <Image
-                src="/logo-white.png"
+                src={logo}
                 alt="HPI Design Studio"
                 width={190}
-                height={80}
-                className="h-auto w-[160px] object-contain md:w-[190px]"
+                height={100}
+                className="
+                  h-auto w-[135px]
+                  object-contain
+                  sm:w-[150px]
+                "
               />
             </Link>
 
-            <p className="mt-7 max-w-sm text-sm leading-7 text-white/55">
-              HPI Design Studio creates timeless architecture and thoughtfully
-              designed interiors that combine creativity, functionality, and
-              refined craftsmanship.
+            <p
+              className="
+                mt-6 max-w-[390px]
+                text-[12px] leading-[1.9]
+                text-white
+
+                sm:text-[13px]
+              "
+            >
+              HPI Design Studio creates considered architecture and
+              refined interiors shaped around people, proportion,
+              material and light.
             </p>
 
-            <div className="mt-8 flex items-center gap-3">
-              {socialLinks.map(({ name, href, icon: Icon }) => (
-                <Link
-                  key={name}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={name}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white/70 transition-all duration-300 hover:-translate-y-1 hover:border-[#d4af37] hover:bg-[#d4af37] hover:text-black"
-                >
-                  <Icon size={18} />
-                </Link>
-              ))}
+            {/* Social links */}
+            <div className="mt-7 flex items-center gap-2.5">
+              {socialLinks.map(
+                ({ name, href, icon: Icon }) => (
+                  <Link
+                    key={name}
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={name}
+                    className="
+                      group flex h-10 w-10
+                      items-center justify-center
+                      rounded-full
+                      border border-white/12
+                      bg-white/[0.02]
+                      text-white/55
+                      transition-all duration-300
+
+                      hover:-translate-y-1
+                      hover:border-gold
+                      hover:bg-gold
+                      hover:text-black
+                    "
+                  >
+                    <Icon
+                      size={15}
+                      className="
+                        transition-transform duration-300
+                        group-hover:scale-110
+                      "
+                    />
+                  </Link>
+                )
+              )}
             </div>
           </div>
 
           {/* Quick links */}
-          <div className="lg:col-span-2 lg:col-start-6">
-            <FooterHeading title="Quick Links" />
+          <div>
+            <FooterHeading title="Explore" />
 
-            <ul className="mt-7 space-y-4">
+            <ul className="mt-6 space-y-3.5">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="group inline-flex items-center gap-2 text-sm text-white/55 transition-colors duration-300 hover:text-[#d4af37]"
+                    onClick={(event) =>
+                      handleScroll(event, link.href)
+                    }
+                    className="
+                      group inline-flex
+                      items-center gap-3
+                      text-[12px]
+                      text-white
+                      transition-colors duration-300
+
+                      hover:text-gold-light
+                    "
                   >
-                    <span className="h-px w-0 bg-[#d4af37] transition-all duration-300 group-hover:w-4" />
+                    <span
+                      className="
+                        h-px w-0 bg-gold
+                        transition-all duration-300
+                        group-hover:w-4
+                      "
+                    />
+
                     {link.name}
                   </Link>
                 </li>
@@ -160,14 +244,21 @@ export default function Footer() {
           </div>
 
           {/* Services */}
-          <div className="lg:col-span-3">
-            <FooterHeading title="Our Expertise" />
+          <div>
+            <FooterHeading title="Expertise" />
 
-            <ul className="mt-7 space-y-4">
+            <ul className="mt-6 space-y-3.5">
               {services.map((service) => (
                 <li
                   key={service}
-                  className="text-sm text-white/55 transition-colors duration-300 hover:text-[#d4af37]"
+                  className="
+                    text-[12px]
+                    leading-6
+                    text-white
+                    transition-colors duration-300
+
+                    hover:text-gold-light
+                  "
                 >
                   {service}
                 </li>
@@ -176,37 +267,49 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div className="lg:col-span-3">
-            <FooterHeading title="Contact Us" />
+          <div>
+            <FooterHeading title="Studio Details" />
 
-            <div className="mt-7 space-y-6">
+            <div className="mt-6 space-y-5">
               <ContactItem
                 icon={MapPin}
-                title="Studio"
+                label="Location"
                 content="Ahmedabad, Gujarat, India"
               />
 
               <ContactItem
                 icon={Phone}
-                title="Call Us"
+                label="Phone"
                 content="+91 98765 43210"
                 href="tel:+919876543210"
               />
 
               <ContactItem
                 icon={Mail}
-                title="Email Us"
+                label="Email"
                 content="info@hpidesignstudio.com"
                 href="mailto:info@hpidesignstudio.com"
               />
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom */}
-      <div className="relative border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-6 text-xs text-white/40 md:flex-row md:items-center md:justify-between md:px-8">
+        {/* Bottom bar */}
+        <div
+          className="
+            relative flex flex-col gap-4
+            border-t border-white/10
+            py-6
+            text-[10px]
+            uppercase
+            tracking-[0.16em]
+            text-white/70
+
+            sm:flex-row
+            sm:items-center
+            sm:justify-between
+          "
+        >
           <p>
             © {currentYear} HPI Design Studio. All rights reserved.
           </p>
@@ -214,88 +317,134 @@ export default function Footer() {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <Link
               href="/privacy-policy"
-              className="transition-colors hover:text-[#d4af37]"
+              className="
+                transition-colors duration-300
+                hover:text-gold-light
+              "
             >
               Privacy Policy
             </Link>
 
             <Link
               href="/terms-and-conditions"
-              className="transition-colors hover:text-[#d4af37]"
+              className="
+                transition-colors duration-300
+                hover:text-gold-light
+              "
             >
               Terms & Conditions
             </Link>
-
-            <p>
-              Designed by{" "}
-              <Link
-                href="https://apolloinfotech.in"
-                target="_blank"
-                className="text-white/70 transition-colors hover:text-[#d4af37]"
-              >
-                Apollo Infotech
-              </Link>
-            </p>
           </div>
         </div>
-      </div>
-
-      {/* Large background text */}
-      <div className="pointer-events-none absolute bottom-12 right-4 hidden select-none text-[120px] font-bold leading-none tracking-tighter text-white/[0.015] xl:block">
-        HPI
       </div>
     </footer>
   );
 }
 
-function FooterHeading({ title }: { title: string }) {
+function FooterHeading({
+  title,
+}: {
+  title: string;
+}) {
   return (
     <div>
-      <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white">
+      <h3
+        className="
+          text-[10px] font-semibold
+          uppercase tracking-[0.25em]
+          text-ivory
+        "
+      >
         {title}
       </h3>
-      <span className="mt-3 block h-px w-10 bg-[#d4af37]" />
+
+      <span
+        className="
+          mt-3 block
+          h-px w-8
+          bg-gold
+        "
+      />
     </div>
   );
 }
 
 type ContactItemProps = {
   icon: React.ElementType;
-  title: string;
+  label: string;
   content: string;
   href?: string;
 };
 
 function ContactItem({
   icon: Icon,
-  title,
+  label,
   content,
   href,
 }: ContactItemProps) {
-  const text = (
-    <div>
-      <p className="mb-1 text-xs uppercase tracking-[0.16em] text-[#d4af37]">
-        {title}
-      </p>
-      <p className="text-sm leading-6 text-white/55 transition-colors duration-300 group-hover:text-white">
-        {content}
-      </p>
-    </div>
+  const itemContent = (
+    <>
+      <span
+        className="
+          flex h-9 w-9
+          shrink-0 items-center justify-center
+          rounded-full
+          border border-gold/25
+          text-gold-light
+          transition-all duration-300
+
+          group-hover:border-gold
+          group-hover:bg-gold
+          group-hover:text-black
+        "
+      >
+        <Icon size={14} />
+      </span>
+
+      <span>
+        <span
+          className="
+            mb-1 block
+            text-[8px] font-medium
+            uppercase tracking-[0.23em]
+            text-gold
+          "
+        >
+          {label}
+        </span>
+
+        <span
+          className="
+            block max-w-[240px]
+            text-[12px] leading-6
+            text-white
+            transition-colors duration-300
+
+            group-hover:text-white/80
+          "
+        >
+          {content}
+        </span>
+      </span>
+    </>
   );
 
-  return (
-    <div className="group flex items-start gap-4">
-      <div className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#d4af37]/30 text-[#d4af37]">
-        <Icon size={15} />
-      </div>
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className="
+          group flex items-start gap-3.5
+        "
+      >
+        {itemContent}
+      </Link>
+    );
+  }
 
-      {href ? (
-        <Link href={href} className="block">
-          {text}
-        </Link>
-      ) : (
-        text
-      )}
+  return (
+    <div className="group flex items-start gap-3.5">
+      {itemContent}
     </div>
   );
 }
