@@ -31,7 +31,7 @@ type Testimonial = {
   project: string;
   logo: StaticImageData;
 };
-
+// git branch -M main
 const testimonials: Testimonial[] = [
   {
     quote:
