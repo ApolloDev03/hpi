@@ -1,73 +1,377 @@
-import Reveal from "./Reveal";
-import ImageReveal from "./ImageReveal";
+"use client";
+
+import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  ArrowUpRight,
+  CalendarDays,
+  Clock3,
+} from "lucide-react";
+
+import blog1 from "../assets/blog1.png";
+import blog2 from "../assets/blog2.png";
+import blog3 from "../assets/blog3.png";
 
 const posts = [
   {
+    category: "Architecture Notes",
     date: "14 June 2026",
-    title: "Designing for Ahmedabad's Light",
+    readTime: "6 Min Read",
+    title: "Designing for Ahmedabad’s Light",
     excerpt:
-      "How we plan window placement and shading around the city's harsh summer sun without losing warmth in winter.",
-    visual:
-      "radial-gradient(circle at 75% 26%,rgba(230,197,131,.16),transparent 22%),linear-gradient(145deg,#252017,#11100d 60%,#090908)",
+      "How thoughtful orientation, shading and window placement create calm interiors while managing Ahmedabad’s intense sunlight.",
+    image: blog1,
+    href: "#",
   },
   {
+    category: "Material Journal",
     date: "02 May 2026",
+    readTime: "4 Min Read",
     title: "Materials We Keep Returning To",
     excerpt:
-      "A short list of stone, wood and metal finishes that age well and quietly anchor a home's palette over decades.",
-    visual:
-      "linear-gradient(30deg,transparent 46%,rgba(184,134,58,.15) 46.3%,transparent 47%),linear-gradient(160deg,#1d1a15,#0b0c0b)",
+      "A considered selection of stone, timber and metal finishes that age naturally and bring lasting warmth to a space.",
+    image: blog2,
+    href: "#",
   },
   {
+    category: "Behind the Build",
     date: "19 March 2026",
+    readTime: "7 Min Read",
     title: "Inside the Vira Residence Build",
     excerpt:
-      "A behind-the-scenes look at how a single client conversation shaped an entire home's layout and light.",
-    visual:
-      "radial-gradient(ellipse at 30% 75%,rgba(243,239,231,.07),transparent 26%),linear-gradient(135deg,#211a14,#11100e 55%,#080908)",
+      "A closer look at how one conversation shaped the planning, natural light and material language of an entire home.",
+    image: blog3,
+    href: "#",
   },
 ];
 
 export default function Blog() {
-  return (
-    <section id="blog" className="bg-panel py-[150px] px-[7vw]">
-      <Reveal className="max-w-[640px] mb-[70px]">
-        <span className="eyebrow block mb-3.5">The Journal</span>
-        <h2 className="font-serif text-[clamp(2rem,4vw,3.2rem)] text-ivory">From the Studio</h2>
-      </Reveal>
+  const reduceMotion = useReducedMotion();
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-11">
-        {posts.map((post, index) => (
-          <Reveal key={post.title} delay={index * 0.08}>
-            <article className="group">
-              <ImageReveal
-                className="relative aspect-[4/3] mb-5 bg-[#0d0c0a]"
-                direction={index % 2 === 0 ? "left" : "right"}
-                delay={index * 0.07}
-                parallax={20}
-                hoverScale={1.055}
+  return (
+    <section
+      id="blog"
+      className="
+        relative overflow-hidden
+        bg-[#090908]
+        px-5 py-20
+        sm:px-8 sm:py-24
+        lg:px-[5vw] lg:py-[60px]
+      "
+    >
+      {/* Background details */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute -left-48 top-1/3
+          h-[420px] w-[420px]
+          rounded-full
+          bg-[#b8863a]/[0.045]
+          blur-[150px]
+        "
+      />
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute right-0 top-0
+          h-px w-[40%]
+          bg-gradient-to-l
+          from-[#b8863a]/50
+          to-transparent
+        "
+      />
+
+      <div className="relative z-10 mx-auto max-w-[1500px]">
+        {/* Heading */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: reduceMotion ? 0 : 25,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.4,
+          }}
+          transition={{
+            duration: 0.8,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="
+            mb-12 flex
+            flex-col gap-6
+            md:mb-16
+            md:flex-row
+            md:items-end
+            md:justify-between
+          "
+        >
+          <div>
+            <div className="mb-5 flex items-center gap-4">
+              <span className="h-px w-10 bg-[#b8863a]" />
+
+              <span
+                className="
+                  text-[9px] font-semibold
+                  uppercase tracking-[0.34em]
+                  text-[#e6c583]
+                "
               >
-                <div className="absolute inset-0" style={{ background: post.visual }} />
-                <div className="absolute inset-[12%] border border-gold/10" />
-                <div className="absolute bottom-[20%] left-[10%] h-px w-[80%] bg-ivory/10" />
-              </ImageReveal>
-              <span className="text-[0.66rem] uppercase tracking-widest2 text-gold-light">
-                {post.date}
+                The Journal
               </span>
-              <h3 className="font-serif text-2xl text-ivory mt-3 mb-3.5 transition-colors duration-300 group-hover:text-gold-light">
-                {post.title}
-              </h3>
-              <p className="text-muted text-[0.94rem] leading-[1.8] mb-4">{post.excerpt}</p>
-              <a
-                href="#"
-                className="text-[0.68rem] uppercase tracking-widest2 text-gold-light inline-flex items-center"
+            </div>
+
+            <h2
+              className="
+                max-w-[720px]
+                font-serif font-semibold uppercase
+                text-[clamp(2rem,4vw,3.6rem)]
+                leading-[1.06]
+                tracking-[-0.025em]
+                text-[#f3efe7]
+              "
+            >
+              Stories and ideas
+              <br />
+              from the{" "}
+              <em className="font-semibold italic text-[#e6c583]">
+                studio.
+              </em>
+            </h2>
+          </div>
+
+          <p
+            className="
+              max-w-[360px]
+              text-[12px] leading-[1.85]
+              text-white/45
+              sm:text-[13px]
+            "
+          >
+            Notes on architecture, materials and the thoughtful
+            decisions behind meaningful spaces.
+          </p>
+        </motion.div>
+
+        {/* Blog cards */}
+        <div
+          className="
+            grid grid-cols-1 gap-8
+            md:grid-cols-2
+            xl:grid-cols-3
+          "
+        >
+          {posts.map((post, index) => (
+            <motion.article
+              key={post.title}
+              initial={{
+                opacity: 0,
+                y: reduceMotion ? 0 : 40,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.2,
+              }}
+              transition={{
+                duration: 0.8,
+                delay: index * 0.1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="
+                group relative
+                flex h-full flex-col
+                overflow-hidden
+                border border-white/10
+                bg-[#0e0e0d]
+                transition-all duration-500
+
+                hover:-translate-y-1
+                hover:border-[#b8863a]/40
+                hover:shadow-[0_28px_80px_rgba(0,0,0,0.4)]
+              "
+            >
+              {/* Image */}
+              <div
+                className="
+                  relative aspect-[16/11]
+                  overflow-hidden
+                  bg-[#15130f]
+                "
               >
-                Read More
-                <span className="ml-1.5 transition-[margin] duration-300 group-hover:ml-3">→</span>
-              </a>
-            </article>
-          </Reveal>
-        ))}
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  fill
+                  priority={index === 0}
+                  sizes="
+                    (max-width: 768px) 100vw,
+                    (max-width: 1280px) 50vw,
+                    33vw
+                  "
+                  className="
+                    object-cover
+                    transition-transform
+                    duration-[900ms]
+                    ease-[cubic-bezier(0.16,1,0.3,1)]
+
+                    group-hover:scale-[1.05]
+                  "
+                />
+
+                {/* Image overlay */}
+                <div
+                  aria-hidden="true"
+                  className="
+                    pointer-events-none
+                    absolute inset-0
+                    bg-gradient-to-t
+                    from-black/70
+                    via-black/5
+                    to-black/15
+                  "
+                />
+
+
+                {/* Category */}
+                <span
+                  className="
+                    absolute bottom-5 left-5
+                    bg-[#b8863a]
+                    px-4 py-2
+                    text-[8px] font-semibold
+                    uppercase tracking-[0.23em]
+                    text-[#080807]
+                  "
+                >
+                  {post.category}
+                </span>
+
+                {/* Decorative corner */}
+                <span
+                  aria-hidden="true"
+                  className="
+                    absolute left-5 top-5
+                    h-5 w-5
+                    border-l border-t
+                    border-[#e6c583]/70
+                    transition-all duration-500
+
+                    group-hover:h-8
+                    group-hover:w-8
+                  "
+                />
+              </div>
+
+              {/* Content */}
+              <div
+                className="
+                  relative flex flex-1
+                  flex-col
+                  p-6
+                "
+              >
+             
+
+                {/* Title */}
+                <h3
+                  className="
+                 
+                    font-serif
+                    text-xl
+                    leading-[1.2]
+                    tracking-[-0.015em]
+                    text-[#f3efe7]
+                    transition-colors duration-400
+
+                    group-hover:text-[#e6c583]
+                  "
+                >
+                  {post.title}
+                </h3>
+
+                {/* Description */}
+                <p
+                  className="
+                    mt-4 flex-1
+                    text-[12px] leading-[1.85]
+                    text-white/45
+                    sm:text-[13px]
+                  "
+                >
+                  {post.excerpt}
+                </p>
+
+                {/* Button */}
+                <a
+                  href={post.href}
+                  className="
+                    mt-7 flex
+                    items-center justify-between
+                    border-t border-white/10
+                    pt-5
+                  "
+                >
+                  <span
+                    className="
+                      text-[9px] font-semibold
+                      uppercase tracking-[0.26em]
+                      text-[#e6c583]
+                  "
+                  >
+                    Read Article
+                  </span>
+
+                  <span
+                    className="
+                      flex h-10 w-10
+                      items-center justify-center
+                      border border-white/15
+                      text-white/55
+                      transition-all duration-400
+
+                      group-hover:border-[#b8863a]
+                      group-hover:bg-[#b8863a]
+                      group-hover:text-[#080807]
+                    "
+                  >
+                    <ArrowUpRight
+                      size={16}
+                      className="
+                        transition-transform duration-400
+                        group-hover:-translate-y-0.5
+                        group-hover:translate-x-0.5
+                      "
+                    />
+                  </span>
+                </a>
+              </div>
+
+              {/* Bottom gold detail */}
+              <span
+                aria-hidden="true"
+                className="
+                  pointer-events-none
+                  absolute bottom-0 left-0
+                  h-[2px] w-12
+                  bg-[#b8863a]
+                  transition-all duration-500
+
+                  group-hover:w-full
+                "
+              />
+            </motion.article>
+          ))}
+        </div>
       </div>
     </section>
   );

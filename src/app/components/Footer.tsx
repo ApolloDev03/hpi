@@ -116,8 +116,7 @@ export default function Footer() {
           lg:px-[5vw]
         "
       >
-       
-
+      
         {/* Main footer area */}
         <div
           className="

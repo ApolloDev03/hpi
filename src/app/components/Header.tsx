@@ -106,7 +106,7 @@ export default function Header({ logoVisible }: HeaderProps) {
 
             ${
               scrolled
-                ? "h-[72px] lg:h-[76px]"
+                ? "h-[72px] lg:h-[100px]"
                 : "h-[82px] lg:h-[98px]"
             }
           `}
@@ -140,8 +140,8 @@ export default function Header({ logoVisible }: HeaderProps) {
 
               ${
                 scrolled
-                  ? "w-[68px] sm:w-[74px]"
-                  : "w-[78px] sm:w-[88px] lg:w-24"
+                  ? "w-[108px] "
+                  : "w-[108px] "
               }
             `}
             aria-label="Go to homepage"
