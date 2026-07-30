@@ -15,8 +15,6 @@ import {
 } from "framer-motion";
 
 import {
-  ChevronLeft,
-  ChevronRight,
   Quote,
 } from "lucide-react";
 
