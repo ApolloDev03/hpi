@@ -24,12 +24,12 @@ const stats = [
   },
   {
     target: 12,
-    suffix: "",
+    suffix: "+",
     label: "Years of Experience",
   },
   {
     target: 8,
-    suffix: "",
+    suffix: "+",
     label: "Cities Served",
   },
 ];
@@ -375,7 +375,7 @@ export default function Counters() {
           />
 
           {/* Large subtle HPI */}
-          <span
+          {/* <span
             aria-hidden="true"
             className="
               pointer-events-none
@@ -391,7 +391,7 @@ export default function Counters() {
             "
           >
             HPI
-          </span>
+          </span> */}
 
           <div
             className="
