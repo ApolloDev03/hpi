@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X, } from "lucide-react";
 import logo from "../assets/logo-white.png";
 
 const links = [
@@ -14,6 +14,25 @@ const links = [
   { href: "#contact", label: "Contact" },
 ];
 
+const projectLinks = [
+  {
+    href: "#",
+    label: "Home",
+  },
+  {
+    href: "#",
+    label: "Showroom & Shop",
+  },
+  {
+    href: "#",
+    label: "Hospital",
+  },
+  {
+    href: "#",
+    label: "Corporate Office",
+  },
+];
+
 type HeaderProps = {
   logoVisible: boolean;
 };
@@ -21,6 +40,8 @@ type HeaderProps = {
 export default function Header({ logoVisible }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileProjectsOpen, setMobileProjectsOpen] =
+    useState(false);
   const [activeSection, setActiveSection] = useState("#home");
 
   useEffect(() => {
@@ -86,15 +107,14 @@ export default function Header({ logoVisible }: HeaderProps) {
         className={`
           fixed inset-x-0 top-0 z-[500]
           transition-all duration-500
-          ${
-            scrolled || mobileMenuOpen
-              ? `
+          ${scrolled || mobileMenuOpen
+            ? `
                 border-b border-white/10
                 bg-bg/90
                 shadow-[0_10px_40px_rgba(0,0,0,0.25)]
                 backdrop-blur-xl
               `
-              : "border-b border-transparent bg-transparent"
+            : "border-b border-transparent bg-transparent"
           }
         `}
       >
@@ -102,12 +122,11 @@ export default function Header({ logoVisible }: HeaderProps) {
           className={`
             mx-auto flex w-full items-center justify-between
             px-4 transition-all duration-500
-            sm:px-6 lg:px-[5vw]
+            sm:px-6 lg:px-[5vw] py-2
 
-            ${
-              scrolled
-                ? "h-[72px] lg:h-[100px]"
-                : "h-[82px] lg:h-[98px]"
+            ${scrolled
+              ? "h-[72px] lg:h-[100px]"
+              : "h-[82px] lg:h-[98px]"
             }
           `}
         >
@@ -122,13 +141,13 @@ export default function Header({ logoVisible }: HeaderProps) {
             animate={
               logoVisible
                 ? {
-                    opacity: 1,
-                    y: 0,
-                  }
+                  opacity: 1,
+                  y: 0,
+                }
                 : {
-                    opacity: 0,
-                    y: -12,
-                  }
+                  opacity: 0,
+                  y: -12,
+                }
             }
             transition={{
               duration: 0.8,
@@ -138,10 +157,9 @@ export default function Header({ logoVisible }: HeaderProps) {
               relative z-[510] block shrink-0
               transition-all duration-500
 
-              ${
-                scrolled
-                  ? "w-[108px] "
-                  : "w-[108px] "
+              ${scrolled
+                ? "w-[108px] "
+                : "w-[108px] "
               }
             `}
             aria-label="Go to homepage"
@@ -161,6 +179,161 @@ export default function Header({ logoVisible }: HeaderProps) {
             <ul className="flex items-center gap-7 lg:gap-10">
               {links.map((link) => {
                 const isActive = activeSection === link.href;
+                const isProjects = link.label === "Projects";
+
+                if (isProjects) {
+                  return (
+                    <li
+                      key={link.href}
+                      className="group relative"
+                    >
+                      {/* Projects trigger */}
+                      <button
+                        type="button"
+                        className={`
+            relative flex items-center gap-2 pb-2
+            text-[12px] font-bold uppercase
+            tracking-[0.24em]
+            transition-colors duration-300
+
+            ${isActive
+                            ? "text-gold"
+                            : "text-ivory group-hover:text-gold"
+                          }
+          `}
+                      >
+                        <span>{link.label}</span>
+
+                        <ChevronDown
+                          size={14}
+                          strokeWidth={1.8}
+                          className="
+              transition-transform duration-300
+              group-hover:rotate-180
+              group-focus-within:rotate-180
+            "
+                        />
+
+                        <span
+                          className={`
+              absolute bottom-0 left-0 h-px
+              bg-gold
+              transition-all duration-300
+
+              ${isActive
+                              ? "w-full"
+                              : "w-0 group-hover:w-full"
+                            }
+            `}
+                        />
+                      </button>
+
+                      {/* Dropdown */}
+                      <div
+                        className="
+            invisible absolute
+            left-1/2 top-full
+            z-[600]
+            w-[270px]
+            -translate-x-1/2
+            translate-y-4
+            pt-5
+            opacity-0
+            transition-all duration-300
+
+            group-hover:visible
+            group-hover:translate-y-0
+            group-hover:opacity-100
+
+            group-focus-within:visible
+            group-focus-within:translate-y-0
+            group-focus-within:opacity-100
+          "
+                      >
+                        {/* Dropdown pointer */}
+                        <span
+                          aria-hidden="true"
+                          className="
+              absolute left-1/2 top-[14px]
+              h-3 w-3
+              -translate-x-1/2
+              rotate-45
+              border-l border-t
+              border-gold/30
+              bg-[#0d0d0c]
+            "
+                        />
+
+                        <div
+                          className="
+              relative overflow-hidden
+              border border-white/10
+              bg-[#0d0d0c]/95
+              p-2
+              shadow-[0_24px_65px_rgba(0,0,0,0.5)]
+              backdrop-blur-xl
+            "
+                        >
+                          {/* Gold top line */}
+                          <span
+                            aria-hidden="true"
+                            className="
+                absolute left-0 top-0
+                h-px w-full
+                bg-gradient-to-r
+                from-transparent
+                via-gold
+                to-transparent
+              "
+                          />
+
+                          {projectLinks.map((project, index) => (
+                            <a
+                              key={project.href}
+                              href={project.href}
+                              className="
+                  group/item relative
+                  flex items-center
+                  justify-between
+                  overflow-hidden
+                  border-b border-white/[0.07]
+                  px-4 py-4
+                  last:border-b-0
+                "
+                            >
+                              {/* Hover background */}
+                              <span
+                                aria-hidden="true"
+                                className="absolute inset-0 -translate-x-full bg-gold transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/item:translate-x-0" />
+
+                              <span
+                                className="
+                    relative z-10
+                    text-[10px] font-semibold
+                    uppercase tracking-[0.2em]
+                    text-ivory
+                    transition-colors duration-300
+
+                    group-hover/item:text-black
+                  "
+                              >
+                                {project.label}
+                              </span>
+
+                              <span
+                                className="relative z-10 text-[9px] font-semibold tracking-[0.16em]
+                              text-gold/60 transition-all duration-300 group-hover/item:translate-x-1
+                              group-hover/item:text-black/55"
+                              >
+                                {/* 0{index + 1} */}
+                              </span>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </li>
+                  );
+                }
 
                 return (
                   <li key={link.href}>
@@ -170,32 +343,30 @@ export default function Header({ logoVisible }: HeaderProps) {
                         handleNavigation(event, link.href)
                       }
                       className={`
-                        group relative block pb-2
-                        text-[12px] font-bold uppercase
-                        tracking-[0.24em]
-                        transition-colors duration-300
+          group relative block pb-2
+          text-[12px] font-bold uppercase
+          tracking-[0.24em]
+          transition-colors duration-300
 
-                        ${
-                          isActive
-                            ? "text-gold"
-                            : "text-ivory hover:text-gold"
+          ${isActive
+                          ? "text-gold"
+                          : "text-ivory hover:text-gold"
                         }
-                      `}
+        `}
                     >
                       {link.label}
 
                       <span
                         className={`
-                          absolute bottom-0 left-0 h-px
-                          bg-gold
-                          transition-all duration-300
+            absolute bottom-0 left-0 h-px
+            bg-gold
+            transition-all duration-300
 
-                          ${
-                            isActive
-                              ? "w-full"
-                              : "w-0 group-hover:w-full"
+            ${isActive
+                            ? "w-full"
+                            : "w-0 group-hover:w-full"
                           }
-                        `}
+          `}
                       />
                     </a>
                   </li>
@@ -207,7 +378,13 @@ export default function Header({ logoVisible }: HeaderProps) {
           {/* Mobile Menu Button */}
           <button
             type="button"
-            onClick={() => setMobileMenuOpen((current) => !current)}
+            onClick={() => {
+              setMobileMenuOpen((current) => !current);
+
+              if (mobileMenuOpen) {
+                setMobileProjectsOpen(false);
+              }
+            }}
             className="
               relative z-[510]
               flex h-11 w-11 items-center justify-center
@@ -323,6 +500,176 @@ export default function Header({ logoVisible }: HeaderProps) {
                 <ul className="space-y-2">
                   {links.map((link, index) => {
                     const isActive = activeSection === link.href;
+                    const isProjects = link.label === "Projects";
+
+                    if (isProjects) {
+                      return (
+                        <motion.li
+                          key={link.href}
+                          initial={{
+                            opacity: 0,
+                            y: 35,
+                          }}
+                          animate={{
+                            opacity: 1,
+                            y: 0,
+                          }}
+                          exit={{
+                            opacity: 0,
+                            y: 20,
+                          }}
+                          transition={{
+                            duration: 0.45,
+                            delay: 0.15 + index * 0.07,
+                            ease: [0.16, 1, 0.3, 1],
+                          }}
+                        >
+                          {/* Mobile Projects button */}
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setMobileProjectsOpen(
+                                (current) => !current
+                              )
+                            }
+                            className={`
+            group flex w-full
+            items-center justify-between
+            border-b py-1
+            transition-colors duration-300
+
+            ${isActive || mobileProjectsOpen
+                                ? "border-gold/50 text-gold"
+                                : `
+                  border-white/10 text-white
+                  hover:border-gold/50
+                  hover:text-gold
+                `
+                              }
+          `}
+                            aria-expanded={mobileProjectsOpen}
+                          >
+                            <span
+                              className="
+              text-[20px] font-light
+              uppercase tracking-[0.12em]
+            "
+                            >
+                              Projects
+                            </span>
+
+                            <span
+                              className="
+              flex items-center gap-3
+            "
+                            >
+                              <span
+                                className={`
+                text-xs tracking-widest
+
+                ${isActive || mobileProjectsOpen
+                                    ? "text-gold"
+                                    : "text-white/30"
+                                  }
+              `}
+                              >
+                                {/* 0{index + 1} */}
+                              </span>
+
+                              <ChevronDown
+                                size={19}
+                                className={`
+                transition-transform duration-300
+
+                ${mobileProjectsOpen
+                                    ? "rotate-180 text-gold"
+                                    : "text-white/40"
+                                  }
+              `}
+                              />
+                            </span>
+                          </button>
+
+                          {/* Mobile dropdown */}
+                          <AnimatePresence initial={false}>
+                            {mobileProjectsOpen && (
+                              <motion.div
+                                initial={{
+                                  height: 0,
+                                  opacity: 0,
+                                }}
+                                animate={{
+                                  height: "auto",
+                                  opacity: 1,
+                                }}
+                                exit={{
+                                  height: 0,
+                                  opacity: 0,
+                                }}
+                                transition={{
+                                  duration: 0.4,
+                                  ease: [0.16, 1, 0.3, 1],
+                                }}
+                                className="overflow-hidden"
+                              >
+                                <div
+                                  className="
+                  border-b border-gold/20
+                  bg-gold/[0.035]
+                  px-3 py-3
+                "
+                                >
+                                  {projectLinks.map(
+                                    (project, projectIndex) => (
+                                      <a
+                                        key={project.href}
+                                        href={project.href}
+                                        onClick={() => {
+                                          setMobileMenuOpen(false);
+                                          setMobileProjectsOpen(false);
+                                        }}
+                                        className="
+                        group/sub flex
+                        items-center justify-between
+                        border-b border-white/[0.07]
+                        px-4 py-4
+                        last:border-b-0
+                      "
+                                      >
+                                        <span
+                                          className="
+                          text-[13px] font-medium
+                          uppercase tracking-[0.17em]
+                          text-white/65
+                          transition-colors duration-300
+
+                          group-hover/sub:text-gold
+                        "
+                                        >
+                                          {project.label}
+                                        </span>
+
+                                        <span
+                                          className="
+                          text-[9px] tracking-[0.18em]
+                          text-gold/50
+                          transition-transform duration-300
+
+                          group-hover/sub:translate-x-1
+                        "
+                                        >
+                                          {/* 0{projectIndex + 1} */}
+                                        </span>
+                                      </a>
+                                    )
+                                  )}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </motion.li>
+                      );
+                    }
 
                     return (
                       <motion.li
@@ -351,44 +698,42 @@ export default function Header({ logoVisible }: HeaderProps) {
                             handleNavigation(event, link.href)
                           }
                           className={`
-                            group flex items-center justify-between
-                            border-b py-4
-                            transition-colors duration-300
+          group flex items-center justify-between
+          border-b py-1
+          transition-colors duration-300
 
-                            ${
-                              isActive
-                                ? "border-gold/50 text-gold"
-                                : `
-                                  border-white/10 text-white
-                                  hover:border-gold/50
-                                  hover:text-gold
-                                `
+          ${isActive
+                              ? "border-gold/50 text-gold"
+                              : `
+                border-white/10 text-white
+                hover:border-gold/50
+                hover:text-gold
+              `
                             }
-                          `}
+        `}
                         >
                           <span
                             className="
-                              text-[28px] font-light uppercase
-                              tracking-[0.12em]
-                            "
+            text-[20px] font-light uppercase
+            tracking-[0.12em]
+          "
                           >
                             {link.label}
                           </span>
 
                           <span
                             className={`
-                              text-xs tracking-widest
-                              transition-transform duration-300
-                              group-hover:translate-x-1
+            text-xs tracking-widest
+            transition-transform duration-300
+            group-hover:translate-x-1
 
-                              ${
-                                isActive
-                                  ? "text-gold"
-                                  : "text-white/30"
+            ${isActive
+                                ? "text-gold"
+                                : "text-white/30"
                               }
-                            `}
+          `}
                           >
-                            0{index + 1}
+                            {/* 0{index + 1} */}
                           </span>
                         </a>
                       </motion.li>

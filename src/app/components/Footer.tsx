@@ -91,7 +91,7 @@ export default function Footer() {
       />
 
       {/* Large background word */}
-      <div
+      {/* <div
         aria-hidden="true"
         className="
           pointer-events-none absolute
@@ -105,7 +105,7 @@ export default function Footer() {
         "
       >
         Studio
-      </div>
+      </div> */}
 
       <div
         className="

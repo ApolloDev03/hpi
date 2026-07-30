@@ -186,7 +186,7 @@ export default function Testimonials() {
           }}
           className="
             mx-auto mb-12
-            max-w-[760px]
+            max-w-[1060px]
             text-center
           "
         >
@@ -575,7 +575,7 @@ export default function Testimonials() {
           </AnimatePresence>
 
           {/* Previous button */}
-          <button
+          {/* <button
             type="button"
             onClick={previousSlide}
             aria-label="Previous testimonial"
@@ -598,7 +598,7 @@ export default function Testimonials() {
             "
           >
             <ChevronLeft size={18} />
-          </button>
+          </button> */}
 
           {/* Pagination */}
           <div
@@ -638,7 +638,7 @@ export default function Testimonials() {
           </div>
 
           {/* Next button */}
-          <button
+          {/* <button
             type="button"
             onClick={nextSlide}
             aria-label="Next testimonial"
@@ -661,10 +661,10 @@ export default function Testimonials() {
             "
           >
             <ChevronRight size={18} />
-          </button>
+          </button> */}
 
           {/* Slide number */}
-          <span
+          {/* <span
             className="
               absolute right-7 top-6
               z-20 font-serif
@@ -686,7 +686,7 @@ export default function Testimonials() {
               2,
               "0"
             )}
-          </span>
+          </span> */}
 
           {/* Decorative quote */}
           <span

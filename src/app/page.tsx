@@ -70,6 +70,7 @@ import Counters from "./components/Counters";
 import Testimonials from "./components/Testimonials";
 import Blog from "./components/Blog";
 import Footer from "./components/Footer";
+import Projects from "./components/Projects";
 
 const PRELOADER_STORAGE_KEY = "hpi-preloader-viewed";
 
@@ -166,7 +167,7 @@ export default function Home() {
 
         <Counters />
 
-        {/* <Projects /> */}
+        <Projects />
         {/* <Videos /> */}
 
         <Testimonials />
