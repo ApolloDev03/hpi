@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
-import aboutImage from "../assets/about-studio.png";
+import aboutImage from "../assets/about-us.png";
 
 export default function About() {
   return (
@@ -28,29 +28,32 @@ export default function About() {
       >
         {/* Left image */}
        {/* Left image */}
+{/* Left image */}
 <Reveal>
   <div
     className="
-      relative mx-auto w-full
-      max-w-[560px]
+      relative mx-auto
+      w-full max-w-[560px]
+
+      lg:mx-0
       lg:max-w-none
     "
   >
     {/* Main image wrapper */}
     <div
       className="
-        relative aspect-[4/5]
+        relative h-[420px]
         w-full overflow-hidden
-        rounded-sm
         bg-[#151412]
 
-        sm:aspect-[5/4]
-        lg:aspect-[4/5]
+        sm:h-[500px]
+        lg:h-[540px]
+        xl:h-[570px]
       "
     >
       <Image
         src={aboutImage}
-        alt="Luxury interior designed by HPI Design Studio"
+        alt="HPI Studio Interior reception"
         fill
         priority
         sizes="
@@ -60,20 +63,23 @@ export default function About() {
         "
         className="
           object-cover
-          object-center
+          object-[32%_center]
           transition-transform
           duration-700
-          hover:scale-[1.03]
+          ease-[cubic-bezier(0.16,1,0.3,1)]
+
+          hover:scale-[1.025]
         "
       />
 
-      {/* Light overlay */}
+      {/* Soft image overlay */}
       <div
+        aria-hidden="true"
         className="
           pointer-events-none
           absolute inset-0
           bg-gradient-to-t
-          from-black/35
+          from-black/20
           via-transparent
           to-black/5
         "
@@ -81,15 +87,37 @@ export default function About() {
 
       {/* Inner border */}
       <div
+        aria-hidden="true"
         className="
           pointer-events-none
           absolute inset-4
           border border-white/10
         "
       />
+
+      {/* Bottom image label */}
+      <div
+        className="
+          absolute bottom-5 left-5
+          border border-white/15
+          bg-black/70
+          px-5 py-3
+          backdrop-blur-md
+        "
+      >
+        <span
+          className="
+            text-[9px] font-medium
+            uppercase tracking-[0.3em]
+            text-gold-light
+          "
+        >
+          HPI Design Studio
+        </span>
+      </div>
     </div>
 
-    {/* Bottom-left decorative corner */}
+    {/* Bottom-left gold corner */}
     <span
       aria-hidden="true"
       className="
@@ -101,7 +129,7 @@ export default function About() {
       "
     />
 
-    {/* Top-right decorative corner */}
+    {/* Top-right gold corner */}
     <span
       aria-hidden="true"
       className="
@@ -112,28 +140,6 @@ export default function About() {
         border-gold/70
       "
     />
-
-    {/* Image label */}
-    <div
-      className="
-        absolute bottom-5 left-5
-        hidden border border-white/15
-        bg-black/70
-        px-5 py-3
-        backdrop-blur-md
-        sm:block
-      "
-    >
-      <span
-        className="
-          text-[9px] font-medium
-          uppercase tracking-[0.3em]
-          text-gold-light
-        "
-      >
-        HPI Design Studio
-      </span>
-    </div>
   </div>
 </Reveal>
 
