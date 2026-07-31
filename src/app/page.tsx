@@ -71,6 +71,8 @@ import Testimonials from "./components/Testimonials";
 import Blog from "./components/Blog";
 import Footer from "./components/Footer";
 import Projects from "./components/Projects";
+import HeaderNew from "./components/HeaderNew";
+
 
 const PRELOADER_STORAGE_KEY = "hpi-preloader-viewed";
 
@@ -158,7 +160,9 @@ export default function Home() {
         onEnter={enterHome}
       />
 
-      <Header logoVisible={contentReady} />
+      {/* <Header logoVisible={contentReady} /> */}
+
+      <HeaderNew logoVisible={contentReady}/>
 
       <main>
         <Hero ready={contentReady} />

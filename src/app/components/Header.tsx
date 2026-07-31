@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { ChevronDown, Menu, X, } from "lucide-react";
-import logo from "../assets/logo-white.png";
+import logo from "../assets/logo-white-hpi.png";
 
 const links = [
   { href: "#home", label: "Home" },
@@ -125,7 +125,7 @@ export default function Header({ logoVisible }: HeaderProps) {
             sm:px-6 lg:px-[5vw] py-2
 
             ${scrolled
-              ? "h-[72px] lg:h-[100px]"
+              ? "h-[90px] lg:h-[100px]"
               : "h-[82px] lg:h-[98px]"
             }
           `}
