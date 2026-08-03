@@ -12,16 +12,16 @@ import {
   useReducedMotion,
 } from "framer-motion";
 
-const cities = [
-  "Ahmedabad",
-  "Gandhinagar",
-  "Surat",
-  "Vadodara",
-  "Rajkot",
-  "Mumbai",
-  "Udaipur",
-  "Indore",
-];
+// const cities = [
+//   "Ahmedabad",
+//   "Gandhinagar",
+//   "Surat",
+//   "Vadodara",
+//   "Rajkot",
+//   "Mumbai",
+//   "Udaipur",
+//   "Indore",
+// ];
 
 const secondaryStats = [
   {
@@ -137,10 +137,10 @@ function AnimatedNumber({
 export default function Counters() {
   const reduceMotion = useReducedMotion();
 
-  const repeatedCities = [
-    ...cities,
-    ...cities,
-  ];
+  // const repeatedCities = [
+  //   ...cities,
+  //   ...cities,
+  // ];
 
   return (
     <section
@@ -654,6 +654,8 @@ export default function Counters() {
 
                         group-hover:w-full
                       "
+
+
                     />
                   </motion.article>
                 )
@@ -662,7 +664,6 @@ export default function Counters() {
           </div>
         </motion.div>
 
-        
       </div>
     </section>
   );

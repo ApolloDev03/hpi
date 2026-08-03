@@ -63,7 +63,7 @@ import {
 } from "react";
 
 import Preloader from "./components/Preloader";
-import Header from "./components/Header";
+// import Header from "./components/Header";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Counters from "./components/Counters";
@@ -71,7 +71,7 @@ import Testimonials from "./components/Testimonials";
 import Blog from "./components/Blog";
 import Footer from "./components/Footer";
 import Projects from "./components/Projects";
-import HeaderNew from "./components/HeaderNew";
+// import HeaderNew from "./components/HeaderNew";
 
 
 const PRELOADER_STORAGE_KEY = "hpi-preloader-viewed";
@@ -162,7 +162,7 @@ export default function Home() {
 
       {/* <Header logoVisible={contentReady} /> */}
 
-      <HeaderNew logoVisible={contentReady}/>
+      {/* <HeaderNew logoVisible={contentReady}/> */}
 
       <main>
         <Hero ready={contentReady} />
@@ -181,7 +181,7 @@ export default function Home() {
         {/* <Contact /> */}
       </main>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

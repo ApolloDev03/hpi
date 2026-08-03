@@ -18,11 +18,11 @@ import {
 import logo from "../assets/logo-white-hpi.png";
 
 const links = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
   { href: "#projects", label: "Projects" },
-  { href: "#blog", label: "Blog" },
-  { href: "#contact", label: "Contact" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
 ];
 
 const projectLinks = [
@@ -82,10 +82,14 @@ export default function HeaderNew({
       setScrolled(window.scrollY > 60);
 
       const sections = links
+        .filter((link) => link.href.startsWith("#"))
         .map((link) =>
           document.querySelector(link.href)
         )
-        .filter(Boolean) as HTMLElement[];
+        .filter(
+          (section): section is HTMLElement =>
+            section instanceof HTMLElement
+        );
 
       const currentSection = sections.find(
         (section) => {
@@ -134,25 +138,33 @@ export default function HeaderNew({
   }, [mobileMenuOpen]);
 
   const handleNavigation = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    event.preventDefault();
-
-    const target =
-      document.querySelector(href);
-
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-
-    setActiveSection(href);
+  event: React.MouseEvent<HTMLAnchorElement>,
+  href: string
+) => {
+  // Normal page route: / or /about
+  if (href.startsWith("/")) {
     setMobileMenuOpen(false);
     setMobileProjectsOpen(false);
-  };
+    return;
+  }
+
+  // Same-page section: #projects, #blog, #contact
+  event.preventDefault();
+
+  const target =
+    document.querySelector(href);
+
+  if (target) {
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+
+  setActiveSection(href);
+  setMobileMenuOpen(false);
+  setMobileProjectsOpen(false);
+};
 
   const handleProjectNavigation = (
     event: React.MouseEvent<HTMLAnchorElement>,
@@ -180,15 +192,14 @@ export default function HeaderNew({
           fixed inset-x-0 top-0 z-[500]
           transition-all duration-500
 
-          ${
-            scrolled || mobileMenuOpen
-              ? `
+          ${scrolled || mobileMenuOpen
+            ? `
                 border-b border-white/10
                 bg-bg/90
                 shadow-[0_10px_40px_rgba(0,0,0,0.25)]
                 backdrop-blur-xl
               `
-              : `
+            : `
                 border-b border-transparent
                 bg-transparent
               `
@@ -206,20 +217,19 @@ export default function HeaderNew({
             sm:px-6
             lg:px-[5vw]
 
-            ${
-              scrolled
-                ? "h-[90px] lg:h-[100px]"
-                : "h-[82px] lg:h-[98px]"
+            ${scrolled
+              ? "h-[90px] lg:h-[100px]"
+              : "h-[82px] lg:h-[98px]"
             }
           `}
         >
           {/* Left: Logo */}
           <motion.a
-            href="#home"
+            href="/"
             onClick={(event) =>
               handleNavigation(
                 event,
-                "#home"
+                "/"
               )
             }
             initial={{
@@ -229,13 +239,13 @@ export default function HeaderNew({
             animate={
               logoVisible
                 ? {
-                    opacity: 1,
-                    y: 0,
-                  }
+                  opacity: 1,
+                  y: 0,
+                }
                 : {
-                    opacity: 0,
-                    y: -12,
-                  }
+                  opacity: 0,
+                  y: -12,
+                }
             }
             transition={{
               duration: 0.8,
@@ -308,10 +318,9 @@ export default function HeaderNew({
                           lg:text-[12px]
                           lg:tracking-[0.24em]
 
-                          ${
-                            isActive
-                              ? "text-gold"
-                              : `
+                          ${isActive
+                            ? "text-gold"
+                            : `
                                 text-ivory
                                 group-hover:text-gold
                               `
@@ -343,10 +352,9 @@ export default function HeaderNew({
                             transition-all
                             duration-300
 
-                            ${
-                              isActive
-                                ? "w-full"
-                                : `
+                            ${isActive
+                              ? "w-full"
+                              : `
                                   w-0
                                   group-hover:w-full
                                 `
@@ -506,10 +514,9 @@ export default function HeaderNew({
                         lg:text-[12px]
                         lg:tracking-[0.24em]
 
-                        ${
-                          isActive
-                            ? "text-gold"
-                            : `
+                        ${isActive
+                          ? "text-gold"
+                          : `
                               text-ivory
                               hover:text-gold
                             `
@@ -527,10 +534,9 @@ export default function HeaderNew({
                           transition-all
                           duration-300
 
-                          ${
-                            isActive
-                              ? "w-full"
-                              : `
+                          ${isActive
+                            ? "w-full"
+                            : `
                                 w-0
                                 group-hover:w-full
                               `
@@ -778,7 +784,7 @@ export default function HeaderNew({
                               delay:
                                 0.15 +
                                 index *
-                                  0.07,
+                                0.07,
                               ease: [
                                 0.16, 1,
                                 0.3, 1,
@@ -804,14 +810,13 @@ export default function HeaderNew({
                                 transition-colors
                                 duration-300
 
-                                ${
-                                  isActive ||
+                                ${isActive ||
                                   mobileProjectsOpen
-                                    ? `
+                                  ? `
                                       border-gold/50
                                       text-gold
                                     `
-                                    : `
+                                  : `
                                       border-white/10
                                       text-white
                                       hover:border-gold/50
@@ -840,13 +845,12 @@ export default function HeaderNew({
                                   transition-transform
                                   duration-300
 
-                                  ${
-                                    mobileProjectsOpen
-                                      ? `
+                                  ${mobileProjectsOpen
+                                    ? `
                                         rotate-180
                                         text-gold
                                       `
-                                      : `
+                                    : `
                                         text-white/40
                                       `
                                   }
@@ -996,13 +1000,12 @@ export default function HeaderNew({
                               transition-colors
                               duration-300
 
-                              ${
-                                isActive
-                                  ? `
+                              ${isActive
+                                ? `
                                     border-gold/50
                                     text-gold
                                   `
-                                  : `
+                                : `
                                     border-white/10
                                     text-white
                                     hover:border-gold/50
