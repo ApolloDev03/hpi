@@ -6,6 +6,9 @@ import {
   Oswald,
 } from "next/font/google";
 
+import HeaderNew from "./components/HeaderNew";
+import Footer from "./components/Footer";
+
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -36,7 +39,9 @@ export default function RootLayout({
           font-sans font-light
         `}
       >
-        {children}
+        <HeaderNew logoVisible={true} />
+        <main>{children}</main>
+           <Footer />
       </body>
     </html>
   );

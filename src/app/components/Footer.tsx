@@ -15,21 +15,21 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
+import { usePathname, useRouter } from "next/navigation";
+
 const quickLinks = [
-  { name: "Home", href: "#home" },
+  { name: "Home", href: "/" },
   { name: "About Us", href: "#about" },
-  { name: "Projects", href: "#projects" },
+  // { name: "Projects", href: "#projects" },
   { name: "Blogs", href: "#blogs" },
   { name: "Contact", href: "#contact" },
 ];
 
 const services = [
-  "Architecture Design",
-  "Interior Design",
-  "Landscape Design",
-  "Turnkey Projects",
-  "Project Management",
-  "Design Consultation",
+  "Home",
+  "Showroom & Shop",
+  "Hospital",
+  "Corporate Office"
 ];
 
 const socialLinks = [
@@ -65,6 +65,26 @@ export default function Footer() {
       behavior: "smooth",
       block: "start",
     });
+  };
+
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogoClick = (
+    event: React.MouseEvent<HTMLAnchorElement>
+  ) => {
+    if (pathname === "/") {
+      event.preventDefault();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+      return;
+    }
+
+    router.push("/");
   };
 
   return (
@@ -116,7 +136,7 @@ export default function Footer() {
           lg:px-[5vw]
         "
       >
-      
+
         {/* Main footer area */}
         <div
           className="
@@ -125,7 +145,7 @@ export default function Footer() {
 
             sm:grid-cols-2
 
-            lg:grid-cols-[1.35fr_0.7fr_0.9fr_1.1fr]
+            lg:grid-cols-[1.35fr_0.7fr_0.7fr_1.3fr]
             lg:gap-14
             lg:py-16
           "
@@ -133,10 +153,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link
-              href="#home"
-              onClick={(event) =>
-                handleScroll(event, "#home")
-              }
+              href="/"
+              onClick={handleLogoClick}
               className="inline-block"
               aria-label="Go to homepage"
             >
@@ -207,9 +225,9 @@ export default function Footer() {
 
           {/* Quick links */}
           <div>
-            <FooterHeading title="Explore" />
+            <FooterHeading title="Quick Links" />
 
-            <ul className="mt-6 space-y-3.5">
+            <ul className="mt-6 space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
@@ -220,7 +238,7 @@ export default function Footer() {
                     className="
                       group inline-flex
                       items-center gap-3
-                      text-[12px]
+                      text-[14px]
                       text-white
                       transition-colors duration-300
 
@@ -244,14 +262,14 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <FooterHeading title="Expertise" />
+            <FooterHeading title="Projects" />
 
-            <ul className="mt-6 space-y-3.5">
+            <ul className="mt-6 space-y-2.5">
               {services.map((service) => (
                 <li
                   key={service}
                   className="
-                    text-[12px]
+                    text-[14px]
                     leading-6
                     text-white
                     transition-colors duration-300
@@ -273,14 +291,15 @@ export default function Footer() {
               <ContactItem
                 icon={MapPin}
                 label="Location"
-                content="Ahmedabad, Gujarat, India"
+                content="03, First Floor, Natkamal Complex, Jawaharchowk, Maninagar, ahmedabad -380008, Gujarat"
+                href="https://maps.app.goo.gl/qrwNZtBRzRBULF9S7"
               />
 
               <ContactItem
                 icon={Phone}
                 label="Phone"
-                content="+91 98765 43210"
-                href="tel:+919876543210"
+                content="+91 99984 15438"
+                href="tel:+919998415438"
               />
 
               <ContactItem
@@ -315,7 +334,7 @@ export default function Footer() {
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <Link
-              href="/privacy-policy"
+              href="#"
               className="
                 transition-colors duration-300
                 hover:text-gold-light
@@ -325,7 +344,7 @@ export default function Footer() {
             </Link>
 
             <Link
-              href="/terms-and-conditions"
+              href="#"
               className="
                 transition-colors duration-300
                 hover:text-gold-light
@@ -349,7 +368,7 @@ function FooterHeading({
     <div>
       <h3
         className="
-          text-[10px] font-semibold
+          text-[15px] font-semibold
           uppercase tracking-[0.25em]
           text-ivory
         "
@@ -404,7 +423,7 @@ function ContactItem({
         <span
           className="
             mb-1 block
-            text-[8px] font-medium
+            text-[13px] font-medium
             uppercase tracking-[0.23em]
             text-gold
           "
@@ -415,7 +434,7 @@ function ContactItem({
         <span
           className="
             block max-w-[240px]
-            text-[12px] leading-6
+            text-[13px] leading-6
             text-white
             transition-colors duration-300
 
@@ -432,6 +451,7 @@ function ContactItem({
     return (
       <Link
         href={href}
+        target="_blank"
         className="
           group flex items-start gap-3.5
         "

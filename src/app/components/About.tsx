@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
-import aboutImage from "../assets/about-us.png";
+import aboutImage from "../assets/about-us.webp";
 
 export default function About() {
   return (
