@@ -16,19 +16,19 @@ const links = [
 
 const projectLinks = [
   {
-    href: "#",
+    href: "product",
     label: "Home",
   },
   {
-    href: "#",
+    href: "product",
     label: "Showroom & Shop",
   },
   {
-    href: "#",
+    href: "product",
     label: "Hospital",
   },
   {
-    href: "#",
+    href: "product",
     label: "Corporate Office",
   },
 ];

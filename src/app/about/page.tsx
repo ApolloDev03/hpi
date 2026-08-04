@@ -13,7 +13,7 @@ import aboutBreadcrumb from "@/app/assets/banner1.png";
 import founderImage from "@/app/assets/about-studio.webp";
 import About from "../components/About";
 
-export default function AboutPage() {
+export default function AboutClient() {
     const reduceMotion = useReducedMotion();
 
     return (
