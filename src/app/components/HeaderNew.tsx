@@ -20,26 +20,26 @@ import logo from "../assets/logo-white-hpi.png";
 const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "#projects", label: "Projects" },
+  { href: "/product", label: "Projects" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ];
 
 const projectLinks = [
   {
-    href: "#projects",
+    href: "/product",
     label: "Home",
   },
   {
-    href: "#projects",
+    href: "/product",
     label: "Showroom & Shop",
   },
   {
-    href: "#projects",
+    href: "/product",
     label: "Hospital",
   },
   {
-    href: "#projects",
+    href: "/product",
     label: "Corporate Office",
   },
 ];

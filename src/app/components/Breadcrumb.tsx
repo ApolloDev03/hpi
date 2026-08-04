@@ -69,14 +69,14 @@ export default function Breadcrumb({
       </motion.div>
 
       {/* Dark overlay */}
-      <div
+      {/* <div
         aria-hidden="true"
         className="
           pointer-events-none
           absolute inset-0
           bg-black/55
         "
-      />
+      /> */}
 
       {/* Directional overlay */}
       <div
