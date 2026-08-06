@@ -1239,6 +1239,13 @@ export default function Projects() {
                           "
                         >
                           {/* API project image */}
+                                <a
+                              href={`/product-detail?slug=${encodeURIComponent(
+                                project.slug,
+                              )}`}
+                              aria-label={`View ${project.title}`}
+                          
+                            >
                           <div
                             className="
                               relative aspect-[4/3]
@@ -1299,7 +1306,7 @@ export default function Projects() {
                             <h3
                               className="
                                 font-serif
-                                text-[clamp(1.55rem,2.2vw,2.2rem)]
+                                text-[18px] lg:text-[20px]
                                 leading-[1.15]
                                 tracking-[-0.02em]
                                 text-[#f3efe7]
@@ -1311,12 +1318,7 @@ export default function Projects() {
                               {project.title}
                             </h3>
 
-                            <a
-                              href={`/project-detail?slug=${encodeURIComponent(
-                                project.slug,
-                              )}`}
-                              aria-label={`View ${project.title}`}
-                              className="
+                      <div     className="
                                 mt-5 inline-flex
                                 items-center gap-4
                                 text-[10px] font-medium
@@ -1324,8 +1326,8 @@ export default function Projects() {
                                 transition-colors
                                 duration-300
                                 hover:text-[#edcd82]
-                              "
-                            >
+                              ">
+
                               <span>View Project</span>
 
                               <ArrowRight
@@ -1337,7 +1339,8 @@ export default function Projects() {
                                   group-hover:translate-x-1.5
                                 "
                               />
-                            </a>
+                       
+                      </div>
 
                             <span
                               aria-hidden="true"
@@ -1352,6 +1355,7 @@ export default function Projects() {
                               "
                             />
                           </div>
+                               </a>
                         </motion.article>
                       ),
                     )}
