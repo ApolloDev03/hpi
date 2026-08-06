@@ -12,7 +12,7 @@ const nextConfig = {
 
   // Generates routes as folders, for example:
   // /about/index.html instead of /about.html
-  trailingSlash: true,
+  trailingSlash: false,
 };
 
 module.exports = nextConfig;

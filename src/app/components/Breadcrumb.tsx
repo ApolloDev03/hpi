@@ -152,7 +152,7 @@ export default function Breadcrumb({
             }}
             className="
               font-serif font-medium
-              text-[clamp(2.6rem,6vw,5.2rem)]
+              text-[20px] lg:text-[60px]
               leading-none
               tracking-[-0.045em]
               text-[#f3efe7]
@@ -178,17 +178,16 @@ export default function Breadcrumb({
             aria-label="Breadcrumb"
             className="
               mt-6 flex flex-wrap
-              items-center gap-3
+              items-center gap-3 text-[9px] lg:text-[12px]
             "
           >
             <Link
               href="/"
               className="
-                text-[9px] font-semibold
+                 font-semibold
                 uppercase tracking-[0.24em]
                 text-white/55
                 transition-colors duration-300
-
                 hover:text-[#e6c583]
               "
             >
@@ -215,7 +214,7 @@ export default function Breadcrumb({
                   <Link
                     href={item.href}
                     className="
-                      text-[9px] font-semibold
+                      font-semibold
                       uppercase tracking-[0.24em]
                       text-white/55
                       transition-colors duration-300
@@ -229,7 +228,7 @@ export default function Breadcrumb({
                   <span
                     aria-current="page"
                     className="
-                      text-[9px] font-semibold
+                     font-semibold
                       uppercase tracking-[0.24em]
                       text-[#e6c583]
                     "

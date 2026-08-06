@@ -11,12 +11,8 @@ import {
   type ReactNode,
 } from "react";
 import axios from "axios";
+import { apiUrl } from "../config";
 
-const CATEGORY_API_URL =
-  "https://getdemo.in/hpi-design-studio/api/categorieslist";
-
-const HOME_API_URL =
-  "https://getdemo.in/hpi-design-studio/api/home";
 
 export type ApiCategory = {
   id: number;
@@ -158,7 +154,7 @@ export function HomeDataProvider({
     try {
       const response =
         await axios.post<CategoriesApiResponse>(
-          CATEGORY_API_URL,
+          `${apiUrl}/categorieslist`,
           {},
           {
             signal: controller.signal,
@@ -248,7 +244,7 @@ export function HomeDataProvider({
 
       try {
         const response = await axios.post<HomeApiResponse>(
-          HOME_API_URL,
+          `${apiUrl}/home`,
           {
             category_id: String(categoryId),
           },
