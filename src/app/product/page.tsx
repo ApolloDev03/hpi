@@ -2896,7 +2896,7 @@ function ProductProjectsContent() {
                           {/* API project content */}
                           <div
                             className="
-                              relative flex min-h-[205px]
+                              relative flex min-h-[150px]
                               flex-col
                               bg-[linear-gradient(180deg,#11110f_0%,#0b0b0a_100%)]
                               px-6 py-6
@@ -2917,7 +2917,7 @@ function ProductProjectsContent() {
                             <h2
                               className="
                                 font-serif
-                                text-[clamp(1.5rem,2.2vw,2.15rem)]
+                                text-[clamp(1.5rem,2.2vw,1rem)]
                                 leading-[1.15]
                                 tracking-[-0.02em]
                                 text-[#f3efe7]
@@ -2928,25 +2928,14 @@ function ProductProjectsContent() {
                               {project.title}
                             </h2>
 
-                            {project.description && (
-                              <p
-                                className="
-                                  mt-3 line-clamp-2
-                                  text-[12px]
-                                  leading-[1.8]
-                                  text-white/45
-                                "
-                              >
-                                {project.description}
-                              </p>
-                            )}
+                      
 
                             <div
                               className="
                                 mt-auto flex
                                 items-center
                                 justify-between
-                                pt-5
+                               
                               "
                             >
                               <span
@@ -3121,9 +3110,9 @@ function ProductProjectsContent() {
                 <p
                   className="
                     mt-5 text-center
-                    text-[9px] uppercase
+                    text-[11px] uppercase
                     tracking-[0.2em]
-                    text-white/30
+                    text-white
                   "
                 >
                   Showing{" "}

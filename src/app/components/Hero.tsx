@@ -289,7 +289,8 @@ export default function Hero({ ready }: HeroProps) {
               sm:px-8 sm:pb-32
 
               md:items-center
-              md:px-[5vw]
+              lg:px-[5vw]
+              2xl:px-[2vw]
               md:pb-24
               md:pt-28
             "

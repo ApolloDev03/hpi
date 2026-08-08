@@ -1923,11 +1923,11 @@ function ProjectDetailContent() {
 
             <span
               className="
-                text-[8px]
+                text-[10px]
                 font-semibold
                 uppercase
                 tracking-[0.26em]
-                text-white/25
+                text-white
               "
             >
               {pagination.total}{" "}
@@ -2576,10 +2576,10 @@ function ProjectDetailContent() {
               <p
                 className="
                   mt-5 text-center
-                  text-[9px]
+                  text-[11px]
                   uppercase
                   tracking-[0.2em]
-                  text-white/30
+                  text-white
                 "
               >
                 Showing{" "}

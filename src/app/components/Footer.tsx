@@ -434,11 +434,10 @@ function ContactItem({
         <span
           className="
             block max-w-[240px]
-            text-[13px] leading-6
+            text-[14px]  leading-6
             text-white
             transition-colors duration-300
 
-            group-hover:text-white/80
           "
         >
           {content}

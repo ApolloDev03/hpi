@@ -2719,17 +2719,7 @@ function BlogDetailContent() {
                           gap-4
                         "
                       >
-                        <span
-                          className="
-                            text-[8px]
-                            font-semibold
-                            uppercase
-                            tracking-[0.26em]
-                            text-white/35
-                          "
-                        >
-                          Share Article
-                        </span>
+                        
 
                         <div
                           className="
@@ -2900,7 +2890,7 @@ function BlogDetailContent() {
                       <div>
                         <span
                           className="
-                            text-[8px]
+                            text-[10px]
                             font-semibold
                             uppercase
                             tracking-[0.28em]
@@ -3021,7 +3011,7 @@ function BlogDetailContent() {
                                         justify-center
                                         bg-white/[0.03]
                                         text-xs
-                                        text-white/25
+                                        text-white
                                       "
                                     >
                                       Image unavailable
@@ -3100,11 +3090,11 @@ function BlogDetailContent() {
                                   >
                                     <span
                                       className="
-                                        text-[8px]
+                                        text-[10px]
                                         font-semibold
                                         uppercase
                                         tracking-[0.23em]
-                                        text-white/35
+                                        text-white
                                         transition-colors
                                         duration-300
                                         group-hover:text-[#e6c583]
