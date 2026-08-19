@@ -10,7 +10,7 @@ import { HiArrowUpRight } from "react-icons/hi2";
 
 import Breadcrumb from "@/app/components/Breadcrumb";
 import aboutBreadcrumb from "@/app/assets/banner1.png";
-import founderImage from "@/app/assets/about-studio.webp";
+import founderImage from "@/app/assets/client photo.jpeg";
 import About from "../components/About";
 
 export default function AboutClient() {
@@ -305,7 +305,7 @@ export default function AboutClient() {
                     text-[#f3efe7]
                   "
                                 >
-                                    Founder Name
+                                    Hitarth Parikh
                                 </h3>
 
                                 <p
@@ -316,7 +316,7 @@ export default function AboutClient() {
                     text-[#e6c583]
                   "
                                 >
-                                    Founder & Principal Designer
+                                    Architecture | Interior
                                 </p>
                             </div>
 

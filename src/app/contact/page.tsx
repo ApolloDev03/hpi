@@ -2730,136 +2730,141 @@ export default function ContactPage() {
           </div>
 
           {/* Map section */}
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: reduceMotion ? 0 : 30,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-              amount: 0.15,
-            }}
-            transition={{
-              duration: 0.9,
-              delay: 0.1,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="
-              mt-20
-              border-y border-white/10
-              pt-10
-              lg:mt-24
-              lg:pt-12
-            "
-          >
-            <div
-              className="
-                mb-8 flex
-                flex-col gap-6
-                sm:flex-row
-                sm:items-end
-                sm:justify-between
-              "
-            >
-              <div>
-                <span
-                  className="
-                    text-[9px] font-semibold
-                    uppercase tracking-[0.3em]
-                    text-[#e6c583]
-                  "
-                >
-                  Find the Studio
-                </span>
+         {/* Map section */}
+<motion.div
+  initial={{
+    opacity: 0,
+    y: reduceMotion ? 0 : 30,
+  }}
+  whileInView={{
+    opacity: 1,
+    y: 0,
+  }}
+  viewport={{
+    once: true,
+    amount: 0.15,
+  }}
+  transition={{
+    duration: 0.9,
+    delay: 0.1,
+    ease: [0.16, 1, 0.3, 1],
+  }}
+  className="
+    mt-20
+    border-y border-white/10
+    pt-10
+    lg:mt-24
+    lg:pt-12
+  "
+>
+  <div
+    className="
+      mb-8 flex
+      flex-col gap-6
+      sm:flex-row
+      sm:items-end
+      sm:justify-between
+    "
+  >
+    <div>
+      <span
+        className="
+          text-[9px] font-semibold
+          uppercase tracking-[0.3em]
+          text-[#e6c583]
+        "
+      >
+        Find the Studio
+      </span>
 
-                <h2
-                  className="
-                    mt-5
-                    font-serif
-                    text-[clamp(2rem,3.5vw,3.5rem)]
-                    leading-[1.1]
-                    tracking-[-0.03em]
-                    text-[#f3efe7]
-                  "
-                >
-                  Visit us for a detailed
-                  <br />
-                  project discussion.
-                </h2>
-              </div>
+      <h2
+        className="
+          mt-5
+          font-serif
+          text-[clamp(2rem,3.5vw,3.5rem)]
+          leading-[1.1]
+          tracking-[-0.03em]
+          text-[#f3efe7]
+        "
+      >
+        Visit us for a detailed
+        <br />
+        project discussion.
+      </h2>
+    </div>
 
-              <a
-                href="https://maps.google.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="
-                  group inline-flex
-                  items-center gap-4
-                  text-[9px] font-semibold
-                  uppercase tracking-[0.24em]
-                  text-[#e6c583]
-                "
-              >
-                Open in Google Maps
+    {/* Open Google Maps */}
+    <a
+      href="https://www.google.com/maps/search/?api=1&query=Natkamal+Complex,+Jawahar+Chowk,+Maninagar,+Ahmedabad,+Gujarat+380008"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="
+        group inline-flex
+        items-center gap-4
+        text-[9px] font-semibold
+        uppercase tracking-[0.24em]
+        text-[#e6c583]
+      "
+    >
+      Open in Google Maps
 
-                <HiOutlineArrowUpRight
-                  size={17}
-                  className="
-                    transition-transform duration-300
+      <HiOutlineArrowUpRight
+        size={17}
+        className="
+          transition-transform duration-300
+          group-hover:-translate-y-0.5
+          group-hover:translate-x-0.5
+        "
+      />
+    </a>
+  </div>
 
-                    group-hover:-translate-y-0.5
-                    group-hover:translate-x-0.5
-                  "
-                />
-              </a>
-            </div>
+  {/* Map */}
+  <div
+    className="
+      relative
+      min-h-[420px]
+      overflow-hidden
+      border border-white/10
+      bg-[#15130f]
+      lg:min-h-[520px]
+    "
+  >
+    <iframe
+      title="HPI Design Studio Location"
+      src="https://maps.google.com/maps?hl=en&q=Natkamal%20Complex%2C%20Jawahar%20Chowk%2C%20Maninagar%2C%20Ahmedabad%2C%20Gujarat%20380008&t=&z=17&ie=UTF8&iwloc=B&output=embed"
+      loading="lazy"
+      allowFullScreen
+      referrerPolicy="no-referrer-when-downgrade"
+      className="
+        absolute inset-0
+        h-full w-full
+        border-0
+      "
+    />
 
-            <div
-              className="
-                relative min-h-[420px]
-                overflow-hidden
-                bg-[#15130f]
-                lg:min-h-[520px]
-              "
-            >
-              <iframe
-                title="HPI Studio Location"
-                src="https://www.google.com/maps?q=Ahmedabad,Gujarat,India&output=embed"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="
-                  absolute inset-0
-                  h-full w-full
-                  grayscale
-                  contrast-[1.08]
-                  opacity-75
-                "
-              />
+    {/* Gold tint */}
+    <div
+      aria-hidden="true"
+      className="
+        pointer-events-none
+        absolute inset-0
+        bg-[#b8863a]/[0.035]
+        mix-blend-color
+      "
+    />
 
-              <div
-                aria-hidden="true"
-                className="
-                  pointer-events-none
-                  absolute inset-0
-                  bg-[#b8863a]/[0.08]
-                  mix-blend-color
-                "
-              />
-
-              <span
-                aria-hidden="true"
-                className="
-                  pointer-events-none
-                  absolute inset-5
-                  border border-white/15
-                "
-              />
-            </div>
-          </motion.div>
+    {/* Inner premium border */}
+    <span
+      aria-hidden="true"
+      className="
+        pointer-events-none
+        absolute inset-5
+        border border-white/15
+      "
+    />
+  </div>
+</motion.div>
         </div>
       </section>
     </main>

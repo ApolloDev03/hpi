@@ -647,7 +647,7 @@ export default function Blog() {
                 xl:grid-cols-3
               "
             >
-              {posts.map((post, index) => (
+             {posts.slice(0, 3).map((post, index) => (
                 <motion.article
                   key={`${post.slug}-${index}`}
                   initial={{
@@ -765,16 +765,22 @@ export default function Blog() {
                       {post.title}
                     </h3>
 
-                    <p
-                      className="
-                        mt-4 flex-1
-                        text-[12px] leading-[1.85]
-                        text-white/45
-                        sm:text-[13px]
-                      "
-                    >
-                      {post.description}
-                    </p>
+              <p
+  className="
+    mt-4 flex-1
+    text-[12px] leading-[1.85]
+    text-white/45
+    sm:text-[13px]
+  "
+>
+  {post.description &&
+  post.description.length > 100
+    ? `${post.description
+        .slice(0, 100)
+        .trim()
+        .replace(/\s+\S*$/, "")}...`
+    : post.description}
+</p>
 
                     <a
                       href={`/blog-detail?slug=${encodeURIComponent(
