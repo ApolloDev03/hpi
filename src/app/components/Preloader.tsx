@@ -58,7 +58,7 @@ export default function Preloader({ visible, onEnter }: PreloaderProps) {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className={`fixed inset-0 z-[9999] flex cursor-pointer flex-col items-center justify-center overflow-hidden bg-bg ${
+          className={`bg-black fixed inset-0 z-[9999] flex cursor-pointer flex-col items-center justify-center overflow-hidden  ${
             awaitingInteraction ? "pointer-events-auto" : "pointer-events-none"
           }`}
           initial={{ opacity: 1 }}
@@ -94,7 +94,14 @@ export default function Preloader({ visible, onEnter }: PreloaderProps) {
       ease: [0.16, 0.8, 0.24, 1],
     },
   }}
-  onAnimationComplete={() => setAwaitingInteraction(true)}
+  onAnimationComplete={() => {
+              setAwaitingInteraction(true);
+ 
+              if (!hasEnteredRef.current) {
+                hasEnteredRef.current = true;
+                onEnter();
+              }
+            }}
 >
   <SignatureLogo className="h-auto w-[250px] sm:w-[350px]" />
 </motion.div>

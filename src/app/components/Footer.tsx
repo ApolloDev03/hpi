@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../assets/logo-white.png"
+
+import logo from "../assets/logo-black.png";
+
 import {
   Mail,
   MapPin,
@@ -15,22 +17,52 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
-import { usePathname, useRouter } from "next/navigation";
+import {
+  usePathname,
+  useRouter,
+} from "next/navigation";
+
+/* =========================================================
+   QUICK LINKS
+========================================================= */
 
 const quickLinks = [
-  { name: "Home", href: "/" },
-  { name: "About Us", href: "#about" },
-  // { name: "Projects", href: "#projects" },
-  { name: "Blogs", href: "#blogs" },
-  { name: "Contact", href: "#contact" },
+  {
+    name: "Home",
+    href: "/",
+  },
+  {
+    name: "About Us",
+    href: "#about",
+  },
+  // {
+  //   name: "Projects",
+  //   href: "#projects",
+  // },
+  {
+    name: "Blogs",
+    href: "#blogs",
+  },
+  {
+    name: "Contact",
+    href: "#contact",
+  },
 ];
+
+/* =========================================================
+   PROJECTS
+========================================================= */
 
 const services = [
   "Home",
   "Showroom & Shop",
   "Hospital",
-  "Corporate Office"
+  "Corporate Office",
 ];
+
+/* =========================================================
+   SOCIAL LINKS
+========================================================= */
 
 const socialLinks = [
   {
@@ -50,28 +82,50 @@ const socialLinks = [
   },
 ];
 
+/* =========================================================
+   FOOTER
+========================================================= */
+
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const currentYear =
+    new Date().getFullYear();
+
+  const pathname =
+    usePathname();
+
+  const router =
+    useRouter();
+
+  /* =======================================================
+     HASH SCROLL
+  ======================================================= */
 
   const handleScroll = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    href: string
+    event:
+      React.MouseEvent<HTMLAnchorElement>,
+    href: string,
   ) => {
-    if (!href.startsWith("#")) return;
+    if (!href.startsWith("#")) {
+      return;
+    }
 
     event.preventDefault();
 
-    document.querySelector(href)?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    document
+      .querySelector(href)
+      ?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
   };
 
-  const pathname = usePathname();
-  const router = useRouter();
+  /* =======================================================
+     LOGO CLICK
+  ======================================================= */
 
   const handleLogoClick = (
-    event: React.MouseEvent<HTMLAnchorElement>
+    event:
+      React.MouseEvent<HTMLAnchorElement>,
   ) => {
     if (pathname === "/") {
       event.preventDefault();
@@ -91,71 +145,102 @@ export default function Footer() {
     <footer
       id="contact"
       className="
-        relative overflow-hidden
-        border-t border-white/10
-        bg-[#070706]
-        text-white
+        relative
+        overflow-hidden
+
+        border-t
+        border-black/10
+
+        bg-white
+
+        text-[#111827]
       "
     >
-      {/* Subtle background glow */}
+      {/* ================================================= */}
+      {/* SOFT GREEN BACKGROUND GLOW */}
+      {/* ================================================= */}
+
       <div
         aria-hidden="true"
         className="
-          pointer-events-none absolute
-          -right-40 top-0
-          h-[420px] w-[420px]
+          pointer-events-none
+
+          absolute
+          -right-40
+          top-0
+
+          h-[420px]
+          w-[420px]
+
           rounded-full
+
           bg-gold/[0.06]
+
           blur-[140px]
         "
       />
 
-      {/* Large background word */}
-      {/* <div
-        aria-hidden="true"
-        className="
-          pointer-events-none absolute
-          bottom-4 right-[3vw]
-          hidden select-none
-          font-serif text-[clamp(7rem,13vw,13rem)]
-          font-semibold uppercase
-          leading-none tracking-[-0.06em]
-          text-white/[0.018]
-          xl:block
-        "
-      >
-        Studio
-      </div> */}
+      {/* ================================================= */}
+      {/* MAIN CONTAINER */}
+      {/* ================================================= */}
 
       <div
         className="
-          relative z-10 mx-auto
-          w-full max-w-[1600px]
+          relative z-10
+
+          mx-auto
+
+          w-full
+          max-w-[1600px]
+
           px-5
+
           sm:px-8
+
           lg:px-[5vw]
         "
       >
+        {/* ================================================= */}
+        {/* MAIN FOOTER AREA */}
+        {/* ================================================= */}
 
-        {/* Main footer area */}
         <div
           className="
-            grid grid-cols-1 gap-12
+            grid
+            grid-cols-1
+
+            gap-12
+
             py-14
 
             sm:grid-cols-2
 
             lg:grid-cols-[1.35fr_0.7fr_0.7fr_1.3fr]
+
             lg:gap-14
+
             lg:py-16
           "
         >
-          {/* Brand */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          {/* ================================================= */}
+          {/* BRAND */}
+          {/* ================================================= */}
+
+          <div
+            className="
+              sm:col-span-2
+
+              lg:col-span-1
+            "
+          >
             <Link
               href="/"
-              onClick={handleLogoClick}
-              className="inline-block"
+              onClick={
+                handleLogoClick
+              }
+              className="
+                inline-block
+              "
               aria-label="Go to homepage"
             >
               <Image
@@ -164,20 +249,33 @@ export default function Footer() {
                 width={190}
                 height={100}
                 className="
-                  h-auto w-[135px]
+                  h-auto
+
+                  w-[135px]
+
                   object-contain
+
                   sm:w-[150px]
                 "
               />
             </Link>
 
+            {/* Description */}
+
             <p
               className="
-                mt-6 max-w-[390px]
-                text-[12px] leading-[1.9]
-                text-white
+                mt-6
+
+                max-w-[390px]
+
+                text-[12px]
+
+                leading-[1.9]
+
+                text-black
 
                 sm:text-[13px]
+                font-medium
               "
             >
               HPI Design Studio creates considered architecture and
@@ -185,109 +283,221 @@ export default function Footer() {
               material and light.
             </p>
 
-            {/* Social links */}
-            <div className="mt-7 flex items-center gap-2.5">
+            {/* ================================================= */}
+            {/* SOCIAL LINKS */}
+            {/* ================================================= */}
+
+            <div
+              className="
+                mt-7
+
+                flex
+                items-center
+
+                gap-2.5
+              "
+            >
               {socialLinks.map(
-                ({ name, href, icon: Icon }) => (
+                ({
+                  name,
+                  href,
+                  icon: Icon,
+                }) => (
                   <Link
                     key={name}
                     href={href}
                     target="_blank"
                     rel="noreferrer"
-                    aria-label={name}
+                    aria-label={
+                      name
+                    }
                     className="
-                      group flex h-10 w-10
-                      items-center justify-center
+                      group
+
+                      flex
+                      h-10
+                      w-10
+
+                      items-center
+                      justify-center
+
                       rounded-full
-                      border border-white/12
-                      bg-white/[0.02]
-                      text-white/55
-                      transition-all duration-300
+
+                      border
+                      border-black/10
+
+                      bg-white
+
+                      text-black
+
+                      shadow-[0_4px_15px_rgba(0,0,0,0.04)]
+
+                      transition-all
+                      duration-300
 
                       hover:-translate-y-1
+
                       hover:border-gold
+
                       hover:bg-gold
-                      hover:text-black
+
+                      hover:text-white
+
+                      hover:shadow-[0_8px_22px_rgba(17,94,40,0.15)]
                     "
                   >
                     <Icon
                       size={15}
                       className="
-                        transition-transform duration-300
+                        transition-transform
+                        duration-300
+
                         group-hover:scale-110
                       "
                     />
                   </Link>
-                )
+                ),
               )}
             </div>
           </div>
 
-          {/* Quick links */}
-          <div>
-            <FooterHeading title="Quick Links" />
+          {/* ================================================= */}
+          {/* QUICK LINKS */}
+          {/* ================================================= */}
 
-            <ul className="mt-6 space-y-2.5">
-              {quickLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    onClick={(event) =>
-                      handleScroll(event, link.href)
+          <div>
+            <FooterHeading
+              title="Quick Links"
+            />
+
+            <ul
+              className="
+                mt-6
+                space-y-2.5
+              "
+            >
+              {quickLinks.map(
+                (link) => (
+                  <li
+                    key={
+                      link.name
+                    }
+                  >
+                    <Link
+                      href={
+                        link.href
+                      }
+                      onClick={(
+                        event,
+                      ) =>
+                        handleScroll(
+                          event,
+                          link.href,
+                        )
+                      }
+                      className="
+                        group
+
+                        inline-flex
+
+                        items-center
+
+                        gap-3
+
+                        text-[14px]
+
+                        text-black
+
+                        transition-colors
+                        duration-300
+font-semibold
+                        hover:text-gold
+                      "
+                    >
+                      <span
+                        className="
+                          h-px
+                          w-0
+
+                          bg-gold
+
+                          transition-all
+                          duration-300
+                          font-semibold
+
+                          group-hover:w-4
+                        "
+                      />
+
+                      {
+                        link.name
+                      }
+                    </Link>
+                  </li>
+                ),
+              )}
+            </ul>
+          </div>
+
+          {/* ================================================= */}
+          {/* PROJECTS */}
+          {/* ================================================= */}
+
+          <div>
+            <FooterHeading
+              title="Projects"
+            />
+
+            <ul
+              className="
+                mt-6
+                space-y-2.5
+              "
+            >
+              {services.map(
+                (service) => (
+                  <li
+                    key={
+                      service
                     }
                     className="
-                      group inline-flex
-                      items-center gap-3
                       text-[14px]
-                      text-white
-                      transition-colors duration-300
 
-                      hover:text-gold-light
+                      leading-6
+
+                      text-black
+
+                      transition-colors
+                      duration-300
+                      font-semibold
+
+                      hover:text-gold
                     "
                   >
-                    <span
-                      className="
-                        h-px w-0 bg-gold
-                        transition-all duration-300
-                        group-hover:w-4
-                      "
-                    />
-
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+                    {
+                      service
+                    }
+                  </li>
+                ),
+              )}
             </ul>
           </div>
 
-          {/* Services */}
+          {/* ================================================= */}
+          {/* CONTACT */}
+          {/* ================================================= */}
+
           <div>
-            <FooterHeading title="Projects" />
+            <FooterHeading
+              title="Studio Details"
+            />
 
-            <ul className="mt-6 space-y-2.5">
-              {services.map((service) => (
-                <li
-                  key={service}
-                  className="
-                    text-[14px]
-                    leading-6
-                    text-white
-                    transition-colors duration-300
-
-                    hover:text-gold-light
-                  "
-                >
-                  {service}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <FooterHeading title="Studio Details" />
-
-            <div className="mt-6 space-y-5">
+            <div
+              className="
+                mt-6
+                space-y-5
+              "
+            >
               <ContactItem
                 icon={MapPin}
                 label="Location"
@@ -312,19 +522,36 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* ================================================= */}
+        {/* BOTTOM BAR */}
+        {/* ================================================= */}
+
         <div
           className="
-            relative flex flex-col gap-4
-            border-t border-white/10
+            relative
+
+            flex
+            flex-col
+
+            gap-4
+
+            border-t
+            border-black/10
+
             py-6
+
             text-[10px]
+
             uppercase
+
             tracking-[0.16em]
-            text-white/70
+
+            text-[#6b7280]
 
             sm:flex-row
+
             sm:items-center
+
             sm:justify-between
           "
         >
@@ -332,12 +559,24 @@ export default function Footer() {
             © {currentYear} HPI Design Studio. All rights reserved.
           </p>
 
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+          <div
+            className="
+              flex
+              flex-wrap
+
+              items-center
+
+              gap-x-6
+              gap-y-2
+            "
+          >
             <Link
               href="#"
               className="
-                transition-colors duration-300
-                hover:text-gold-light
+                transition-colors
+                duration-300
+
+                hover:text-gold
               "
             >
               Privacy Policy
@@ -346,8 +585,10 @@ export default function Footer() {
             <Link
               href="#"
               className="
-                transition-colors duration-300
-                hover:text-gold-light
+                transition-colors
+                duration-300
+
+                hover:text-gold
               "
             >
               Terms & Conditions
@@ -359,6 +600,10 @@ export default function Footer() {
   );
 }
 
+/* =========================================================
+   FOOTER HEADING
+========================================================= */
+
 function FooterHeading({
   title,
 }: {
@@ -368,9 +613,15 @@ function FooterHeading({
     <div>
       <h3
         className="
-          text-[15px] font-semibold
-          uppercase tracking-[0.25em]
-          text-ivory
+          text-[15px]
+
+          font-semibold
+
+          uppercase
+
+          tracking-[0.25em]
+
+          text-[#111827]
         "
       >
         {title}
@@ -378,8 +629,13 @@ function FooterHeading({
 
       <span
         className="
-          mt-3 block
-          h-px w-8
+          mt-3
+
+          block
+
+          h-[2px]
+          w-8
+
           bg-gold
         "
       />
@@ -387,12 +643,20 @@ function FooterHeading({
   );
 }
 
+/* =========================================================
+   CONTACT ITEM TYPES
+========================================================= */
+
 type ContactItemProps = {
   icon: React.ElementType;
   label: string;
   content: string;
   href?: string;
 };
+
+/* =========================================================
+   CONTACT ITEM
+========================================================= */
 
 function ContactItem({
   icon: Icon,
@@ -402,30 +666,55 @@ function ContactItem({
 }: ContactItemProps) {
   const itemContent = (
     <>
+      {/* Icon */}
+
       <span
         className="
-          flex h-9 w-9
-          shrink-0 items-center justify-center
-          rounded-full
-          border border-gold/25
-          text-gold-light
-          transition-all duration-300
+          flex
+          h-9
+          w-9
 
-          group-hover:border-gold
-          group-hover:bg-gold
-          group-hover:text-black
+          shrink-0
+
+          items-center
+          justify-center
+
+          rounded-full
+
+          border
+        
+
+          transition-all
+          duration-300
+
+          border-gold
+bg-gold
+
+          text-white
         "
       >
-        <Icon size={14} />
+        <Icon
+          size={14}
+        />
       </span>
+
+      {/* Content */}
 
       <span>
         <span
           className="
-            mb-1 block
-            text-[13px] font-medium
-            uppercase tracking-[0.23em]
+            mb-1
+
+            block
+
+            text-[13px]
+
+            uppercase
+
+            tracking-[0.23em]
+
             text-gold
+            font-bold
           "
         >
           {label}
@@ -433,11 +722,20 @@ function ContactItem({
 
         <span
           className="
-            block max-w-[240px]
-            text-[14px]  leading-6
-            text-white
-            transition-colors duration-300
+            block
 
+            max-w-[240px]
+
+            text-[14px]
+
+            leading-6
+
+            text-black
+
+            transition-colors
+            duration-300
+font-semibold
+            group-hover:text-[#111827]
           "
         >
           {content}
@@ -452,7 +750,13 @@ function ContactItem({
         href={href}
         target="_blank"
         className="
-          group flex items-start gap-3.5
+          group
+
+          flex
+          items-start
+
+          gap-3.5
+          
         "
       >
         {itemContent}
@@ -461,7 +765,16 @@ function ContactItem({
   }
 
   return (
-    <div className="group flex items-start gap-3.5">
+    <div
+      className="
+        group
+
+        flex
+        items-start
+
+        gap-3.5
+      "
+    >
       {itemContent}
     </div>
   );
