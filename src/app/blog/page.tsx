@@ -1,1768 +1,3 @@
-// // "use client";
-
-// // import { useMemo, useState } from "react";
-// // import Image from "next/image";
-// // import Link from "next/link";
-// // import {
-// //   AnimatePresence,
-// //   motion,
-// //   useReducedMotion,
-// // } from "framer-motion";
-// // import {
-// //   ArrowLeft,
-// //   ArrowRight,
-// //   ArrowUpRight,
-// // } from "lucide-react";
-
-// // import Breadcrumb from "../components/Breadcrumb";
-// // import aboutBreadcrumb from "@/app/assets/banner1.png";
-
-// // import blog1 from "../assets/blog1.webp";
-// // import blog2 from "../assets/blog2.webp";
-// // import blog3 from "../assets/blog3.webp";
-
-// // const POSTS_PER_PAGE = 6;
-
-// // const posts = [
-// //   {
-// //     id: 1,
-// //     category: "Architecture Notes",
-// //     date: "14 June 2026",
-// //     readTime: "6 Min Read",
-// //     title: "Designing for Ahmedabad’s Light",
-// //     excerpt:
-// //       "How thoughtful orientation, shading and window placement create calm interiors while managing Ahmedabad’s intense sunlight.",
-// //     image: blog1,
-// //     href:"/blog-detail",
-// //   },
-// //   {
-// //     id: 2,
-// //     category: "Material Journal",
-// //     date: "02 May 2026",
-// //     readTime: "4 Min Read",
-// //     title: "Materials We Keep Returning To",
-// //     excerpt:
-// //       "A considered selection of stone, timber and metal finishes that age naturally and bring lasting warmth to a space.",
-// //     image: blog2,
-// //     href:"/blog-detail",
-// //   },
-// //   {
-// //     id: 3,
-// //     category: "Behind the Build",
-// //     date: "19 March 2026",
-// //     readTime: "7 Min Read",
-// //     title: "Inside the Vira Residence Build",
-// //     excerpt:
-// //       "A closer look at how one conversation shaped the planning, natural light and material language of an entire home.",
-// //     image: blog3,
-// //     href:"/blog-detail",
-// //   },
-// //   {
-// //     id: 4,
-// //     category: "Design Process",
-// //     date: "08 March 2026",
-// //     readTime: "5 Min Read",
-// //     title: "From First Sketch to Finished Space",
-// //     excerpt:
-// //       "An inside view of how early conversations, planning and material decisions gradually develop into a complete interior.",
-// //     image: blog1,
-// //     href:"/blog-detail",
-// //   },
-// //   {
-// //     id: 5,
-// //     category: "Interior Notes",
-// //     date: "21 February 2026",
-// //     readTime: "4 Min Read",
-// //     title: "Creating Calm Through Interior Planning",
-// //     excerpt:
-// //       "How thoughtful circulation, visual balance and purposeful furniture placement can create interiors that feel naturally calm.",
-// //     image: blog2,
-// //     href:"/blog-detail",
-// //   },
-// //   {
-// //     id: 6,
-// //     category: "Studio Journal",
-// //     date: "10 February 2026",
-// //     readTime: "6 Min Read",
-// //     title: "Why Details Define the Experience",
-// //     excerpt:
-// //       "A study of the small architectural and interior details that quietly influence how a space looks, feels and functions.",
-// //     image: blog3,
-// //     href:"/blog-detail",
-// //   },
-// //   {
-// //     id: 7,
-// //     category: "Architecture Notes",
-// //     date: "25 January 2026",
-// //     readTime: "5 Min Read",
-// //     title: "The Role of Natural Light in Modern Homes",
-// //     excerpt:
-// //       "Exploring how openings, orientation and layered shading help natural light become an essential part of everyday living.",
-// //     image: blog1,
-// //     href:"/blog-detail",
-// //   },
-// //   {
-// //     id: 8,
-// //     category: "Material Journal",
-// //     date: "12 January 2026",
-// //     readTime: "4 Min Read",
-// //     title: "Stone, Timber and the Beauty of Ageing",
-// //     excerpt:
-// //       "Why natural materials remain central to interiors designed to feel warm, authentic and visually balanced over time.",
-// //     image: blog2,
-// //     href:"/blog-detail",
-// //   },
-// //   {
-// //     id: 9,
-// //     category: "Behind the Build",
-// //     date: "02 January 2026",
-// //     readTime: "7 Min Read",
-// //     title: "Planning a Home Around Everyday Routines",
-// //     excerpt:
-// //       "A practical look at how daily habits and family routines influence room planning, circulation, storage and comfort.",
-// //     image: blog3,
-// //     href:"/blog-detail",
-// //   },
-// // ];
-
-// // export default function BlogPage() {
-// //   const reduceMotion = useReducedMotion();
-
-// //   const [currentPage, setCurrentPage] =
-// //     useState(1);
-
-// //   const totalPages = Math.ceil(
-// //     posts.length / POSTS_PER_PAGE
-// //   );
-
-// //   const currentPosts = useMemo(() => {
-// //     const startIndex =
-// //       (currentPage - 1) * POSTS_PER_PAGE;
-
-// //     return posts.slice(
-// //       startIndex,
-// //       startIndex + POSTS_PER_PAGE
-// //     );
-// //   }, [currentPage]);
-
-// //   const handlePageChange = (
-// //     pageNumber: number
-// //   ) => {
-// //     if (
-// //       pageNumber < 1 ||
-// //       pageNumber > totalPages ||
-// //       pageNumber === currentPage
-// //     ) {
-// //       return;
-// //     }
-
-// //     setCurrentPage(pageNumber);
-
-// //     window.requestAnimationFrame(() => {
-// //       const blogSection =
-// //         document.getElementById("blog");
-
-// //       if (!blogSection) return;
-
-// //       const headerOffset = 110;
-
-// //       const sectionTop =
-// //         blogSection.getBoundingClientRect()
-// //           .top +
-// //         window.scrollY -
-// //         headerOffset;
-
-// //       window.scrollTo({
-// //         top: sectionTop,
-// //         behavior: "smooth",
-// //       });
-// //     });
-// //   };
-
-// //   return (
-// //     <main
-// //       className="
-// //         overflow-hidden
-// //         bg-[#080807]
-// //       "
-// //     >
-// //       <Breadcrumb
-// //         title="Blog"
-// //         backgroundImage={aboutBreadcrumb}
-// //         imagePosition="center"
-// //         items={[
-// //           {
-// //             label: "Blog",
-// //           },
-// //         ]}
-// //       />
-
-// //       <section
-// //         id="blog"
-// //         className="
-// //           relative overflow-hidden
-// //           bg-[#090908]
-// //           px-5 py-20
-
-// //           sm:px-8
-// //           sm:py-24
-
-// //           lg:px-[5vw]
-// //           lg:py-[60px]
-// //         "
-// //       >
-// //         {/* Background details */}
-// //         <div
-// //           aria-hidden="true"
-// //           className="
-// //             pointer-events-none
-// //             absolute -left-48 top-1/3
-// //             h-[420px] w-[420px]
-// //             rounded-full
-// //             bg-[#b8863a]/[0.045]
-// //             blur-[150px]
-// //           "
-// //         />
-
-// //         <div
-// //           aria-hidden="true"
-// //           className="
-// //             pointer-events-none
-// //             absolute right-0 top-0
-// //             h-px w-[40%]
-// //             bg-gradient-to-l
-// //             from-[#b8863a]/50
-// //             to-transparent
-// //           "
-// //         />
-
-// //         <div
-// //           className="
-// //             relative z-10
-// //             mx-auto
-// //             max-w-[1500px]
-// //           "
-// //         >
-// //           {/* Blog cards */}
-// //           <AnimatePresence
-// //             mode="wait"
-// //             initial={false}
-// //           >
-// //             <motion.div
-// //               key={`blog-page-${currentPage}`}
-// //               initial={{
-// //                 opacity: 0,
-// //                 y: reduceMotion ? 0 : 24,
-// //               }}
-// //               animate={{
-// //                 opacity: 1,
-// //                 y: 0,
-// //               }}
-// //               exit={{
-// //                 opacity: 0,
-// //                 y: reduceMotion ? 0 : -18,
-// //               }}
-// //               transition={{
-// //                 duration: reduceMotion
-// //                   ? 0.1
-// //                   : 0.5,
-// //                 ease: [0.16, 1, 0.3, 1],
-// //               }}
-// //               className="
-// //                 grid grid-cols-1 gap-8
-// //                 md:grid-cols-2
-// //                 xl:grid-cols-3
-// //               "
-// //             >
-// //               {currentPosts.map(
-// //                 (post, index) => (
-// //                   <motion.article
-// //                     key={post.id}
-// //                     initial={{
-// //                       opacity: 0,
-// //                       y: reduceMotion
-// //                         ? 0
-// //                         : 35,
-// //                     }}
-// //                     animate={{
-// //                       opacity: 1,
-// //                       y: 0,
-// //                     }}
-// //                     transition={{
-// //                       duration: reduceMotion
-// //                         ? 0.1
-// //                         : 0.65,
-// //                       delay: reduceMotion
-// //                         ? 0
-// //                         : index * 0.07,
-// //                       ease: [
-// //                         0.16, 1, 0.3, 1,
-// //                       ],
-// //                     }}
-// //                     className="
-// //                       group relative
-// //                       flex h-full flex-col
-// //                       overflow-hidden
-// //                       border border-white/10
-// //                       bg-[#0e0e0d]
-// //                       transition-all
-// //                       duration-500
-
-// //                       hover:-translate-y-1
-// //                       hover:border-[#b8863a]/40
-// //                       hover:shadow-[0_28px_80px_rgba(0,0,0,0.4)]
-// //                     "
-// //                   >
-// //                     {/* Image */}
-// //                     <Link
-// //                       href={post.href}
-// //                       className="
-// //                         relative block
-// //                         aspect-[16/11]
-// //                         overflow-hidden
-// //                         bg-[#15130f]
-// //                       "
-// //                     >
-// //                       <Image
-// //                         src={post.image}
-// //                         alt={post.title}
-// //                         fill
-// //                         priority={
-// //                           currentPage === 1 &&
-// //                           index === 0
-// //                         }
-// //                         sizes="
-// //                           (max-width: 768px) 100vw,
-// //                           (max-width: 1280px) 50vw,
-// //                           33vw
-// //                         "
-// //                         className="
-// //                           object-cover
-// //                           transition-transform
-// //                           duration-[900ms]
-// //                           ease-[cubic-bezier(0.16,1,0.3,1)]
-
-// //                           group-hover:scale-[1.05]
-// //                         "
-// //                       />
-
-// //                       <div
-// //                         aria-hidden="true"
-// //                         className="
-// //                           pointer-events-none
-// //                           absolute inset-0
-// //                           bg-gradient-to-t
-// //                           from-black/70
-// //                           via-black/5
-// //                           to-black/15
-// //                         "
-// //                       />
-
-// //                       <span
-// //                         className="
-// //                           absolute bottom-5 left-5
-// //                           bg-[#b8863a]
-// //                           px-4 py-2
-// //                           text-[8px] font-semibold
-// //                           uppercase
-// //                           tracking-[0.23em]
-// //                           text-[#080807]
-// //                         "
-// //                       >
-// //                         {post.category}
-// //                       </span>
-
-// //                       <span
-// //                         aria-hidden="true"
-// //                         className="
-// //                           absolute left-5 top-5
-// //                           h-5 w-5
-// //                           border-l border-t
-// //                           border-[#e6c583]/70
-// //                           transition-all
-// //                           duration-500
-
-// //                           group-hover:h-8
-// //                           group-hover:w-8
-// //                         "
-// //                       />
-// //                     </Link>
-
-// //                     {/* Content */}
-// //                     <div
-// //                       className="
-// //                         relative flex flex-1
-// //                         flex-col p-6
-// //                       "
-// //                     >
-// //                       <Link href={post.href}>
-// //                         <h3
-// //                           className="
-// //                             font-serif text-xl
-// //                             leading-[1.2]
-// //                             tracking-[-0.015em]
-// //                             text-[#f3efe7]
-// //                             transition-colors
-// //                             duration-400
-
-// //                             group-hover:text-[#e6c583]
-// //                           "
-// //                         >
-// //                           {post.title}
-// //                         </h3>
-// //                       </Link>
-
-// //                       <p
-// //                         className="
-// //                           mt-4 flex-1
-// //                           text-[12px]
-// //                           leading-[1.85]
-// //                           text-white/45
-
-// //                           sm:text-[13px]
-// //                         "
-// //                       >
-// //                         {post.excerpt}
-// //                       </p>
-
-// //                       <Link
-// //                         href={post.href}
-// //                         className="
-// //                           mt-7 flex
-// //                           items-center
-// //                           justify-between
-// //                           border-t
-// //                           border-white/10
-// //                           pt-5
-// //                         "
-// //                       >
-// //                         <span
-// //                           className="
-// //                             text-[9px]
-// //                             font-semibold
-// //                             uppercase
-// //                             tracking-[0.26em]
-// //                             text-[#e6c583]
-// //                           "
-// //                         >
-// //                           Read Article
-// //                         </span>
-
-// //                         <span
-// //                           className="
-// //                             flex h-10 w-10
-// //                             items-center
-// //                             justify-center
-// //                             border
-// //                             border-white/15
-// //                             text-white/55
-// //                             transition-all
-// //                             duration-400
-
-// //                             group-hover:border-[#b8863a]
-// //                             group-hover:bg-[#b8863a]
-// //                             group-hover:text-[#080807]
-// //                           "
-// //                         >
-// //                           <ArrowUpRight
-// //                             size={16}
-// //                             className="
-// //                               transition-transform
-// //                               duration-400
-
-// //                               group-hover:-translate-y-0.5
-// //                               group-hover:translate-x-0.5
-// //                             "
-// //                           />
-// //                         </span>
-// //                       </Link>
-// //                     </div>
-
-// //                     <span
-// //                       aria-hidden="true"
-// //                       className="
-// //                         pointer-events-none
-// //                         absolute bottom-0 left-0
-// //                         h-[2px] w-12
-// //                         bg-[#b8863a]
-// //                         transition-all
-// //                         duration-500
-
-// //                         group-hover:w-full
-// //                       "
-// //                     />
-// //                   </motion.article>
-// //                 )
-// //               )}
-// //             </motion.div>
-// //           </AnimatePresence>
-
-// //           {/* Pagination */}
-// //           {totalPages > 1 && (
-// //             <motion.nav
-// //               initial={{
-// //                 opacity: 0,
-// //                 y: reduceMotion ? 0 : 20,
-// //               }}
-// //               whileInView={{
-// //                 opacity: 1,
-// //                 y: 0,
-// //               }}
-// //               viewport={{
-// //                 once: true,
-// //                 amount: 0.4,
-// //               }}
-// //               transition={{
-// //                 duration: 0.7,
-// //               }}
-// //               aria-label="Blog pagination"
-// //               className="
-// //                 mt-14 flex
-// //                 flex-col gap-5
-// //                 border-t
-// //                 border-white/10
-// //                 pt-8
-
-// //                 sm:flex-row
-// //                 sm:items-center
-// //                 sm:justify-between
-// //               "
-// //             >
-// //               {/* Page information */}
-// //               <p
-// //                 className="
-// //                   text-[9px]
-// //                   font-semibold
-// //                   uppercase
-// //                   tracking-[0.25em]
-// //                   text-white/35
-// //                 "
-// //               >
-// //                 {/* Page{" "}
-// //                 <span className="text-[#e6c583]">
-// //                   {String(
-// //                     currentPage
-// //                   ).padStart(2, "0")}
-// //                 </span>{" "}
-// //                 of{" "}
-// //                 <span className="text-white/60">
-// //                   {String(
-// //                     totalPages
-// //                   ).padStart(2, "0")}
-// //                 </span> */}
-// //               </p>
-
-// //               <div
-// //                 className="
-// //                   flex flex-wrap
-// //                   items-center gap-2
-// //                 "
-// //               >
-// //                 {/* Previous */}
-// //                 <button
-// //                   type="button"
-// //                   onClick={() =>
-// //                     handlePageChange(
-// //                       currentPage - 1
-// //                     )
-// //                   }
-// //                   disabled={currentPage === 1}
-// //                   aria-label="Previous blog page"
-// //                   className="
-// //                     group flex h-11
-// //                     items-center gap-2
-// //                     border border-white/15
-// //                     px-4
-// //                     text-[8px]
-// //                     font-semibold
-// //                     uppercase
-// //                     tracking-[0.2em]
-// //                     text-white/55
-// //                     transition-all
-// //                     duration-300
-
-// //                     hover:border-[#b8863a]
-// //                     hover:bg-[#b8863a]
-// //                     hover:text-[#080807]
-
-// //                     disabled:cursor-not-allowed
-// //                     disabled:opacity-25
-// //                     disabled:hover:border-white/15
-// //                     disabled:hover:bg-transparent
-// //                     disabled:hover:text-white/55
-// //                   "
-// //                 >
-// //                   <ArrowLeft
-// //                     size={14}
-// //                     className="
-// //                       transition-transform
-// //                       duration-300
-
-// //                       group-hover:-translate-x-1
-// //                     "
-// //                   />
-
-// //                   <span
-// //                     className="
-// //                       hidden sm:inline
-// //                     "
-// //                   >
-// //                     Previous
-// //                   </span>
-// //                 </button>
-
-// //                 {/* Page numbers */}
-// //                 {Array.from(
-// //                   {
-// //                     length: totalPages,
-// //                   },
-// //                   (_, index) => {
-// //                     const pageNumber =
-// //                       index + 1;
-
-// //                     const isActive =
-// //                       currentPage ===
-// //                       pageNumber;
-
-// //                     return (
-// //                       <button
-// //                         key={pageNumber}
-// //                         type="button"
-// //                         onClick={() =>
-// //                           handlePageChange(
-// //                             pageNumber
-// //                           )
-// //                         }
-// //                         aria-label={`Go to blog page ${pageNumber}`}
-// //                         aria-current={
-// //                           isActive
-// //                             ? "page"
-// //                             : undefined
-// //                         }
-// //                         className={`
-// //                           relative flex
-// //                           h-11 w-11
-// //                           items-center
-// //                           justify-center
-// //                           overflow-hidden
-// //                           border
-// //                           font-serif
-// //                           text-[13px]
-// //                           transition-all
-// //                           duration-300
-
-// //                           ${
-// //                             isActive
-// //                               ? `
-// //                                 border-[#b8863a]
-// //                                 bg-[#b8863a]
-// //                                 text-[#080807]
-// //                               `
-// //                               : `
-// //                                 border-white/15
-// //                                 text-white/55
-// //                                 hover:border-[#b8863a]
-// //                                 hover:text-[#e6c583]
-// //                               `
-// //                           }
-// //                         `}
-// //                       >
-// //                         {String(
-// //                           pageNumber
-// //                         ).padStart(
-// //                           2,
-// //                           "0"
-// //                         )}
-
-// //                         {isActive && (
-// //                           <span
-// //                             aria-hidden="true"
-// //                             className="
-// //                               absolute bottom-0
-// //                               left-0 h-[2px]
-// //                               w-full
-// //                               bg-[#f3d28d]
-// //                             "
-// //                           />
-// //                         )}
-// //                       </button>
-// //                     );
-// //                   }
-// //                 )}
-
-// //                 {/* Next */}
-// //                 <button
-// //                   type="button"
-// //                   onClick={() =>
-// //                     handlePageChange(
-// //                       currentPage + 1
-// //                     )
-// //                   }
-// //                   disabled={
-// //                     currentPage ===
-// //                     totalPages
-// //                   }
-// //                   aria-label="Next blog page"
-// //                   className="
-// //                     group flex h-11
-// //                     items-center gap-2
-// //                     border border-white/15
-// //                     px-4
-// //                     text-[8px]
-// //                     font-semibold
-// //                     uppercase
-// //                     tracking-[0.2em]
-// //                     text-white/55
-// //                     transition-all
-// //                     duration-300
-
-// //                     hover:border-[#b8863a]
-// //                     hover:bg-[#b8863a]
-// //                     hover:text-[#080807]
-
-// //                     disabled:cursor-not-allowed
-// //                     disabled:opacity-25
-// //                     disabled:hover:border-white/15
-// //                     disabled:hover:bg-transparent
-// //                     disabled:hover:text-white/55
-// //                   "
-// //                 >
-// //                   <span
-// //                     className="
-// //                       hidden sm:inline
-// //                     "
-// //                   >
-// //                     Next
-// //                   </span>
-
-// //                   <ArrowRight
-// //                     size={14}
-// //                     className="
-// //                       transition-transform
-// //                       duration-300
-
-// //                       group-hover:translate-x-1
-// //                     "
-// //                   />
-// //                 </button>
-// //               </div>
-// //             </motion.nav>
-// //           )}
-// //         </div>
-// //       </section>
-// //     </main>
-// //   );
-// // }
-
-// /* eslint-disable @next/next/no-img-element */
-// "use client";
-
-// import {
-//   useCallback,
-//   useEffect,
-//   useMemo,
-//   useRef,
-//   useState,
-// } from "react";
-// import axios from "axios";
-// import Link from "next/link";
-// import {
-//   AnimatePresence,
-//   motion,
-//   useReducedMotion,
-// } from "framer-motion";
-// import {
-//   ArrowLeft,
-//   ArrowRight,
-//   ArrowUpRight,
-//   RefreshCw,
-// } from "lucide-react";
-
-// import Breadcrumb from "../components/Breadcrumb";
-// import aboutBreadcrumb from "@/app/assets/banner1.png";
-// import { apiUrl } from "../config";
-
-// const POSTS_PER_PAGE = 6;
-
-// type BlogItem = {
-//   id: number;
-//   title: string;
-//   slug: string;
-//   image: string | null;
-//   description: string | null;
-//   meta_title: string | null;
-//   meta_keyword: string | null;
-//   meta_description: string | null;
-//   head: string | null;
-//   body: string | null;
-//   status: string;
-//   created_at: string;
-//   updated_at: string;
-//   image_url: string | null;
-// };
-
-// type BlogsApiResponse = {
-//   success: boolean;
-//   message: string;
-//   data: BlogItem[];
-// };
-
-// function getApiErrorMessage(error: unknown): string {
-//   if (!axios.isAxiosError(error)) {
-//     return error instanceof Error && error.message
-//       ? error.message
-//       : "Unable to load blogs.";
-//   }
-
-//   const responseMessage = error.response?.data?.message;
-
-//   if (
-//     typeof responseMessage === "string" &&
-//     responseMessage.trim()
-//   ) {
-//     return responseMessage;
-//   }
-
-//   return error.message || "Unable to load blogs.";
-// }
-
-// function formatBlogDate(dateValue: string): string {
-//   if (!dateValue) {
-//     return "";
-//   }
-
-//   const normalizedDate = dateValue.includes("T")
-//     ? dateValue
-//     : dateValue.replace(" ", "T");
-
-//   const parsedDate = new Date(normalizedDate);
-
-//   if (Number.isNaN(parsedDate.getTime())) {
-//     return "";
-//   }
-
-//   return new Intl.DateTimeFormat("en-GB", {
-//     day: "2-digit",
-//     month: "long",
-//     year: "numeric",
-//   }).format(parsedDate);
-// }
-
-// export default function BlogPage() {
-//   const reduceMotion = useReducedMotion();
-
-//   const [blogs, setBlogs] = useState<BlogItem[]>([]);
-//   const [currentPage, setCurrentPage] = useState(1);
-
-//   const [loading, setLoading] = useState(true);
-//   const [errorMessage, setErrorMessage] =
-//     useState("");
-
-//   const abortControllerRef =
-//     useRef<AbortController | null>(null);
-
-//   const fetchBlogs = useCallback(
-//     async (signal?: AbortSignal) => {
-//       setLoading(true);
-//       setErrorMessage("");
-
-//       try {
-//         const response = await axios.post<BlogsApiResponse>(
-//           `${apiUrl}/blogslist`,
-//           {},
-//           {
-//             signal,
-//             headers: {
-//               Accept: "application/json",
-//               "Content-Type": "application/json",
-//             },
-//           },
-//         );
-
-//         if (
-//           !response.data.success ||
-//           !Array.isArray(response.data.data)
-//         ) {
-//           throw new Error(
-//             response.data.message ||
-//               "Invalid blogs response received.",
-//           );
-//         }
-
-//         const activeBlogs = response.data.data.filter(
-//           (blog) =>
-//             blog.status?.trim().toLowerCase() ===
-//             "active",
-//         );
-
-//         if (signal?.aborted) {
-//           return;
-//         }
-
-//         setBlogs(activeBlogs);
-//         setCurrentPage(1);
-//       } catch (error: unknown) {
-//         if (
-//           signal?.aborted ||
-//           (axios.isAxiosError(error) &&
-//             error.code === "ERR_CANCELED")
-//         ) {
-//           return;
-//         }
-
-//         setBlogs([]);
-//         setCurrentPage(1);
-//         setErrorMessage(
-//           getApiErrorMessage(error),
-//         );
-//       } finally {
-//         if (!signal?.aborted) {
-//           setLoading(false);
-//         }
-//       }
-//     },
-//     [],
-//   );
-
-//   useEffect(() => {
-//     const controller = new AbortController();
-
-//     abortControllerRef.current = controller;
-
-//     void fetchBlogs(controller.signal);
-
-//     return () => {
-//       controller.abort();
-//     };
-//   }, [fetchBlogs]);
-
-//   const totalPages = Math.max(
-//     1,
-//     Math.ceil(blogs.length / POSTS_PER_PAGE),
-//   );
-
-//   const currentPosts = useMemo(() => {
-//     const startIndex =
-//       (currentPage - 1) * POSTS_PER_PAGE;
-
-//     return blogs.slice(
-//       startIndex,
-//       startIndex + POSTS_PER_PAGE,
-//     );
-//   }, [blogs, currentPage]);
-
-//   const visiblePages = useMemo(() => {
-//     const pages: number[] = [];
-//     const maxVisiblePages = 5;
-
-//     let startPage = Math.max(
-//       1,
-//       currentPage -
-//         Math.floor(maxVisiblePages / 2),
-//     );
-
-//     const endPage = Math.min(
-//       totalPages,
-//       startPage + maxVisiblePages - 1,
-//     );
-
-//     startPage = Math.max(
-//       1,
-//       endPage - maxVisiblePages + 1,
-//     );
-
-//     for (
-//       let page = startPage;
-//       page <= endPage;
-//       page += 1
-//     ) {
-//       pages.push(page);
-//     }
-
-//     return pages;
-//   }, [currentPage, totalPages]);
-
-//   const handlePageChange = (
-//     pageNumber: number,
-//   ) => {
-//     if (
-//       loading ||
-//       pageNumber < 1 ||
-//       pageNumber > totalPages ||
-//       pageNumber === currentPage
-//     ) {
-//       return;
-//     }
-
-//     setCurrentPage(pageNumber);
-
-//     window.requestAnimationFrame(() => {
-//       const blogSection =
-//         document.getElementById("blog");
-
-//       if (!blogSection) {
-//         return;
-//       }
-
-//       const headerOffset = 110;
-
-//       const sectionTop =
-//         blogSection.getBoundingClientRect().top +
-//         window.scrollY -
-//         headerOffset;
-
-//       window.scrollTo({
-//         top: sectionTop,
-//         behavior: "smooth",
-//       });
-//     });
-//   };
-
-//   return (
-//     <main
-//       className="
-//         overflow-hidden
-//         bg-[#080807]
-//       "
-//     >
-//       <Breadcrumb
-//         title="Blog"
-//         backgroundImage={aboutBreadcrumb}
-//         imagePosition="center"
-//         items={[
-//           {
-//             label: "Blog",
-//           },
-//         ]}
-//       />
-
-//       <section
-//         id="blog"
-//         className="
-//           relative overflow-hidden
-//           bg-[#090908]
-//           px-5 py-20
-//           sm:px-8
-//           sm:py-24
-//           lg:px-[5vw]
-//           lg:py-[60px]
-//         "
-//       >
-//         {/* Background details */}
-//         <div
-//           aria-hidden="true"
-//           className="
-//             pointer-events-none
-//             absolute -left-48 top-1/3
-//             h-[420px] w-[420px]
-//             rounded-full
-//             bg-[#b8863a]/[0.045]
-//             blur-[150px]
-//           "
-//         />
-
-//         <div
-//           aria-hidden="true"
-//           className="
-//             pointer-events-none
-//             absolute right-0 top-0
-//             h-px w-[40%]
-//             bg-gradient-to-l
-//             from-[#b8863a]/50
-//             to-transparent
-//           "
-//         />
-
-//         <div
-//           className="
-//             relative z-10
-//             mx-auto
-//             max-w-[1500px]
-//           "
-//         >
-//           {/* Loading */}
-//           {loading && (
-//             <div
-//               aria-busy="true"
-//               aria-label="Loading blogs"
-//               className="
-//                 grid grid-cols-1 gap-8
-//                 md:grid-cols-2
-//                 xl:grid-cols-3
-//               "
-//             >
-//               {Array.from({
-//                 length: POSTS_PER_PAGE,
-//               }).map((_, index) => (
-//                 <div
-//                   key={index}
-//                   className="
-//                     overflow-hidden
-//                     border border-white/10
-//                     bg-[#0e0e0d]
-//                   "
-//                 >
-//                   <div
-//                     className="
-//                       aspect-[16/11]
-//                       animate-pulse
-//                       bg-white/[0.04]
-//                     "
-//                   />
-
-//                   <div className="p-6">
-//                     <div
-//                       className="
-//                         h-7 w-3/4
-//                         animate-pulse
-//                         bg-white/[0.05]
-//                       "
-//                     />
-
-//                     <div
-//                       className="
-//                         mt-4 h-16
-//                         animate-pulse
-//                         bg-white/[0.035]
-//                       "
-//                     />
-
-//                     <div
-//                       className="
-//                         mt-7 h-11
-//                         animate-pulse
-//                         border-t
-//                         border-white/10
-//                         pt-5
-//                       "
-//                     />
-//                   </div>
-//                 </div>
-//               ))}
-//             </div>
-//           )}
-
-//           {/* API error */}
-//           {!loading && errorMessage && (
-//             <div
-//               role="alert"
-//               className="
-//                 flex min-h-[300px]
-//                 flex-col items-center
-//                 justify-center
-//                 border border-red-400/20
-//                 bg-red-400/[0.04]
-//                 px-6 py-12
-//                 text-center
-//               "
-//             >
-//               <p
-//                 className="
-//                   max-w-[560px]
-//                   text-sm leading-7
-//                   text-red-200
-//                 "
-//               >
-//                 {errorMessage}
-//               </p>
-
-//               <button
-//                 type="button"
-//                 onClick={() => {
-//                   abortControllerRef.current?.abort();
-
-//                   const controller =
-//                     new AbortController();
-
-//                   abortControllerRef.current =
-//                     controller;
-
-//                   void fetchBlogs(
-//                     controller.signal,
-//                   );
-//                 }}
-//                 className="
-//                   mt-6 inline-flex
-//                   items-center gap-3
-//                   border border-[#b8863a]/50
-//                   px-6 py-3
-//                   text-[10px]
-//                   font-semibold
-//                   uppercase
-//                   tracking-[0.2em]
-//                   text-[#e6c583]
-//                   transition-all
-//                   duration-300
-//                   hover:bg-[#b8863a]
-//                   hover:text-[#080807]
-//                 "
-//               >
-//                 <RefreshCw size={15} />
-//                 Try Again
-//               </button>
-//             </div>
-//           )}
-
-//           {/* Empty blogs */}
-//           {!loading &&
-//             !errorMessage &&
-//             blogs.length === 0 && (
-//               <div
-//                 className="
-//                   flex min-h-[300px]
-//                   items-center justify-center
-//                   border border-white/10
-//                   bg-[#0e0e0d]
-//                   px-6 py-12
-//                   text-center
-//                 "
-//               >
-//                 <p
-//                   className="
-//                     text-sm leading-7
-//                     text-white/50
-//                   "
-//                 >
-//                   No active blogs are available.
-//                 </p>
-//               </div>
-//             )}
-
-//           {/* Dynamic blog cards */}
-//           {!loading &&
-//             !errorMessage &&
-//             currentPosts.length > 0 && (
-//               <AnimatePresence
-//                 mode="wait"
-//                 initial={false}
-//               >
-//                 <motion.div
-//                   key={`blog-page-${currentPage}`}
-//                   initial={{
-//                     opacity: 0,
-//                     y: reduceMotion ? 0 : 24,
-//                   }}
-//                   animate={{
-//                     opacity: 1,
-//                     y: 0,
-//                   }}
-//                   exit={{
-//                     opacity: 0,
-//                     y: reduceMotion ? 0 : -18,
-//                   }}
-//                   transition={{
-//                     duration: reduceMotion
-//                       ? 0.1
-//                       : 0.5,
-//                     ease: [0.16, 1, 0.3, 1],
-//                   }}
-//                   className="
-//                     grid grid-cols-1 gap-8
-//                     md:grid-cols-2
-//                     xl:grid-cols-3
-//                   "
-//                 >
-//                   {currentPosts.map(
-//                     (post, index) => {
-//                       const detailUrl =
-//                         `/blog-detail?slug=${encodeURIComponent(
-//                           post.slug,
-//                         )}`;
-
-//                       const formattedDate =
-//                         formatBlogDate(
-//                           post.created_at,
-//                         );
-
-//                       return (
-//                         <motion.article
-//                           key={post.id}
-//                           initial={{
-//                             opacity: 0,
-//                             y: reduceMotion
-//                               ? 0
-//                               : 35,
-//                           }}
-//                           animate={{
-//                             opacity: 1,
-//                             y: 0,
-//                           }}
-//                           transition={{
-//                             duration: reduceMotion
-//                               ? 0.1
-//                               : 0.65,
-//                             delay: reduceMotion
-//                               ? 0
-//                               : index * 0.07,
-//                             ease: [
-//                               0.16,
-//                               1,
-//                               0.3,
-//                               1,
-//                             ],
-//                           }}
-//                           className="
-//                             group relative
-//                             flex h-full flex-col
-//                             overflow-hidden
-//                             border border-white/10
-//                             bg-[#0e0e0d]
-//                             transition-all
-//                             duration-500
-//                             hover:-translate-y-1
-//                             hover:border-[#b8863a]/40
-//                             hover:shadow-[0_28px_80px_rgba(0,0,0,0.4)]
-//                           "
-//                         >
-//                           {/* API image */}
-//                           <Link
-//                             href={detailUrl}
-//                             className="
-//                               relative block
-//                               aspect-[16/11]
-//                               overflow-hidden
-//                               bg-[#15130f]
-//                             "
-//                             aria-label={`Read ${post.title}`}
-//                           >
-//                             {post.image_url ? (
-//                               <img
-//                                 src={post.image_url}
-//                                 alt={post.title}
-//                                 loading={
-//                                   currentPage === 1 &&
-//                                   index === 0
-//                                     ? "eager"
-//                                     : "lazy"
-//                                 }
-//                                 className="
-//                                   h-full w-full
-//                                   object-cover
-//                                   transition-transform
-//                                   duration-[900ms]
-//                                   ease-[cubic-bezier(0.16,1,0.3,1)]
-//                                   group-hover:scale-[1.05]
-//                                 "
-//                               />
-//                             ) : (
-//                               <div
-//                                 className="
-//                                   flex h-full w-full
-//                                   items-center justify-center
-//                                   bg-[#15130f]
-//                                   text-xs
-//                                   text-white/35
-//                                 "
-//                               >
-//                                 Image unavailable
-//                               </div>
-//                             )}
-
-//                             <div
-//                               aria-hidden="true"
-//                               className="
-//                                 pointer-events-none
-//                                 absolute inset-0
-//                                 bg-gradient-to-t
-//                                 from-black/70
-//                                 via-black/5
-//                                 to-black/15
-//                               "
-//                             />
-
-//                             <span
-//                               className="
-//                                 absolute bottom-5 left-5
-//                                 bg-[#b8863a]
-//                                 px-4 py-2
-//                                 text-[8px]
-//                                 font-semibold
-//                                 uppercase
-//                                 tracking-[0.23em]
-//                                 text-[#080807]
-//                               "
-//                             >
-//                               Blog
-//                             </span>
-
-//                             {formattedDate && (
-//                               <span
-//                                 className="
-//                                   absolute bottom-5 right-5
-//                                   bg-black/35
-//                                   px-3 py-2
-//                                   text-[8px]
-//                                   font-semibold
-//                                   uppercase
-//                                   tracking-[0.16em]
-//                                   text-white/65
-//                                   backdrop-blur-sm
-//                                 "
-//                               >
-//                                 {formattedDate}
-//                               </span>
-//                             )}
-
-//                             <span
-//                               aria-hidden="true"
-//                               className="
-//                                 absolute left-5 top-5
-//                                 h-5 w-5
-//                                 border-l border-t
-//                                 border-[#e6c583]/70
-//                                 transition-all
-//                                 duration-500
-//                                 group-hover:h-8
-//                                 group-hover:w-8
-//                               "
-//                             />
-//                           </Link>
-
-//                           {/* API content */}
-//                           <div
-//                             className="
-//                               relative flex flex-1
-//                               flex-col p-6
-//                             "
-//                           >
-//                             <Link href={detailUrl}>
-//                               <h3
-//                                 className="
-//                                   font-serif text-xl
-//                                   leading-[1.2]
-//                                   tracking-[-0.015em]
-//                                   text-[#f3efe7]
-//                                   transition-colors
-//                                   duration-400
-//                                   group-hover:text-[#e6c583]
-//                                 "
-//                               >
-//                                 {post.title}
-//                               </h3>
-//                             </Link>
-
-//                           {post.description && (
-//   <p
-//     className="
-//       mt-4 flex-1
-//       text-[12px]
-//       leading-[1.85]
-//       text-white/45
-//       sm:text-[13px]
-//     "
-//   >
-//     {post.description.length > 100
-//       ? `${post.description.slice(0, 100)}...`
-//       : post.description}
-//   </p>
-// )}
-
-//                             <Link
-//                               href={detailUrl}
-//                               className="
-//                                 mt-7 flex
-//                                 items-center
-//                                 justify-between
-//                                 border-t
-//                                 border-white/10
-//                                 pt-5
-//                               "
-//                             >
-//                               <span
-//                                 className="
-//                                   text-[9px]
-//                                   font-semibold
-//                                   uppercase
-//                                   tracking-[0.26em]
-//                                   text-[#e6c583]
-//                                 "
-//                               >
-//                                 Read Article
-//                               </span>
-
-//                               <span
-//                                 className="
-//                                   flex h-10 w-10
-//                                   items-center
-//                                   justify-center
-//                                   border
-//                                   border-white/15
-//                                   text-white/55
-//                                   transition-all
-//                                   duration-400
-//                                   group-hover:border-[#b8863a]
-//                                   group-hover:bg-[#b8863a]
-//                                   group-hover:text-[#080807]
-//                                 "
-//                               >
-//                                 <ArrowUpRight
-//                                   size={16}
-//                                   className="
-//                                     transition-transform
-//                                     duration-400
-//                                     group-hover:-translate-y-0.5
-//                                     group-hover:translate-x-0.5
-//                                   "
-//                                 />
-//                               </span>
-//                             </Link>
-//                           </div>
-
-//                           <span
-//                             aria-hidden="true"
-//                             className="
-//                               pointer-events-none
-//                               absolute bottom-0 left-0
-//                               h-[2px] w-12
-//                               bg-[#b8863a]
-//                               transition-all
-//                               duration-500
-//                               group-hover:w-full
-//                             "
-//                           />
-//                         </motion.article>
-//                       );
-//                     },
-//                   )}
-//                 </motion.div>
-//               </AnimatePresence>
-//             )}
-
-//           {/* Client-side pagination */}
-//           {!loading &&
-//             !errorMessage &&
-//             totalPages > 1 && (
-//               <motion.nav
-//                 initial={{
-//                   opacity: 0,
-//                   y: reduceMotion ? 0 : 20,
-//                 }}
-//                 whileInView={{
-//                   opacity: 1,
-//                   y: 0,
-//                 }}
-//                 viewport={{
-//                   once: true,
-//                   amount: 0.4,
-//                 }}
-//                 transition={{
-//                   duration: 0.7,
-//                 }}
-//                 aria-label="Blog pagination"
-//                 className="
-//                   mt-14 flex
-//                   flex-col gap-5
-//                   border-t
-//                   border-white/10
-//                   pt-8
-//                   sm:flex-row
-//                   sm:items-center
-//                   sm:justify-between
-//                 "
-//               >
-//                 <p
-//                   className="
-//                     text-[9px]
-//                     font-semibold
-//                     uppercase
-//                     tracking-[0.25em]
-//                     text-white/35
-//                   "
-//                 >
-//                   Showing{" "}
-//                   <span className="text-[#e6c583]">
-//                     {(currentPage - 1) *
-//                       POSTS_PER_PAGE +
-//                       1}
-//                   </span>
-//                   –
-//                   <span className="text-[#e6c583]">
-//                     {Math.min(
-//                       currentPage *
-//                         POSTS_PER_PAGE,
-//                       blogs.length,
-//                     )}
-//                   </span>{" "}
-//                   of{" "}
-//                   <span className="text-white/60">
-//                     {blogs.length}
-//                   </span>
-//                 </p>
-
-//                 <div
-//                   className="
-//                     flex flex-wrap
-//                     items-center gap-2
-//                   "
-//                 >
-//                   <button
-//                     type="button"
-//                     onClick={() =>
-//                       handlePageChange(
-//                         currentPage - 1,
-//                       )
-//                     }
-//                     disabled={currentPage === 1}
-//                     aria-label="Previous blog page"
-//                     className="
-//                       group flex h-11
-//                       items-center gap-2
-//                       border border-white/15
-//                       px-4
-//                       text-[8px]
-//                       font-semibold
-//                       uppercase
-//                       tracking-[0.2em]
-//                       text-white/55
-//                       transition-all
-//                       duration-300
-//                       hover:border-[#b8863a]
-//                       hover:bg-[#b8863a]
-//                       hover:text-[#080807]
-//                       disabled:cursor-not-allowed
-//                       disabled:opacity-25
-//                       disabled:hover:border-white/15
-//                       disabled:hover:bg-transparent
-//                       disabled:hover:text-white/55
-//                     "
-//                   >
-//                     <ArrowLeft
-//                       size={14}
-//                       className="
-//                         transition-transform
-//                         duration-300
-//                         group-hover:-translate-x-1
-//                       "
-//                     />
-
-//                     <span className="hidden sm:inline">
-//                       Previous
-//                     </span>
-//                   </button>
-
-//                   {visiblePages.map(
-//                     (pageNumber) => {
-//                       const isActive =
-//                         currentPage ===
-//                         pageNumber;
-
-//                       return (
-//                         <button
-//                           key={pageNumber}
-//                           type="button"
-//                           onClick={() =>
-//                             handlePageChange(
-//                               pageNumber,
-//                             )
-//                           }
-//                           aria-label={`Go to blog page ${pageNumber}`}
-//                           aria-current={
-//                             isActive
-//                               ? "page"
-//                               : undefined
-//                           }
-//                           className={`
-//                             relative flex
-//                             h-11 w-11
-//                             items-center
-//                             justify-center
-//                             overflow-hidden
-//                             border
-//                             font-serif
-//                             text-[13px]
-//                             transition-all
-//                             duration-300
-
-//                             ${
-//                               isActive
-//                                 ? `
-//                                     border-[#b8863a]
-//                                     bg-[#b8863a]
-//                                     text-[#080807]
-//                                   `
-//                                 : `
-//                                     border-white/15
-//                                     text-white/55
-//                                     hover:border-[#b8863a]
-//                                     hover:text-[#e6c583]
-//                                   `
-//                             }
-//                           `}
-//                         >
-//                           {String(
-//                             pageNumber,
-//                           ).padStart(2, "0")}
-
-//                           {isActive && (
-//                             <span
-//                               aria-hidden="true"
-//                               className="
-//                                 absolute bottom-0
-//                                 left-0 h-[2px]
-//                                 w-full
-//                                 bg-[#f3d28d]
-//                               "
-//                             />
-//                           )}
-//                         </button>
-//                       );
-//                     },
-//                   )}
-
-//                   <button
-//                     type="button"
-//                     onClick={() =>
-//                       handlePageChange(
-//                         currentPage + 1,
-//                       )
-//                     }
-//                     disabled={
-//                       currentPage === totalPages
-//                     }
-//                     aria-label="Next blog page"
-//                     className="
-//                       group flex h-11
-//                       items-center gap-2
-//                       border border-white/15
-//                       px-4
-//                       text-[8px]
-//                       font-semibold
-//                       uppercase
-//                       tracking-[0.2em]
-//                       text-white/55
-//                       transition-all
-//                       duration-300
-//                       hover:border-[#b8863a]
-//                       hover:bg-[#b8863a]
-//                       hover:text-[#080807]
-//                       disabled:cursor-not-allowed
-//                       disabled:opacity-25
-//                       disabled:hover:border-white/15
-//                       disabled:hover:bg-transparent
-//                       disabled:hover:text-white/55
-//                     "
-//                   >
-//                     <span className="hidden sm:inline">
-//                       Next
-//                     </span>
-
-//                     <ArrowRight
-//                       size={14}
-//                       className="
-//                         transition-transform
-//                         duration-300
-//                         group-hover:translate-x-1
-//                       "
-//                     />
-//                   </button>
-//                 </div>
-//               </motion.nav>
-//             )}
-//         </div>
-//       </section>
-//     </main>
-//   );
-// }
 
 /* eslint-disable @next/next/no-img-element */
 "use client";
@@ -2487,748 +722,996 @@ export default function BlogPage() {
     });
   };
 
-  return (
-    <main
+ return (
+  <main
+    className="
+      overflow-hidden
+      bg-white
+    "
+  >
+    <Breadcrumb
+      title="Blog"
+      backgroundImage={aboutBreadcrumb}
+      imagePosition="center"
+      items={[
+        {
+          label: "Blog",
+        },
+      ]}
+    />
+
+    <section
+      id="blog"
       className="
-        overflow-hidden
-        bg-[#080807]
+        relative overflow-hidden
+        bg-white
+        px-5 py-20
+        sm:px-8
+        sm:py-24
+        lg:px-[5vw]
+        lg:py-[60px]
       "
     >
-      <Breadcrumb
-        title="Blog"
-        backgroundImage={aboutBreadcrumb}
-        imagePosition="center"
-        items={[
-          {
-            label: "Blog",
-          },
-        ]}
+      {/* Background details */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute -left-48 top-1/3
+          h-[420px] w-[420px]
+          rounded-full
+          bg-gold/[0.045]
+          blur-[150px]
+        "
       />
 
-      <section
-        id="blog"
+      <div
+        aria-hidden="true"
         className="
-          relative overflow-hidden
-          bg-[#090908]
-          px-5 py-20
-          sm:px-8
-          sm:py-24
-          lg:px-[5vw]
-          lg:py-[60px]
+          pointer-events-none
+          absolute right-0 top-0
+          h-px w-[40%]
+          bg-gradient-to-l
+          from-gold/40
+          to-transparent
+        "
+      />
+
+      <div
+        className="
+          relative z-10
+          mx-auto
+          max-w-[1500px]
         "
       >
-        {/* Background details */}
-        <div
-          aria-hidden="true"
-          className="
-            pointer-events-none
-            absolute -left-48 top-1/3
-            h-[420px] w-[420px]
-            rounded-full
-            bg-[#b8863a]/[0.045]
-            blur-[150px]
-          "
-        />
+        {/* ======================================== */}
+        {/* LOADING */}
+        {/* ======================================== */}
 
-        <div
-          aria-hidden="true"
-          className="
-            pointer-events-none
-            absolute right-0 top-0
-            h-px w-[40%]
-            bg-gradient-to-l
-            from-[#b8863a]/50
-            to-transparent
-          "
-        />
-
-        <div
-          className="
-            relative z-10
-            mx-auto
-            max-w-[1500px]
-          "
-        >
-          {/* Loading */}
-          {loading && (
-            <div
-              aria-busy="true"
-              aria-label="Loading blogs"
-              className="
-                grid grid-cols-1 gap-8
-                md:grid-cols-2
-                xl:grid-cols-3
-              "
-            >
-              {Array.from({
-                length: POSTS_PER_PAGE,
-              }).map((_, index) => (
+        {loading && (
+          <div
+            aria-busy="true"
+            aria-label="Loading blogs"
+            className="
+              grid grid-cols-1 gap-8
+              md:grid-cols-2
+              xl:grid-cols-3
+            "
+          >
+            {Array.from({
+              length: POSTS_PER_PAGE,
+            }).map((_, index) => (
+              <div
+                key={index}
+                className="
+                  overflow-hidden
+                  border border-black/10
+                  bg-white
+                  shadow-[0_15px_45px_rgba(0,0,0,0.05)]
+                "
+              >
                 <div
-                  key={index}
                   className="
-                    overflow-hidden
-                    border border-white/10
-                    bg-[#0e0e0d]
+                    aspect-[16/11]
+                    animate-pulse
+                    bg-black/[0.04]
                   "
-                >
+                />
+
+                <div className="p-6">
                   <div
                     className="
-                      aspect-[16/11]
+                      h-7 w-3/4
                       animate-pulse
-                      bg-white/[0.04]
+                      bg-black/[0.06]
                     "
                   />
 
-                  <div className="p-6">
-                    <div
-                      className="
-                        h-7 w-3/4
-                        animate-pulse
-                        bg-white/[0.05]
-                      "
-                    />
+                  <div
+                    className="
+                      mt-4 h-16
+                      animate-pulse
+                      bg-black/[0.035]
+                    "
+                  />
 
-                    <div
-                      className="
-                        mt-4 h-16
-                        animate-pulse
-                        bg-white/[0.035]
-                      "
-                    />
-
-                    <div
-                      className="
-                        mt-7 h-11
-                        animate-pulse
-                        border-t
-                        border-white/10
-                        pt-5
-                      "
-                    />
-                  </div>
+                  <div
+                    className="
+                      mt-7 h-11
+                      animate-pulse
+                      border-t
+                      border-black/10
+                      pt-5
+                    "
+                  />
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            ))}
+          </div>
+        )}
 
-          {/* API error */}
-          {!loading && errorMessage && (
+        {/* ======================================== */}
+        {/* API ERROR */}
+        {/* ======================================== */}
+
+        {!loading && errorMessage && (
+          <div
+            role="alert"
+            className="
+              flex min-h-[300px]
+              flex-col items-center
+              justify-center
+              border border-red-200
+              bg-red-50
+              px-6 py-12
+              text-center
+            "
+          >
+            <p
+              className="
+                max-w-[560px]
+                text-sm leading-7
+                text-red-600
+              "
+            >
+              {errorMessage}
+            </p>
+
+            <button
+              type="button"
+              onClick={() => {
+                abortControllerRef.current?.abort();
+
+                const controller =
+                  new AbortController();
+
+                abortControllerRef.current =
+                  controller;
+
+                void fetchBlogs(
+                  controller.signal,
+                );
+              }}
+              className="
+                mt-6 inline-flex
+                items-center gap-3
+                border border-gold/50
+                px-6 py-3
+                text-[10px]
+                font-semibold
+                uppercase
+                tracking-[0.2em]
+                text-gold
+                transition-all
+                duration-300
+                hover:bg-gold
+                hover:text-white
+              "
+            >
+              <RefreshCw size={15} />
+
+              Try Again
+            </button>
+          </div>
+        )}
+
+        {/* ======================================== */}
+        {/* EMPTY BLOGS */}
+        {/* ======================================== */}
+
+        {!loading &&
+          !errorMessage &&
+          blogs.length === 0 && (
             <div
-              role="alert"
               className="
                 flex min-h-[300px]
-                flex-col items-center
-                justify-center
-                border border-red-400/20
-                bg-red-400/[0.04]
+                items-center justify-center
+                border border-black/10
+                bg-white
                 px-6 py-12
                 text-center
               "
             >
               <p
                 className="
-                  max-w-[560px]
                   text-sm leading-7
-                  text-red-200
+                  text-[#6b7280]
                 "
               >
-                {errorMessage}
+                No active blogs are available.
               </p>
-
-              <button
-                type="button"
-                onClick={() => {
-                  abortControllerRef.current?.abort();
-
-                  const controller =
-                    new AbortController();
-
-                  abortControllerRef.current =
-                    controller;
-
-                  void fetchBlogs(
-                    controller.signal,
-                  );
-                }}
-                className="
-                  mt-6 inline-flex
-                  items-center gap-3
-                  border border-[#b8863a]/50
-                  px-6 py-3
-                  text-[10px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.2em]
-                  text-[#e6c583]
-                  transition-all
-                  duration-300
-                  hover:bg-[#b8863a]
-                  hover:text-[#080807]
-                "
-              >
-                <RefreshCw size={15} />
-                Try Again
-              </button>
             </div>
           )}
 
-          {/* Empty blogs */}
-          {!loading &&
-            !errorMessage &&
-            blogs.length === 0 && (
-              <div
+        {/* ======================================== */}
+        {/* DYNAMIC BLOG CARDS */}
+        {/* ======================================== */}
+
+        {!loading &&
+          !errorMessage &&
+          currentPosts.length > 0 && (
+            <AnimatePresence
+              mode="wait"
+              initial={false}
+            >
+              <motion.div
+                key={`blog-page-${currentPage}`}
+                initial={{
+                  opacity: 0,
+                  y: reduceMotion ? 0 : 24,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                exit={{
+                  opacity: 0,
+                  y: reduceMotion ? 0 : -18,
+                }}
+                transition={{
+                  duration: reduceMotion
+                    ? 0.1
+                    : 0.5,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
                 className="
-                  flex min-h-[300px]
-                  items-center justify-center
-                  border border-white/10
-                  bg-[#0e0e0d]
-                  px-6 py-12
-                  text-center
+                  grid grid-cols-1 gap-8
+                  md:grid-cols-2
+                  xl:grid-cols-3
                 "
               >
-                <p
-                  className="
-                    text-sm leading-7
-                    text-white/50
-                  "
-                >
-                  No active blogs are available.
-                </p>
-              </div>
-            )}
+                {currentPosts.map(
+                  (post, index) => {
+                    const detailUrl =
+                      `/blog-detail?slug=${encodeURIComponent(
+                        post.slug,
+                      )}`;
 
-          {/* Dynamic blog cards */}
-          {!loading &&
-            !errorMessage &&
-            currentPosts.length > 0 && (
-              <AnimatePresence
-                mode="wait"
-                initial={false}
-              >
-                <motion.div
-                  key={`blog-page-${currentPage}`}
-                  initial={{
-                    opacity: 0,
-                    y: reduceMotion ? 0 : 24,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  exit={{
-                    opacity: 0,
-                    y: reduceMotion ? 0 : -18,
-                  }}
-                  transition={{
-                    duration: reduceMotion
-                      ? 0.1
-                      : 0.5,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="
-                    grid grid-cols-1 gap-8
-                    md:grid-cols-2
-                    xl:grid-cols-3
-                  "
-                >
-                  {currentPosts.map(
-                    (post, index) => {
-                      const detailUrl =
-                        `/blog-detail?slug=${encodeURIComponent(
-                          post.slug,
-                        )}`;
+                    const formattedDate =
+                      formatBlogDate(
+                        post.created_at,
+                      );
 
-                      const formattedDate =
-                        formatBlogDate(
-                          post.created_at,
-                        );
+                    return (
+                      <motion.article
+                        key={post.id}
+                        initial={{
+                          opacity: 0,
+                          y: reduceMotion
+                            ? 0
+                            : 35,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                        }}
+                        transition={{
+                          duration: reduceMotion
+                            ? 0.1
+                            : 0.65,
+                          delay: reduceMotion
+                            ? 0
+                            : index * 0.07,
+                          ease: [
+                            0.16,
+                            1,
+                            0.3,
+                            1,
+                          ],
+                        }}
+                        className="
+                          group relative
+                          flex h-full flex-col
+                          overflow-hidden
 
-                      return (
-                        <motion.article
-                          key={post.id}
-                          initial={{
-                            opacity: 0,
-                            y: reduceMotion
-                              ? 0
-                              : 35,
-                          }}
-                          animate={{
-                            opacity: 1,
-                            y: 0,
-                          }}
-                          transition={{
-                            duration: reduceMotion
-                              ? 0.1
-                              : 0.65,
-                            delay: reduceMotion
-                              ? 0
-                              : index * 0.07,
-                            ease: [
-                              0.16,
-                              1,
-                              0.3,
-                              1,
-                            ],
-                          }}
+                          border
+                          border-black/10
+
+                          bg-white
+
+                          shadow-[0_15px_45px_rgba(0,0,0,0.055)]
+
+                          transition-all
+                          duration-500
+
+                          hover:-translate-y-1
+
+                          hover:border-gold/40
+
+                          hover:shadow-[0_28px_80px_rgba(17,94,40,0.10)]
+                        "
+                      >
+                        {/* ================================ */}
+                        {/* IMAGE */}
+                        {/* ================================ */}
+
+                        <Link
+                          href={detailUrl}
                           className="
-                            group relative
-                            flex h-full flex-col
+                            relative block
+                            aspect-[16/11]
                             overflow-hidden
-                            border border-white/10
-                            bg-[#0e0e0d]
-                            transition-all
-                            duration-500
-                            hover:-translate-y-1
-                            hover:border-[#b8863a]/40
-                            hover:shadow-[0_28px_80px_rgba(0,0,0,0.4)]
+                            bg-[#f3f4f6]
                           "
+                          aria-label={`Read ${post.title}`}
                         >
-                          {/* API image */}
-                          <Link
-                            href={detailUrl}
-                            className="
-                              relative block
-                              aspect-[16/11]
-                              overflow-hidden
-                              bg-[#15130f]
-                            "
-                            aria-label={`Read ${post.title}`}
-                          >
-                            {post.image_url ? (
-                              <img
-                                src={post.image_url}
-                                alt={post.title}
-                                loading={
-                                  currentPage === 1 &&
-                                  index === 0
-                                    ? "eager"
-                                    : "lazy"
-                                }
-                                className="
-                                  h-full w-full
-                                  object-cover
-                                  transition-transform
-                                  duration-[900ms]
-                                  ease-[cubic-bezier(0.16,1,0.3,1)]
-                                  group-hover:scale-[1.05]
-                                "
-                              />
-                            ) : (
-                              <div
-                                className="
-                                  flex h-full w-full
-                                  items-center justify-center
-                                  bg-[#15130f]
-                                  text-xs
-                                  text-white/35
-                                "
-                              >
-                                Image unavailable
-                              </div>
-                            )}
+                          {post.image_url ? (
+                            <img
+                              src={
+                                post.image_url
+                              }
+                              alt={
+                                post.title
+                              }
+                              loading={
+                                currentPage ===
+                                  1 &&
+                                index === 0
+                                  ? "eager"
+                                  : "lazy"
+                              }
+                              className="
+                                h-full w-full
+                                object-cover
 
+                                transition-transform
+
+                                duration-[900ms]
+
+                                ease-[cubic-bezier(0.16,1,0.3,1)]
+
+                                group-hover:scale-[1.05]
+                              "
+                            />
+                          ) : (
                             <div
-                              aria-hidden="true"
                               className="
-                                pointer-events-none
-                                absolute inset-0
-                                bg-gradient-to-t
-                                from-black/70
-                                via-black/5
-                                to-black/15
-                              "
-                            />
-
-                            <span
-                              className="
-                                absolute bottom-5 left-5
-                                bg-[#b8863a]
-                                px-4 py-2
-                                text-[8px]
-                                font-semibold
-                                uppercase
-                                tracking-[0.23em]
-                                text-[#080807]
+                                flex h-full
+                                w-full
+                                items-center
+                                justify-center
+                                bg-[#f3f4f6]
+                                text-xs
+                                text-[#6b7280]
                               "
                             >
-                              Blog
-                            </span>
+                              Image unavailable
+                            </div>
+                          )}
 
-                            {formattedDate && (
-                              <span
-                                className="
-                                  absolute bottom-5 right-5
-                                  bg-black/35
-                                  px-3 py-2
-                                  text-[8px]
-                                  font-semibold
-                                  uppercase
-                                  tracking-[0.16em]
-                                  text-white/65
-                                  backdrop-blur-sm
-                                "
-                              >
-                                {formattedDate}
-                              </span>
-                            )}
-
-                            <span
-                              aria-hidden="true"
-                              className="
-                                absolute left-5 top-5
-                                h-5 w-5
-                                border-l border-t
-                                border-[#e6c583]/70
-                                transition-all
-                                duration-500
-                                group-hover:h-8
-                                group-hover:w-8
-                              "
-                            />
-                          </Link>
-
-                          {/* API content */}
+                          {/* Image overlay - image mate dark j */}
                           <div
+                            aria-hidden="true"
                             className="
-                              relative flex flex-1
-                              flex-col p-6
+                              pointer-events-none
+                              absolute inset-0
+
+                              bg-gradient-to-t
+
+                              from-black/45
+
+                              via-black/[0.03]
+
+                              to-transparent
+                            "
+                          />
+
+                          {/* Blog label */}
+
+                          <span
+                            className="
+                              absolute bottom-5
+                              left-5
+
+                              bg-gold
+
+                              px-4 py-2
+
+                              text-[8px]
+
+                              font-semibold
+
+                              uppercase
+
+                              tracking-[0.23em]
+
+                              text-white
                             "
                           >
-                            <Link href={detailUrl}>
-                              <h3
-                                className="
-                                  font-serif text-xl
-                                  leading-[1.2]
-                                  tracking-[-0.015em]
-                                  text-[#f3efe7]
-                                  transition-colors
-                                  duration-400
-                                  group-hover:text-[#e6c583]
-                                "
-                              >
-                                {post.title}
-                              </h3>
-                            </Link>
+                            Blog
+                          </span>
 
-                          {post.description && (
-  <p
-    className="
-      mt-4 flex-1
-      text-[12px]
-      leading-[1.85]
-      text-white/45
-      sm:text-[13px]
-    "
-  >
-    {post.description.length > 100
-      ? `${post.description.slice(0, 100)}...`
-      : post.description}
-  </p>
-)}
+                          {/* Date */}
 
-                            <Link
-                              href={detailUrl}
+                          {formattedDate && (
+                            <span
                               className="
-                                mt-7 flex
-                                items-center
-                                justify-between
-                                border-t
-                                border-white/10
-                                pt-5
+                                absolute
+                                bottom-5
+                                right-5
+
+                                bg-white/90
+
+                                px-3 py-2
+
+                                text-[8px]
+
+                                font-semibold
+
+                                uppercase
+
+                                tracking-[0.16em]
+
+                                text-[#111827]
+
+                                shadow-sm
+
+                                backdrop-blur-sm
                               "
                             >
-                              <span
-                                className="
-                                  text-[9px]
-                                  font-semibold
-                                  uppercase
-                                  tracking-[0.26em]
-                                  text-[#e6c583]
-                                "
-                              >
-                                Read Article
-                              </span>
+                              {formattedDate}
+                            </span>
+                          )}
 
-                              <span
-                                className="
-                                  flex h-10 w-10
-                                  items-center
-                                  justify-center
-                                  border
-                                  border-white/15
-                                  text-white/55
-                                  transition-all
-                                  duration-400
-                                  group-hover:border-[#b8863a]
-                                  group-hover:bg-[#b8863a]
-                                  group-hover:text-[#080807]
-                                "
-                              >
-                                <ArrowUpRight
-                                  size={16}
-                                  className="
-                                    transition-transform
-                                    duration-400
-                                    group-hover:-translate-y-0.5
-                                    group-hover:translate-x-0.5
-                                  "
-                                />
-                              </span>
-                            </Link>
-                          </div>
+                          {/* Decorative corner */}
 
                           <span
                             aria-hidden="true"
                             className="
-                              pointer-events-none
-                              absolute bottom-0 left-0
-                              h-[2px] w-12
-                              bg-[#b8863a]
+                              absolute
+                              left-5 top-5
+
+                              h-5 w-5
+
+                              border-l
+                              border-t
+
+                              border-white/80
+
                               transition-all
                               duration-500
-                              group-hover:w-full
+
+                              group-hover:h-8
+                              group-hover:w-8
                             "
                           />
-                        </motion.article>
-                      );
-                    },
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            )}
+                        </Link>
 
-          {/* Client-side pagination */}
-          {!loading &&
-            !errorMessage &&
-            totalPages > 1 && (
-              <motion.nav
-                initial={{
-                  opacity: 0,
-                  y: reduceMotion ? 0 : 20,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.4,
-                }}
-                transition={{
-                  duration: 0.7,
-                }}
-                aria-label="Blog pagination"
+                        {/* ================================ */}
+                        {/* BLOG CONTENT */}
+                        {/* ================================ */}
+
+                        <div
+                          className="
+                            relative flex flex-1
+                            flex-col
+                            bg-white
+                            p-6
+                          "
+                        >
+                          <Link
+                            href={detailUrl}
+                          >
+                            <h3
+                              className="
+                                font-serif
+                                text-xl
+
+                                leading-[1.2]
+
+                                tracking-[-0.015em]
+
+                                text-[#111827]
+
+                                transition-colors
+                                duration-400
+
+                                group-hover:text-gold
+                              "
+                            >
+                              {post.title}
+                            </h3>
+                          </Link>
+
+                          {/* Description */}
+
+                          {post.description && (
+                            <p
+                              className="
+                                mt-4 flex-1
+
+                                text-[12px]
+
+                                leading-[1.85]
+
+                                text-[#6b7280]
+
+                                sm:text-[13px]
+                              "
+                            >
+                              {post.description
+                                .length > 100
+                                ? `${post.description.slice(
+                                    0,
+                                    100,
+                                  )}...`
+                                : post.description}
+                            </p>
+                          )}
+
+                          {/* ============================== */}
+                          {/* READ ARTICLE */}
+                          {/* ============================== */}
+
+                          <Link
+                            href={detailUrl}
+                            className="
+                              mt-7 flex
+
+                              items-center
+
+                              justify-between
+
+                              border-t
+
+                              border-black/10
+
+                              pt-5
+                            "
+                          >
+                            <span
+                              className="
+                                text-[9px]
+
+                                font-semibold
+
+                                uppercase
+
+                                tracking-[0.26em]
+
+                                text-gold
+                              "
+                            >
+                              Read Article
+                            </span>
+
+                            <span
+                              className="
+                                flex h-10 w-10
+
+                                items-center
+                                justify-center
+
+                                border
+                                border-gold/30
+
+                                bg-white
+
+                                text-gold
+
+                                transition-all
+                                duration-400
+
+                                group-hover:border-gold
+
+                                group-hover:bg-gold
+
+                                group-hover:text-white
+                              "
+                            >
+                              <ArrowUpRight
+                                size={16}
+                                className="
+                                  transition-transform
+                                  duration-400
+
+                                  group-hover:-translate-y-0.5
+
+                                  group-hover:translate-x-0.5
+                                "
+                              />
+                            </span>
+                          </Link>
+                        </div>
+
+                        {/* Bottom green detail */}
+
+                        <span
+                          aria-hidden="true"
+                          className="
+                            pointer-events-none
+
+                            absolute
+                            bottom-0 left-0
+
+                            h-[2px] w-12
+
+                            bg-gold
+
+                            transition-all
+                            duration-500
+
+                            group-hover:w-full
+                          "
+                        />
+                      </motion.article>
+                    );
+                  },
+                )}
+              </motion.div>
+            </AnimatePresence>
+          )}
+
+        {/* ======================================== */}
+        {/* CLIENT SIDE PAGINATION */}
+        {/* ======================================== */}
+
+        {!loading &&
+          !errorMessage &&
+          totalPages > 1 && (
+            <motion.nav
+              initial={{
+                opacity: 0,
+
+                y: reduceMotion
+                  ? 0
+                  : 20,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.4,
+              }}
+              transition={{
+                duration: 0.7,
+              }}
+              aria-label="Blog pagination"
+              className="
+                mt-14
+
+                flex flex-col
+                gap-5
+
+                border-t
+
+                border-black/10
+
+                pt-8
+
+                sm:flex-row
+
+                sm:items-center
+
+                sm:justify-between
+              "
+            >
+              {/* Showing */}
+
+              <p
                 className="
-                  mt-14 flex
-                  flex-col gap-5
-                  border-t
-                  border-white/10
-                  pt-8
-                  sm:flex-row
-                  sm:items-center
-                  sm:justify-between
+                  text-[9px]
+
+                  font-semibold
+
+                  uppercase
+
+                  tracking-[0.25em]
+
+                  text-[#6b7280]
                 "
               >
-                <p
-                  className="
-                    text-[9px]
-                    font-semibold
-                    uppercase
-                    tracking-[0.25em]
-                    text-white/35
-                  "
-                >
-                  Showing{" "}
-                  <span className="text-[#e6c583]">
-                    {(currentPage - 1) *
-                      POSTS_PER_PAGE +
-                      1}
-                  </span>
-                  –
-                  <span className="text-[#e6c583]">
-                    {Math.min(
-                      currentPage *
-                        POSTS_PER_PAGE,
-                      blogs.length,
-                    )}
-                  </span>{" "}
-                  of{" "}
-                  <span className="text-white/60">
-                    {blogs.length}
-                  </span>
-                </p>
+                Showing{" "}
 
-                <div
-                  className="
-                    flex flex-wrap
-                    items-center gap-2
-                  "
-                >
-                  <button
-                    type="button"
-                    onClick={() =>
-                      handlePageChange(
-                        currentPage - 1,
-                      )
-                    }
-                    disabled={currentPage === 1}
-                    aria-label="Previous blog page"
-                    className="
-                      group flex h-11
-                      items-center gap-2
-                      border border-white/15
-                      px-4
-                      text-[8px]
-                      font-semibold
-                      uppercase
-                      tracking-[0.2em]
-                      text-white/55
-                      transition-all
-                      duration-300
-                      hover:border-[#b8863a]
-                      hover:bg-[#b8863a]
-                      hover:text-[#080807]
-                      disabled:cursor-not-allowed
-                      disabled:opacity-25
-                      disabled:hover:border-white/15
-                      disabled:hover:bg-transparent
-                      disabled:hover:text-white/55
-                    "
-                  >
-                    <ArrowLeft
-                      size={14}
-                      className="
-                        transition-transform
-                        duration-300
-                        group-hover:-translate-x-1
-                      "
-                    />
+                <span className="text-gold">
+                  {(currentPage - 1) *
+                    POSTS_PER_PAGE +
+                    1}
+                </span>
 
-                    <span className="hidden sm:inline">
-                      Previous
-                    </span>
-                  </button>
+                –
 
-                  {visiblePages.map(
-                    (pageNumber) => {
-                      const isActive =
-                        currentPage ===
-                        pageNumber;
-
-                      return (
-                        <button
-                          key={pageNumber}
-                          type="button"
-                          onClick={() =>
-                            handlePageChange(
-                              pageNumber,
-                            )
-                          }
-                          aria-label={`Go to blog page ${pageNumber}`}
-                          aria-current={
-                            isActive
-                              ? "page"
-                              : undefined
-                          }
-                          className={`
-                            relative flex
-                            h-11 w-11
-                            items-center
-                            justify-center
-                            overflow-hidden
-                            border
-                            font-serif
-                            text-[13px]
-                            transition-all
-                            duration-300
-
-                            ${
-                              isActive
-                                ? `
-                                    border-[#b8863a]
-                                    bg-[#b8863a]
-                                    text-[#080807]
-                                  `
-                                : `
-                                    border-white/15
-                                    text-white/55
-                                    hover:border-[#b8863a]
-                                    hover:text-[#e6c583]
-                                  `
-                            }
-                          `}
-                        >
-                          {String(
-                            pageNumber,
-                          ).padStart(2, "0")}
-
-                          {isActive && (
-                            <span
-                              aria-hidden="true"
-                              className="
-                                absolute bottom-0
-                                left-0 h-[2px]
-                                w-full
-                                bg-[#f3d28d]
-                              "
-                            />
-                          )}
-                        </button>
-                      );
-                    },
+                <span className="text-gold">
+                  {Math.min(
+                    currentPage *
+                      POSTS_PER_PAGE,
+                    blogs.length,
                   )}
+                </span>{" "}
 
-                  <button
-                    type="button"
-                    onClick={() =>
-                      handlePageChange(
-                        currentPage + 1,
-                      )
-                    }
-                    disabled={
-                      currentPage === totalPages
-                    }
-                    aria-label="Next blog page"
+                of{" "}
+
+                <span className="text-[#111827]">
+                  {blogs.length}
+                </span>
+              </p>
+
+              {/* Pagination controls */}
+
+              <div
+                className="
+                  flex flex-wrap
+                  items-center
+                  gap-2
+                "
+              >
+                {/* Previous */}
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    handlePageChange(
+                      currentPage - 1,
+                    )
+                  }
+                  disabled={
+                    currentPage === 1
+                  }
+                  aria-label="Previous blog page"
+                  className="
+                    group
+
+                    flex h-11
+
+                    items-center
+                    gap-2
+
+                    border
+                    border-black/10
+
+                    bg-white
+
+                    px-4
+
+                    text-[8px]
+
+                    font-semibold
+
+                    uppercase
+
+                    tracking-[0.2em]
+
+                    text-[#4b5563]
+
+                    transition-all
+                    duration-300
+
+                    hover:border-gold
+
+                    hover:bg-gold
+
+                    hover:text-white
+
+                    disabled:cursor-not-allowed
+
+                    disabled:opacity-25
+
+                    disabled:hover:border-black/10
+
+                    disabled:hover:bg-white
+
+                    disabled:hover:text-[#4b5563]
+                  "
+                >
+                  <ArrowLeft
+                    size={14}
                     className="
-                      group flex h-11
-                      items-center gap-2
-                      border border-white/15
-                      px-4
-                      text-[8px]
-                      font-semibold
-                      uppercase
-                      tracking-[0.2em]
-                      text-white/55
-                      transition-all
+                      transition-transform
                       duration-300
-                      hover:border-[#b8863a]
-                      hover:bg-[#b8863a]
-                      hover:text-[#080807]
-                      disabled:cursor-not-allowed
-                      disabled:opacity-25
-                      disabled:hover:border-white/15
-                      disabled:hover:bg-transparent
-                      disabled:hover:text-white/55
+
+                      group-hover:-translate-x-1
+                    "
+                  />
+
+                  <span
+                    className="
+                      hidden
+                      sm:inline
                     "
                   >
-                    <span className="hidden sm:inline">
-                      Next
-                    </span>
+                    Previous
+                  </span>
+                </button>
 
-                    <ArrowRight
-                      size={14}
-                      className="
-                        transition-transform
-                        duration-300
-                        group-hover:translate-x-1
-                      "
-                    />
-                  </button>
-                </div>
-              </motion.nav>
-            )}
-        </div>
-      </section>
-    </main>
-  );
+                {/* Page numbers */}
+
+                {visiblePages.map(
+                  (
+                    pageNumber,
+                  ) => {
+                    const isActive =
+                      currentPage ===
+                      pageNumber;
+
+                    return (
+                      <button
+                        key={
+                          pageNumber
+                        }
+                        type="button"
+                        onClick={() =>
+                          handlePageChange(
+                            pageNumber,
+                          )
+                        }
+                        aria-label={`Go to blog page ${pageNumber}`}
+                        aria-current={
+                          isActive
+                            ? "page"
+                            : undefined
+                        }
+                        className={`
+                          relative
+
+                          flex h-11 w-11
+
+                          items-center
+                          justify-center
+
+                          overflow-hidden
+
+                          border
+
+                          font-serif
+
+                          text-[13px]
+
+                          transition-all
+                          duration-300
+
+                          ${
+                            isActive
+                              ? `
+                                  border-gold
+                                  bg-gold
+                                  text-white
+                                `
+                              : `
+                                  border-black/10
+                                  bg-white
+                                  text-[#4b5563]
+
+                                  hover:border-gold
+
+                                  hover:text-gold
+                                `
+                          }
+                        `}
+                      >
+                        {String(
+                          pageNumber,
+                        ).padStart(
+                          2,
+                          "0",
+                        )}
+
+                        {isActive && (
+                          <span
+                            aria-hidden="true"
+                            className="
+                              absolute
+
+                              bottom-0
+                              left-0
+
+                              h-[2px]
+
+                              w-full
+
+                              bg-white/70
+                            "
+                          />
+                        )}
+                      </button>
+                    );
+                  },
+                )}
+
+                {/* Next */}
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    handlePageChange(
+                      currentPage + 1,
+                    )
+                  }
+                  disabled={
+                    currentPage ===
+                    totalPages
+                  }
+                  aria-label="Next blog page"
+                  className="
+                    group
+
+                    flex h-11
+
+                    items-center
+                    gap-2
+
+                    border
+                    border-black/10
+
+                    bg-white
+
+                    px-4
+
+                    text-[8px]
+
+                    font-semibold
+
+                    uppercase
+
+                    tracking-[0.2em]
+
+                    text-[#4b5563]
+
+                    transition-all
+                    duration-300
+
+                    hover:border-gold
+
+                    hover:bg-gold
+
+                    hover:text-white
+
+                    disabled:cursor-not-allowed
+
+                    disabled:opacity-25
+
+                    disabled:hover:border-black/10
+
+                    disabled:hover:bg-white
+
+                    disabled:hover:text-[#4b5563]
+                  "
+                >
+                  <span
+                    className="
+                      hidden
+                      sm:inline
+                    "
+                  >
+                    Next
+                  </span>
+
+                  <ArrowRight
+                    size={14}
+                    className="
+                      transition-transform
+                      duration-300
+
+                      group-hover:translate-x-1
+                    "
+                  />
+                </button>
+              </div>
+            </motion.nav>
+          )}
+      </div>
+    </section>
+  </main>
+);
 }

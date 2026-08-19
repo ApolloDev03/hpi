@@ -3,11 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --background: #000000;
-  --foreground: #f3efe7;
-  --gold: #b8863a;
-  --gold-light: #e6c583;
-  --muted: #a7a29a;
+  /* Main white theme */
+  --background: #111827;
+  --foreground: #ffffff;
+
+  /* Brand green */
+  --gold: #115e28;
+  --gold-light: #2f8f46;
+
+  /* Text */
+  --ivory: #111827;
+  --muted: #6b7280;
+
+  /* Borders */
+  --border: #e5e7eb;
+
+  /* Soft green */
+  --green-soft: #f0f8f2;
 }
 
 html {
@@ -17,78 +29,105 @@ html {
 body {
   margin: 0;
   overflow-x: hidden;
-  background-color: var(--background);
-  color: var(--foreground);
+
+  background-color: var(--foreground);
+  color: var(--background);
+
   font-family: var(--font-montserrat), sans-serif;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: #7a5c2a;
-  color: #f3efe7;
+  background: var(--gold);
+  color: #ffffff;
 }
 
-/* Main website headings */
+/* =========================================
+   TYPOGRAPHY
+========================================= */
+
 .font-brand-heading {
   font-family: var(--font-cormorant), serif;
 }
 
-/* Handwritten decorative text inspired by HPI logo */
 .font-brand-script {
   font-family: var(--font-logo-script), cursive;
   font-weight: 400;
 }
 
-/* Studio and tagline style */
 .font-brand-condensed {
   font-family: var(--font-condensed), sans-serif;
 }
 
-/* Reusable logo text composition */
+/* =========================================
+   TEXT LOGO
+========================================= */
+
 .hpi-text-logo {
   position: relative;
+
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
-  color: #fff;
+
+  color: #ffffff;
+
   line-height: 1;
 }
 
 .hpi-text-logo__signature {
   font-family: var(--font-logo-script), cursive;
+
   font-size: clamp(4.5rem, 10vw, 9rem);
+
   font-weight: 400;
   line-height: 0.72;
+
   letter-spacing: -0.04em;
 }
 
 .hpi-text-logo__details {
   margin-top: 0.35rem;
   margin-left: 48%;
+
   white-space: nowrap;
 }
 
 .hpi-text-logo__studio {
   display: block;
+
   font-family: var(--font-condensed), sans-serif;
+
   font-size: clamp(1.4rem, 3vw, 2.5rem);
+
   font-weight: 300;
   line-height: 1;
+
   letter-spacing: 0.01em;
 }
 
 .hpi-text-logo__tagline {
   display: block;
+
   margin-top: 0.4rem;
+
   font-family: var(--font-condensed), sans-serif;
+
   font-size: clamp(0.65rem, 1.15vw, 1rem);
+
   font-weight: 300;
+
   letter-spacing: 0.08em;
+
   opacity: 0.82;
 }
 
-/* Corner bracket motif */
+/* =========================================
+   CORNER BRACKET
+========================================= */
+
 .brackets {
   position: relative;
 }
@@ -98,45 +137,64 @@ body {
 .brackets .b-tr,
 .brackets .b-br {
   content: "";
+
   position: absolute;
+
   width: 22px;
   height: 22px;
-  border-color: #b8863a;
+
+  border-color: var(--gold);
   border-style: solid;
+
   opacity: 0.85;
 }
 
 .brackets::before {
   top: -1px;
   left: -1px;
+
   border-width: 1.5px 0 0 1.5px;
 }
 
 .brackets::after {
   bottom: -1px;
   left: -1px;
+
   border-width: 0 0 1.5px 1.5px;
 }
 
 .brackets .b-tr {
   top: -1px;
   right: -1px;
+
   border-width: 1.5px 1.5px 0 0;
 }
 
 .brackets .b-br {
   right: -1px;
   bottom: -1px;
+
   border-width: 0 1.5px 1.5px 0;
 }
 
+/* =========================================
+   EYEBROW
+========================================= */
+
 .eyebrow {
-  color: #e6c583;
+  color: var(--gold-light);
+
   font-size: 0.68rem;
-  font-weight: 500;
+  font-weight: 600;
+
   letter-spacing: 0.32em;
+
   text-transform: uppercase;
 }
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
 
 @media (prefers-reduced-motion: reduce) {
   *,

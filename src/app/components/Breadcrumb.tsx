@@ -1,7 +1,11 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import Image, {
+  StaticImageData,
+} from "next/image";
+
 import Link from "next/link";
+
 import {
   motion,
   useReducedMotion,
@@ -14,8 +18,12 @@ type BreadcrumbItem = {
 
 type BreadcrumbProps = {
   title: string;
-  backgroundImage: StaticImageData | string;
+  backgroundImage:
+    | StaticImageData
+    | string;
+
   items?: BreadcrumbItem[];
+
   imagePosition?: string;
 };
 
@@ -25,35 +33,57 @@ export default function Breadcrumb({
   items = [],
   imagePosition = "center",
 }: BreadcrumbProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion =
+    useReducedMotion();
 
   return (
     <section
       id="page-breadcrumb"
       className="
-        relative h-[300px]
+        relative
+        h-[300px]
         overflow-hidden
-        bg-[#080807]
+
+        bg-white
 
         sm:h-[340px]
+
         lg:h-[390px]
       "
     >
-      {/* Background image */}
+      {/* ========================================= */}
+      {/* BACKGROUND IMAGE */}
+      {/* ========================================= */}
+
       <motion.div
         initial={{
           opacity: 0,
-          scale: reduceMotion ? 1 : 1.06,
+
+          scale: reduceMotion
+            ? 1
+            : 1.06,
         }}
         animate={{
           opacity: 1,
           scale: 1,
         }}
         transition={{
-          duration: reduceMotion ? 0.1 : 1.1,
-          ease: [0.16, 1, 0.3, 1],
+          duration:
+            reduceMotion
+              ? 0.1
+              : 1.1,
+
+          ease: [
+            0.16,
+            1,
+            0.3,
+            1,
+          ],
         }}
-        className="absolute inset-0"
+        className="
+          absolute
+          inset-0
+        "
       >
         <Image
           src={backgroundImage}
@@ -61,71 +91,102 @@ export default function Breadcrumb({
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="
+            object-cover
+          "
           style={{
-            objectPosition: imagePosition,
+            objectPosition:
+              imagePosition,
           }}
         />
       </motion.div>
 
-      {/* Dark overlay */}
-      {/* <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute inset-0
-          bg-black/55
-        "
-      /> */}
+      {/* ========================================= */}
+      {/* WHITE DIRECTIONAL OVERLAY */}
+      {/* ========================================= */}
 
-      {/* Directional overlay */}
       <div
         aria-hidden="true"
         className="
           pointer-events-none
-          absolute inset-0
+
+          absolute
+          inset-0
+
           bg-gradient-to-r
-          from-black/90
-          via-black/55
-          to-black/25
+
+          from-white/70
+          via-white/50
+          to-white/25
         "
       />
 
-      {/* Bottom overlay */}
+      {/* ========================================= */}
+      {/* SOFT BOTTOM WHITE OVERLAY */}
+      {/* ========================================= */}
+
       <div
         aria-hidden="true"
         className="
           pointer-events-none
-          absolute inset-0
+
+          absolute
+          inset-0
+
           bg-gradient-to-t
-          from-[#080807]/85
+
+          from-white/75
           via-transparent
-          to-black/20
+          to-white/10
         "
       />
 
-      {/* Gold glow */}
+      {/* ========================================= */}
+      {/* SOFT GREEN GLOW */}
+      {/* ========================================= */}
+
       <div
         aria-hidden="true"
         className="
           pointer-events-none
-          absolute -left-32 top-1/2
-          h-[320px] w-[320px]
+
+          absolute
+          -left-32
+          top-1/2
+
+          h-[320px]
+          w-[320px]
+
           -translate-y-1/2
+
           rounded-full
-          bg-[#b8863a]/10
+
+          bg-gold/10
+
           blur-[120px]
         "
       />
 
-      {/* Content */}
+      {/* ========================================= */}
+      {/* CONTENT */}
+      {/* ========================================= */}
+
       <div
         className="
-          relative z-10
-          mx-auto flex h-full
-          w-full max-w-[1500px]
+          relative
+          z-10
+
+          mx-auto
+
+          flex
+          h-full
+          w-full
+          max-w-[1500px]
+
           items-center
-          px-5 pt-[72px]
+
+          px-5
+          pt-[72px]
 
           sm:px-8
           sm:pt-[82px]
@@ -135,114 +196,199 @@ export default function Breadcrumb({
         "
       >
         <div>
-          {/* Page title */}
+          {/* ===================================== */}
+          {/* PAGE TITLE */}
+          {/* ===================================== */}
+
           <motion.h1
             initial={{
               opacity: 0,
-              y: reduceMotion ? 0 : 24,
+
+              y: reduceMotion
+                ? 0
+                : 24,
             }}
             animate={{
               opacity: 1,
               y: 0,
             }}
             transition={{
-              duration: reduceMotion ? 0.1 : 0.8,
+              duration:
+                reduceMotion
+                  ? 0.1
+                  : 0.8,
+
               delay: 0.15,
-              ease: [0.16, 1, 0.3, 1],
+
+              ease: [
+                0.16,
+                1,
+                0.3,
+                1,
+              ],
             }}
             className="
-              font-serif font-medium
-              text-[20px] lg:text-[60px]
+              font-serif
+              font-medium
+
+              text-[20px]
+
               leading-none
+
               tracking-[-0.045em]
-              text-[#f3efe7]
+
+              text-[#111827]
+
+              lg:text-[60px]
             "
           >
             {title}
           </motion.h1>
 
-          {/* Breadcrumb links */}
+          {/* ===================================== */}
+          {/* BREADCRUMB */}
+          {/* ===================================== */}
+
           <motion.nav
             initial={{
               opacity: 0,
-              y: reduceMotion ? 0 : 14,
+
+              y: reduceMotion
+                ? 0
+                : 14,
             }}
             animate={{
               opacity: 1,
               y: 0,
             }}
             transition={{
-              duration: reduceMotion ? 0.1 : 0.7,
+              duration:
+                reduceMotion
+                  ? 0.1
+                  : 0.7,
+
               delay: 0.28,
             }}
             aria-label="Breadcrumb"
             className="
-              mt-6 flex flex-wrap
-              items-center gap-3 text-[9px] lg:text-[12px]
+              mt-6
+
+              flex
+              flex-wrap
+
+              items-center
+
+              gap-3
+
+              text-[9px]
+
+              lg:text-[12px]
             "
           >
+            {/* Home */}
+
             <Link
               href="/"
               className="
-                 font-semibold
-                uppercase tracking-[0.24em]
-                text-white/55
-                transition-colors duration-300
-                hover:text-[#e6c583]
+                font-semibold
+
+                uppercase
+
+                tracking-[0.24em]
+
+                text-[#4b5563]
+
+                transition-colors
+                duration-300
+
+                hover:text-gold
               "
             >
               Home
             </Link>
 
-            {items.map((item, index) => (
-              <div
-                key={`${item.label}-${index}`}
-                className="
-                  flex items-center gap-3
-                "
-              >
-                <span
-                  aria-hidden="true"
+            {/* Dynamic Breadcrumb Items */}
+
+            {items.map(
+              (
+                item,
+                index,
+              ) => (
+                <div
+                  key={`${item.label}-${index}`}
                   className="
-                    h-1.5 w-1.5
-                    rotate-45
-                    bg-[#b8863a]
+                    flex
+                    items-center
+                    gap-3
                   "
-                />
+                >
+                  {/* Green Diamond */}
 
-                {item.href ? (
-                  <Link
-                    href={item.href}
-                    className="
-                      font-semibold
-                      uppercase tracking-[0.24em]
-                      text-white/55
-                      transition-colors duration-300
-
-                      hover:text-[#e6c583]
-                    "
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
                   <span
-                    aria-current="page"
+                    aria-hidden="true"
                     className="
-                     font-semibold
-                      uppercase tracking-[0.24em]
-                      text-[#e6c583]
+                      h-1.5
+                      w-1.5
+
+                      rotate-45
+
+                      bg-gold
                     "
-                  >
-                    {item.label}
-                  </span>
-                )}
-              </div>
-            ))}
+                  />
+
+                  {item.href ? (
+                    <Link
+                      href={
+                        item.href
+                      }
+                      className="
+                        font-semibold
+
+                        uppercase
+
+                        tracking-[0.24em]
+
+                        text-[#4b5563]
+
+                        transition-colors
+                        duration-300
+
+                        hover:text-gold
+                      "
+                    >
+                      {
+                        item.label
+                      }
+                    </Link>
+                  ) : (
+                    <span
+                      aria-current="page"
+                      className="
+                        font-semibold
+
+                        uppercase
+
+                        tracking-[0.24em]
+
+                        text-gold
+                      "
+                    >
+                      {
+                        item.label
+                      }
+                    </span>
+                  )}
+                </div>
+              ),
+            )}
           </motion.nav>
         </div>
       </div>
 
-      {/* Bottom gold line */}
+      {/* ========================================= */}
+      {/* BOTTOM GREEN LINE */}
+      {/* ========================================= */}
+
       <motion.span
         aria-hidden="true"
         initial={{
@@ -252,16 +398,36 @@ export default function Breadcrumb({
           scaleX: 1,
         }}
         transition={{
-          duration: reduceMotion ? 0.1 : 1,
+          duration:
+            reduceMotion
+              ? 0.1
+              : 1,
+
           delay: 0.3,
-          ease: [0.16, 1, 0.3, 1],
+
+          ease: [
+            0.16,
+            1,
+            0.3,
+            1,
+          ],
         }}
         className="
-          absolute bottom-0 left-0
-          z-20 h-px w-[42%]
+          absolute
+          bottom-0
+          left-0
+
+          z-20
+
+          h-[2px]
+          w-[42%]
+
           origin-left
+
           bg-gradient-to-r
-          from-[#b8863a]
+
+          from-gold
+
           to-transparent
         "
       />

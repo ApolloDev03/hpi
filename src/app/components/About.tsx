@@ -27,7 +27,7 @@ export default function About() {
       id="about"
       className="
         relative overflow-hidden
-        bg-[#0b0b0a]
+        bg-foreground
         px-5 py-20
         sm:px-8 sm:py-24
         lg:px-[5vw] lg:py-[60px]
@@ -189,7 +189,6 @@ export default function About() {
                     border border-white/10
                     bg-[#11110f]
                     p-2
-                    shadow-[0_25px_60px_rgba(0,0,0,0.45)]
                   "
                 >
                   {/* Client Image */}
@@ -262,7 +261,7 @@ export default function About() {
                         text-[15px]
                         font-semibold
                         leading-tight
-                        text-ivory
+                        text-gold-light
 
                         sm:text-[17px]
                       "
@@ -353,7 +352,7 @@ export default function About() {
                 text-4xl
                 leading-[1.08]
                 tracking-[-0.025em]
-                text-ivory
+                text-black
               "
             >
               Architecture shaped around real life.
@@ -365,7 +364,7 @@ export default function About() {
               className="
                 mb-5 max-w-[760px]
                 text-[13px] leading-[1.95]
-                text-white
+                text-black
 
                 sm:text-[14px]
                 lg:text-[15px]
@@ -384,7 +383,7 @@ export default function About() {
               className="
                 mb-8 max-w-[760px]
                 text-[13px] leading-[1.95]
-                text-white
+                text-black
 
                 sm:text-[14px]
                 lg:text-[15px]
@@ -404,7 +403,7 @@ export default function About() {
               className="
                 relative mb-9
                 border-l border-gold
-                bg-white/[0.025]
+                bg-black/[0.025]
                 px-6 py-5
               "
             >
@@ -460,7 +459,7 @@ export default function About() {
                     text-[9px]
                     uppercase
                     tracking-[0.28em]
-                    text-white
+                    text-black
                   "
                 >
                   Approach
@@ -471,7 +470,7 @@ export default function About() {
                     font-serif
                     text-lg
                     font-semibold
-                    text-ivory
+                    text-black
                   "
                 >
                   Thoughtful
@@ -494,7 +493,7 @@ export default function About() {
                     text-[9px]
                     uppercase
                     tracking-[0.28em]
-                    text-white
+                    text-black
                   "
                 >
                   Focus
@@ -505,7 +504,7 @@ export default function About() {
                     font-serif
                     text-lg
                     font-semibold
-                    text-ivory
+                    text-black
                   "
                 >
                   Detail
@@ -519,7 +518,7 @@ export default function About() {
                     text-[9px]
                     uppercase
                     tracking-[0.28em]
-                    text-white
+                    text-black
                   "
                 >
                   Philosophy
@@ -530,7 +529,7 @@ export default function About() {
                     font-serif
                     text-lg
                     font-semibold
-                    text-ivory
+                    text-black
                   "
                 >
                   Form · Light · Life

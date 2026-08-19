@@ -10,12 +10,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#0b0b0a",
-        ivory: "#f3efe7",
-        muted: "#a7a29a",
-        gold: "#b8863a",
-        "gold-light": "#e6c583",
-        line: "rgba(184,134,58,0.20)",
+            background: "var(--background)",
+        foreground: "var(--foreground)",
+
+        gold: "var(--gold)",
+        "gold-light": "var(--gold-light)",
+
+        ivory: "var(--ivory)",
+        muted: "var(--muted)",
+        border: "var(--border)",
+
+        "green-soft": "var(--green-soft)",
       },
 
       fontFamily: {
