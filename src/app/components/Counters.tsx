@@ -246,7 +246,7 @@ export default function Counters() {
 
           rounded-full
 
-          bg-[#115e28]/[0.05]
+          bg-background/[0.05]
 
           blur-[175px]
         "
@@ -266,7 +266,7 @@ export default function Counters() {
 
           rounded-full
 
-          bg-[#115e28]/[0.04]
+          bg-background/[0.04]
 
           blur-[155px]
         "
@@ -550,39 +550,7 @@ export default function Counters() {
             >
               {/* Decorative HPI */}
 
-              <span
-                aria-hidden="true"
-                className="
-                  pointer-events-none
-
-                  absolute
-
-                  -bottom-10
-                  -right-4
-
-                  select-none
-
-                  font-serif
-
-                  text-[180px]
-
-                  font-semibold
-
-                  uppercase
-
-                  leading-none
-
-                  tracking-[-0.08em]
-
-                  text-[#115e28]/[0.035]
-
-                  sm:text-[250px]
-
-                  lg:text-[320px]
-                "
-              >
-                HPI
-              </span>
+             
 
               <div
                 className="

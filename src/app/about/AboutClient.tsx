@@ -530,7 +530,7 @@ export default function AboutClient() {
 
                     tracking-[0.27em]
 
-                    text-gold-light
+                    text-foreground
                   "
                 >
                   Architecture | Interior

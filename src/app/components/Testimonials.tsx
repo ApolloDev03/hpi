@@ -186,7 +186,7 @@ export default function Testimonials() {
           -translate-x-1/2
           -translate-y-1/2
           rounded-full
-          bg-[#115e28]/10
+          bg-background/10
           blur-[190px]
         "
       />
@@ -244,7 +244,7 @@ export default function Testimonials() {
             <span
               className="
                 h-px w-10
-                bg-[#115e28]
+                bg-black
               "
             />
 
@@ -254,7 +254,7 @@ export default function Testimonials() {
                 font-semibold
                 uppercase
                 tracking-[0.34em]
-                text-[#115e28]
+                text-black
               "
             >
               Client Stories
@@ -263,7 +263,7 @@ export default function Testimonials() {
             <span
               className="
                 h-px w-10
-                bg-[#115e28]
+                bg-black
               "
             />
           </div>
@@ -284,15 +284,8 @@ export default function Testimonials() {
 
             about their{" "}
 
-            <em
-              className="
-                font-semibold
-                italic
-                text-[#115e28]
-              "
-            >
+         
               experience.
-            </em>
           </h2>
         </motion.div>
 
@@ -309,8 +302,8 @@ export default function Testimonials() {
               animate-pulse
               rounded-[26px]
               border
-              border-[#115e28]/20
-              bg-[#115e28]/10
+              border-background/20
+              bg-background/10
             "
           />
         )}
@@ -373,653 +366,704 @@ export default function Testimonials() {
             </div>
           )}
 
-        {/* ======================================= */}
-        {/* Dynamic testimonial slider */}
-        {/* ======================================= */}
+     {/* ======================================= */}
+{/* Dynamic testimonial slider */}
+{/* BLACK + WHITE THEME */}
+{/* ======================================= */}
 
-        {!homeDataLoading &&
-          !homeDataError &&
-          activeTestimonial && (
-            <motion.div
-              initial={{
-                opacity: 0,
+{!homeDataLoading &&
+  !homeDataError &&
+  activeTestimonial && (
+    <motion.div
+      initial={{
+        opacity: 0,
+        y: reduceMotion
+          ? 0
+          : 35,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+      }}
+      viewport={{
+        once: true,
+        amount: 0.2,
+      }}
+      transition={{
+        duration: 0.9,
+        ease: [
+          0.16,
+          1,
+          0.3,
+          1,
+        ],
+      }}
+      onMouseEnter={() =>
+        setPaused(true)
+      }
+      onMouseLeave={() =>
+        setPaused(false)
+      }
+      className="
+         relative
+  overflow-hidden
 
-                y: reduceMotion
-                  ? 0
-                  : 35,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-                amount: 0.2,
-              }}
-              transition={{
-                duration: 0.9,
+  rounded-[26px]
 
-                ease: [
-                  0.16,
-                  1,
-                  0.3,
-                  1,
-                ],
-              }}
-              onMouseEnter={() =>
-                setPaused(true)
-              }
-              onMouseLeave={() =>
-                setPaused(false)
-              }
+  border
+  border-black
+
+  bg-[linear-gradient(125deg,#2a2a2a_0%,#141414_42%,#000000_100%)]
+
+  shadow-[0_35px_100px_rgba(0,0,0,0.25)]
+      "
+    >
+      {/* ================================= */}
+      {/* Black / White texture */}
+      {/* ================================= */}
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute inset-0
+
+          bg-[radial-gradient(circle_at_10%_15%,rgba(255,255,255,0.10),transparent_28%),radial-gradient(circle_at_90%_90%,rgba(255,255,255,0.04),transparent_35%)]
+        "
+      />
+
+      {/* ================================= */}
+      {/* Decorative lines */}
+      {/* ================================= */}
+
+      <span
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute left-0 top-0
+
+          h-px
+          w-[48%]
+
+          bg-gradient-to-r
+
+          from-white/80
+
+          to-transparent
+        "
+      />
+
+      <span
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute bottom-0 right-0
+
+          h-px
+          w-[48%]
+
+          bg-gradient-to-l
+
+          from-white/35
+
+          to-transparent
+        "
+      />
+
+      {/* ================================= */}
+      {/* Slider */}
+      {/* ================================= */}
+
+      <AnimatePresence
+        initial={false}
+        custom={direction}
+        mode="wait"
+      >
+        <motion.div
+          key={`${activeCategoryId}-${current}`}
+          custom={direction}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{
+            duration:
+              reduceMotion
+                ? 0.15
+                : 0.65,
+
+            ease: [
+              0.16,
+              1,
+              0.3,
+              1,
+            ],
+          }}
+          className="
+            relative z-10
+
+            grid
+            grid-cols-1
+
+            items-center
+
+            gap-10
+
+            px-6
+            pb-24
+            pt-8
+
+            sm:px-9
+            sm:pt-10
+
+            lg:min-h-[430px]
+
+            lg:grid-cols-[330px_minmax(0,1fr)]
+
+            lg:gap-16
+
+            lg:px-12
+            lg:pb-24
+            lg:pt-12
+          "
+        >
+          {/* ================================= */}
+          {/* LEFT LOGO PANEL */}
+          {/* ================================= */}
+
+          <div
+            className="
+              relative
+              mx-auto
+
+              flex
+              aspect-square
+
+              w-full
+              max-w-[285px]
+
+              items-center
+              justify-center
+
+              overflow-hidden
+
+              rounded-[22px]
+
+              border
+              border-white/15
+
+              bg-white
+
+              shadow-[0_24px_65px_rgba(0,0,0,0.20)]
+
+              lg:mx-0
+              lg:max-w-[310px]
+            "
+          >
+            {/* Inner frame */}
+
+            <span
+              aria-hidden="true"
               className="
-                relative overflow-hidden
-                rounded-[26px]
-                border border-[#2f8f46]/40
+                pointer-events-none
 
-                bg-[linear-gradient(125deg,#83c58f_0%,#4b9d5f_42%,#115e28_100%)]
+                absolute
+                inset-4
 
-                shadow-[0_35px_100px_rgba(17,94,40,0.22)]
+                rounded-[16px]
+
+                border
+
+                border-black/15
+              "
+            />
+
+            {/* Soft black glow */}
+
+            <div
+              aria-hidden="true"
+              className="
+                pointer-events-none
+
+                absolute
+                left-1/2
+                top-1/2
+
+                h-[180px]
+                w-[180px]
+
+                -translate-x-1/2
+                -translate-y-1/2
+
+                rounded-full
+
+                bg-black/[0.05]
+
+                blur-[50px]
+              "
+            />
+
+            {/* ================================= */}
+            {/* Logo image */}
+            {/* ================================= */}
+
+            <div
+              className="
+                relative
+
+                h-[115px]
+                w-[210px]
               "
             >
-              {/* ================================= */}
-              {/* Green texture */}
-              {/* ================================= */}
+              <Image
+                src={logo}
+                alt="HPI Studio logo"
+                fill
+                priority
+                sizes="210px"
+                className="
+                  object-contain
+                "
+              />
+            </div>
+
+            {/* Category */}
+
+            <span
+              className="
+                absolute
+
+                bottom-7
+                left-1/2
+
+                -translate-x-1/2
+
+                whitespace-nowrap
+
+                text-[8px]
+
+                font-semibold
+
+                uppercase
+
+                tracking-[0.28em]
+
+                text-black
+              "
+            >
+              {
+                activeTestimonial.category_name
+              }
+            </span>
+
+            {/* Top Left Corner */}
+
+            <span
+              aria-hidden="true"
+              className="
+                absolute
+
+                left-5
+                top-5
+
+                h-6
+                w-6
+
+                border-l
+                border-t
+
+                border-black/60
+              "
+            />
+
+            {/* Bottom Right Corner */}
+
+            <span
+              aria-hidden="true"
+              className="
+                absolute
+
+                bottom-5
+                right-5
+
+                h-6
+                w-6
+
+                border-b
+                border-r
+
+                border-black/60
+              "
+            />
+          </div>
+
+          {/* ================================= */}
+          {/* RIGHT TESTIMONIAL CONTENT */}
+          {/* ================================= */}
+
+          <div
+            className="
+              flex
+
+              min-w-0
+
+              flex-col
+
+              justify-center
+
+              text-center
+
+              lg:text-left
+            "
+          >
+            {/* ================================= */}
+            {/* Quote icon + label */}
+            {/* ================================= */}
+
+            <div
+              className="
+                mb-6
+
+                flex
+
+                items-center
+                justify-center
+
+                gap-4
+
+                lg:justify-start
+              "
+            >
+              <span
+                className="
+                  flex
+
+                  h-12
+                  w-12
+
+                  shrink-0
+
+                  items-center
+                  justify-center
+
+                  rounded-full
+
+                  bg-white
+
+                  text-black
+
+                  shadow-[0_12px_30px_rgba(0,0,0,0.25)]
+                "
+              >
+                <Quote
+                  size={19}
+                  strokeWidth={
+                    1.7
+                  }
+                />
+              </span>
 
               <div
-                aria-hidden="true"
                 className="
-                  pointer-events-none
-                  absolute inset-0
-
-                  bg-[radial-gradient(circle_at_10%_15%,rgba(255,255,255,0.25),transparent_28%),radial-gradient(circle_at_90%_90%,rgba(0,0,0,0.12),transparent_35%)]
+                  text-left
                 "
-              />
-
-              {/* ================================= */}
-              {/* Decorative lines */}
-              {/* ================================= */}
-
-              <span
-                aria-hidden="true"
-                className="
-                  pointer-events-none
-                  absolute left-0 top-0
-                  h-px w-[48%]
-
-                  bg-gradient-to-r
-                  from-white/70
-                  to-transparent
-                "
-              />
-
-              <span
-                aria-hidden="true"
-                className="
-                  pointer-events-none
-                  absolute bottom-0 right-0
-                  h-px w-[48%]
-
-                  bg-gradient-to-l
-                  from-white/35
-                  to-transparent
-                "
-              />
-
-              {/* ================================= */}
-              {/* Slider */}
-              {/* ================================= */}
-
-              <AnimatePresence
-                initial={false}
-                custom={direction}
-                mode="wait"
               >
-                <motion.div
-                  key={`${activeCategoryId}-${current}`}
-                  custom={direction}
-                  variants={slideVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{
-                    duration:
-                      reduceMotion
-                        ? 0.15
-                        : 0.65,
-
-                    ease: [
-                      0.16,
-                      1,
-                      0.3,
-                      1,
-                    ],
-                  }}
+                <p
                   className="
-                    relative z-10
-                    grid grid-cols-1
-                    items-center gap-10
-                    px-6 pb-24 pt-8
+                    text-[9px]
 
-                    sm:px-9
-                    sm:pt-10
+                    font-bold
 
-                    lg:min-h-[430px]
-                    lg:grid-cols-[330px_minmax(0,1fr)]
-                    lg:gap-16
-                    lg:px-12
-                    lg:pb-24
-                    lg:pt-12
+                    uppercase
+
+                    tracking-[0.28em]
+
+                    text-white
                   "
                 >
-                  {/* ================================= */}
-                  {/* Left logo panel */}
-                  {/* ================================= */}
+                  Client Testimonial
+                </p>
 
-                  <div
-                    className="
-                      relative mx-auto
+                <p
+                  className="
+                    mt-1.5
 
-                      flex aspect-square
+                    text-[8px]
 
-                      w-full
-                      max-w-[285px]
+                    uppercase
 
-                      items-center
-                      justify-center
+                    tracking-[0.22em]
 
-                      overflow-hidden
+                    text-white/50
+                  "
+                >
+                  HPI Studio Experience
+                </p>
+              </div>
+            </div>
 
-                      rounded-[22px]
+            {/* ================================= */}
+            {/* Quote */}
+            {/* ================================= */}
 
-                      border
-                      border-black/10
+            <blockquote
+              className="
+                mx-auto
 
-                      bg-white
+                max-w-[760px]
 
-                      shadow-[0_24px_65px_rgba(0,0,0,0.12)]
+                font-serif
 
-                      lg:mx-0
-                      lg:max-w-[310px]
-                    "
-                  >
-                    {/* Inner frame */}
+                text-[18px]
 
-                    <span
-                      aria-hidden="true"
-                      className="
-                        pointer-events-none
-                        absolute inset-4
+                font-medium
 
-                        rounded-[16px]
+                leading-[1.55]
 
-                        border
-                        border-[#115e28]/30
-                      "
-                    />
+                tracking-[-0.015em]
 
-                    {/* Logo glow */}
+                text-white
 
-                    <div
-                      aria-hidden="true"
-                      className="
-                        pointer-events-none
+                lg:mx-0
+              "
+            >
+              {
+                activeTestimonial.comments
+              }
+            </blockquote>
 
-                        absolute
-                        left-1/2
-                        top-1/2
+            {/* ================================= */}
+            {/* Client information */}
+            {/* ================================= */}
 
-                        h-[180px]
-                        w-[180px]
+            <div
+              className="
+                mt-8
 
-                        -translate-x-1/2
-                        -translate-y-1/2
+                flex
 
-                        rounded-full
+                items-center
+                justify-center
 
-                        bg-[#115e28]/10
+                gap-4
 
-                        blur-[50px]
-                      "
-                    />
+                lg:justify-start
+              "
+            >
+              <span
+                aria-hidden="true"
+                className="
+                  hidden
 
-                    {/* ================================= */}
-                    {/* Logo image */}
-                    {/* ================================= */}
+                  h-px
+                  w-12
 
-                    <div
-                      className="
-                        relative
-                        h-[115px]
-                        w-[210px]
-                      "
-                    >
-                      <Image
-                        src={logo}
-                        alt="HPI Studio logo"
-                        fill
-                        priority
-                        sizes="210px"
-                        className="
-                          object-contain
-                        "
-                      />
-                    </div>
+                  bg-white/70
 
-                    {/* Category */}
+                  sm:block
+                "
+              />
 
-                    <span
-                      className="
-                        absolute
-                        bottom-7
-                        left-1/2
+              <div
+                className="
+                  text-center
 
-                        -translate-x-1/2
+                  lg:text-left
+                "
+              >
+                <h3
+                  className="
+                    text-[12px]
 
-                        whitespace-nowrap
+                    font-bold
 
-                        text-[8px]
-                        font-semibold
-                        uppercase
+                    uppercase
 
-                        tracking-[0.28em]
+                    tracking-[0.2em]
 
-                        text-[#115e28]
-                      "
-                    >
-                      {
-                        activeTestimonial.category_name
-                      }
-                    </span>
+                    text-white
+                  "
+                >
+                  {
+                    activeTestimonial.name
+                  }
+                </h3>
 
-                    {/* Top Left Corner */}
-
-                    <span
-                      aria-hidden="true"
-                      className="
-                        absolute
-                        left-5
-                        top-5
-
-                        h-6
-                        w-6
-
-                        border-l
-                        border-t
-
-                        border-[#115e28]/65
-                      "
-                    />
-
-                    {/* Bottom Right Corner */}
-
-                    <span
-                      aria-hidden="true"
-                      className="
-                        absolute
-                        bottom-5
-                        right-5
-
-                        h-6
-                        w-6
-
-                        border-b
-                        border-r
-
-                        border-[#115e28]/65
-                      "
-                    />
-                  </div>
-
-                  {/* ================================= */}
-                  {/* Right testimonial content */}
-                  {/* ================================= */}
-
-                  <div
-                    className="
-                      flex
-                      min-w-0
-
-                      flex-col
-
-                      justify-center
-
-                      text-center
-
-                      lg:text-left
-                    "
-                  >
-                    {/* ================================= */}
-                    {/* Quote icon + label */}
-                    {/* ================================= */}
-
-                    <div
-                      className="
-                        mb-6
-
-                        flex
-
-                        items-center
-                        justify-center
-
-                        gap-4
-
-                        lg:justify-start
-                      "
-                    >
-                      <span
-                        className="
-                          flex
-                          h-12
-                          w-12
-
-                          shrink-0
-
-                          items-center
-                          justify-center
-
-                          rounded-full
-
-                          bg-white
-
-                          text-[#115e28]
-
-                          shadow-[0_12px_30px_rgba(0,0,0,0.12)]
-                        "
-                      >
-                        <Quote
-                          size={19}
-                          strokeWidth={1.7}
-                        />
-                      </span>
-
-                      <div
-                        className="
-                          text-left
-                        "
-                      >
-                        <p
-                          className="
-                            text-[9px]
-                            font-bold
-                            uppercase
-
-                            tracking-[0.28em]
-
-                            text-[#102516]
-                          "
-                        >
-                          Client Testimonial
-                        </p>
-
-                        <p
-                          className="
-                            mt-1.5
-
-                            text-[8px]
-                            uppercase
-
-                            tracking-[0.22em]
-
-                            text-[#102516]/55
-                          "
-                        >
-                          HPI Studio Experience
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* ================================= */}
-                    {/* Quote */}
-                    {/* ================================= */}
-
-                    <blockquote
-                      className="
-                        mx-auto
-
-                        max-w-[760px]
-
-                        font-serif
-
-                        text-[18px]
-
-                        font-medium
-
-                        leading-[1.55]
-
-                        tracking-[-0.015em]
-
-                        text-[#102516]
-
-                        lg:mx-0
-                      "
-                    >
-                      {
-                        activeTestimonial.comments
-                      }
-                    </blockquote>
-
-                    {/* ================================= */}
-                    {/* Client information */}
-                    {/* ================================= */}
-
-                    <div
-                      className="
-                        mt-8
-
-                        flex
-
-                        items-center
-                        justify-center
-
-                        gap-4
-
-                        lg:justify-start
-                      "
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="
-                          hidden
-
-                          h-px
-                          w-12
-
-                          bg-white/80
-
-                          sm:block
-                        "
-                      />
-
-                      <div
-                        className="
-                          text-center
-
-                          lg:text-left
-                        "
-                      >
-                        <h3
-                          className="
-                            text-[12px]
-                            font-bold
-                            uppercase
-
-                            tracking-[0.2em]
-
-                            text-[#102516]
-                          "
-                        >
-                          {
-                            activeTestimonial.name
-                          }
-                        </h3>
-
-                        <div
-                          className="
-                            mt-2
-
-                            flex
-                            flex-wrap
-
-                            items-center
-                            justify-center
-
-                            gap-x-3
-                            gap-y-1.5
-
-                            lg:justify-start
-                          "
-                        >
-                          <span
-                            className="
-                              text-[9px]
-                              font-semibold
-                              uppercase
-
-                              tracking-[0.2em]
-
-                              text-[#102516]/65
-                            "
-                          >
-                            Client
-                          </span>
-
-                          <span
-                            aria-hidden="true"
-                            className="
-                              h-1
-                              w-1
-
-                              rotate-45
-
-                              bg-white/80
-                            "
-                          />
-
-                          <span
-                            className="
-                              text-[9px]
-                              font-medium
-                              uppercase
-
-                              tracking-[0.2em]
-
-                              text-[#102516]/55
-                            "
-                          >
-                            {
-                              activeTestimonial.category_name
-                            }
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* ================================= */}
-              {/* Pagination */}
-              {/* ================================= */}
-
-              {testimonials.length > 1 && (
                 <div
                   className="
-                    absolute
-                    bottom-7
-                    left-1/2
-
-                    z-30
+                    mt-2
 
                     flex
-
-                    -translate-x-1/2
+                    flex-wrap
 
                     items-center
+                    justify-center
 
-                    gap-2
+                    gap-x-3
+                    gap-y-1.5
+
+                    lg:justify-start
                   "
                 >
-                  {testimonials.map(
-                    (
-                      testimonial,
-                      index,
-                    ) => (
-                      <button
-                        key={`${testimonial.name}-${index}`}
-                        type="button"
-                        onClick={() =>
-                          changeSlide(
-                            index,
+                  <span
+                    className="
+                      text-[9px]
 
-                            index >= current
-                              ? 1
-                              : -1,
-                          )
-                        }
-                        aria-label={`Show testimonial ${
-                          index + 1
-                        }`}
-                        aria-current={
-                          index === current
-                            ? "true"
-                            : undefined
-                        }
-                        className={`
-                          h-2
-                          rounded-full
+                      font-semibold
 
-                          transition-all
-                          duration-500
+                      uppercase
 
-                          ${
-                            index === current
-                              ? `
-                                  w-9
-                                  bg-white
-                                `
-                              : `
-                                  w-2
-                                  bg-white/35
+                      tracking-[0.2em]
 
-                                  hover:bg-white/70
-                                `
-                          }
-                        `}
-                      />
-                    ),
-                  )}
+                      text-white/65
+                    "
+                  >
+                    Client
+                  </span>
+
+                  <span
+                    aria-hidden="true"
+                    className="
+                      h-1
+                      w-1
+
+                      rotate-45
+
+                      bg-white/70
+                    "
+                  />
+
+                  <span
+                    className="
+                      text-[9px]
+
+                      font-medium
+
+                      uppercase
+
+                      tracking-[0.2em]
+
+                      text-white/50
+                    "
+                  >
+                    {
+                      activeTestimonial.category_name
+                    }
+                  </span>
                 </div>
-              )}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
 
-              {/* ================================= */}
-              {/* Decorative quote */}
-              {/* ================================= */}
+      {/* ================================= */}
+      {/* Pagination */}
+      {/* ================================= */}
 
-              <span
-                aria-hidden="true"
-                className="
-                  pointer-events-none
+      {testimonials.length > 1 && (
+        <div
+          className="
+            absolute
 
-                  absolute
-                  -right-4
-                  -top-20
+            bottom-7
+            left-1/2
 
-                  select-none
+            z-30
 
-                  font-serif
+            flex
 
-                  text-[270px]
+            -translate-x-1/2
 
-                  leading-none
+            items-center
 
-                  text-white/[0.08]
-                "
-              >
-                “
-              </span>
-            </motion.div>
+            gap-2
+          "
+        >
+          {testimonials.map(
+            (
+              testimonial,
+              index,
+            ) => (
+              <button
+                key={`${testimonial.name}-${index}`}
+                type="button"
+                onClick={() =>
+                  changeSlide(
+                    index,
+
+                    index >= current
+                      ? 1
+                      : -1,
+                  )
+                }
+                aria-label={`Show testimonial ${
+                  index + 1
+                }`}
+                aria-current={
+                  index === current
+                    ? "true"
+                    : undefined
+                }
+                className={`
+                  h-2
+
+                  rounded-full
+
+                  transition-all
+
+                  duration-500
+
+                  ${
+                    index === current
+                      ? `
+                          w-9
+                          bg-white
+                        `
+                      : `
+                          w-2
+
+                          bg-white/30
+
+                          hover:bg-white/70
+                        `
+                  }
+                `}
+              />
+            ),
           )}
+        </div>
+      )}
+
+      {/* ================================= */}
+      {/* Decorative quote */}
+      {/* ================================= */}
+
+      <span
+        aria-hidden="true"
+        className="
+          pointer-events-none
+
+          absolute
+
+          -right-4
+          -top-20
+
+          select-none
+
+          font-serif
+
+          text-[270px]
+
+          leading-none
+
+          text-white/[0.07]
+        "
+      >
+        “
+      </span>
+    </motion.div>
+  )}
       </div>
     </section>
   );
