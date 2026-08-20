@@ -137,9 +137,9 @@ export default function About() {
               >
                 <span
                   className="
-                    text-[9px] font-medium
+                    text-[9px] font-semibold
                     uppercase tracking-[0.3em]
-                    text-gold-light
+                    text-foreground
                   "
                 >
                   HPI Design Studio
@@ -238,7 +238,7 @@ export default function About() {
                   {/* Client information */}
                   <div className="px-2 pb-2 pt-4 sm:px-3 sm:pb-3">
                     <div className="mb-2 flex items-center gap-2">
-                      <span className="h-px w-5 bg-gold" />
+                      <span className="h-px w-5 bg-foreground" />
 
                       <span
                         className="
@@ -246,8 +246,7 @@ export default function About() {
                           font-medium
                           uppercase
                           tracking-[0.25em]
-                          text-gold-light
-
+                          text- text-foreground
                           sm:text-[8px]
                         "
                       >
@@ -261,7 +260,7 @@ export default function About() {
                         text-[15px]
                         font-semibold
                         leading-tight
-                        text-gold-light
+                        text-foreground
 
                         sm:text-[17px]
                       "

@@ -64,7 +64,7 @@ export default function Blog() {
 
           rounded-full
 
-          bg-[#115e28]/[0.045]
+          bg-background/[0.045]
 
           blur-[150px]
         "
@@ -84,7 +84,7 @@ export default function Blog() {
 
           bg-gradient-to-l
 
-          from-[#115e28]/40
+          from-background/40
 
           to-transparent
         "
@@ -164,7 +164,7 @@ export default function Blog() {
                   h-px
                   w-10
 
-                  bg-[#115e28]
+                  bg-background
                 "
               />
 
@@ -178,7 +178,7 @@ export default function Blog() {
 
                   tracking-[0.34em]
 
-                  text-[#115e28]
+                  text-background
                 "
               >
                 The Journal
@@ -211,17 +211,8 @@ export default function Blog() {
 
               from the{" "}
 
-              <em
-                className="
-                  font-semibold
-
-                  italic
-
-                  text-[#115e28]
-                "
-              >
+         
                 studio.
-              </em>
             </h2>
           </div>
 
@@ -388,7 +379,7 @@ export default function Blog() {
                   shrink-0
 
                   border
-                  border-[#115e28]/50
+                  border-background/50
 
                   px-5
                   py-2.5
@@ -401,12 +392,12 @@ export default function Blog() {
 
                   tracking-[0.18em]
 
-                  text-[#115e28]
+                  text-background
 
                   transition-colors
                   duration-300
 
-                  hover:bg-[#115e28]
+                  hover:bg-background
 
                   hover:text-white
                 "
@@ -535,7 +526,7 @@ export default function Blog() {
 
                         hover:-translate-y-1
 
-                        hover:border-[#115e28]/40
+                        hover:border-background/40
 
                         hover:shadow-[0_28px_80px_rgba(17,94,40,0.10)]
                       "
@@ -612,7 +603,7 @@ export default function Blog() {
                             bottom-5
                             left-5
 
-                            bg-[#115e28]
+                            bg-background
 
                             px-4
                             py-2
@@ -694,7 +685,7 @@ font-semibold
                             transition-colors
                             duration-400
 
-                            group-hover:text-[#115e28]
+                            group-hover:text-background
                           "
                         >
                           {
@@ -772,7 +763,7 @@ font-medium
 
                               tracking-[0.26em]
 
-                              text-[#115e28]
+                              text-background
                             "
                           >
                             Read Article
@@ -788,18 +779,18 @@ font-medium
                               justify-center
 
                               border
-                              border-[#115e28]/30
+                              border-background/30
 
                               bg-white
 
-                              text-[#115e28]
+                              text-background
 
                               transition-all
                               duration-400
 
-                              group-hover:border-[#115e28]
+                              group-hover:border-background
 
-                              group-hover:bg-[#115e28]
+                              group-hover:bg-background
 
                               group-hover:text-white
                             "
@@ -837,7 +828,7 @@ font-medium
                           h-[2px]
                           w-12
 
-                          bg-[#115e28]
+                          bg-background
 
                           transition-all
                           duration-500

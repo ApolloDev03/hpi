@@ -122,7 +122,7 @@ export default function Projects() {
 
           rounded-full
 
-          bg-[#115e28]/[0.045]
+          bg-background/[0.045]
 
           blur-[165px]
         "
@@ -142,7 +142,7 @@ export default function Projects() {
 
           rounded-full
 
-          bg-[#115e28]/[0.035]
+          bg-background/[0.035]
 
           blur-[150px]
         "
