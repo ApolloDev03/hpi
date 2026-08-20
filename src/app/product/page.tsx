@@ -898,7 +898,7 @@ return (
                   max-w-[500px]
                   text-[13px]
                   leading-[1.9]
-                  text-[#6b7280]
+                  text-black
                   sm:text-[14px]
                 "
               >
@@ -943,7 +943,7 @@ return (
         >
           <span
             className="
-              text-[9px] font-semibold
+              text-[11px] font-semibold
               uppercase tracking-[0.27em]
               text-gold
             "
@@ -953,7 +953,7 @@ return (
 
           <span
             className="
-              text-[8px] font-semibold
+              text-[10px] font-semibold
               uppercase tracking-[0.25em]
               text-[#6b7280]
             "
@@ -1416,6 +1416,7 @@ return (
 
                               transition-colors
                               duration-400
+                              font-semibold
 
                               group-hover:text-gold
                             "
@@ -1434,8 +1435,8 @@ return (
                           >
                             <span
                               className="
-                                text-[9px]
-                                font-semibold
+                                text-[10px]
+                                font-bold
                                 uppercase
 
                                 tracking-[0.24em]
@@ -1706,7 +1707,7 @@ return (
 
                   tracking-[0.2em]
 
-                  text-[#6b7280]
+                  text-black
                 "
               >
                 Showing{" "}
