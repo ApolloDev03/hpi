@@ -584,6 +584,7 @@ export default function HeaderNew({
                 items-center
 
                 gap-7
+               
 
                 lg:gap-9
 
@@ -615,6 +616,7 @@ export default function HeaderNew({
                         className="
                           group
                           relative
+                           font-bold
                         "
                       >
                         <button
@@ -630,7 +632,7 @@ export default function HeaderNew({
                             py-8
 
                             text-[11px]
-                            font-semibold
+                           
                             uppercase
 
                             tracking-[0.19em]
@@ -1061,7 +1063,7 @@ export default function HeaderNew({
                           py-8
 
                           text-[11px]
-                          font-semibold
+                          font-bold
                           uppercase
 
                           tracking-[0.19em]

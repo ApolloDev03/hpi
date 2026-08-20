@@ -333,7 +333,7 @@ export default function About() {
 
               <span
                 className="
-                  text-[10px] font-medium
+                  text-[10px] font-bold
                   uppercase tracking-[0.34em]
                   text-gold-light
                 "
@@ -423,8 +423,9 @@ export default function About() {
                   font-serif text-lg
                   italic leading-[1.65]
                   text-gold-light
+                  font-semibold
 
-                  sm:text-xl
+        
                 "
               >
                 “Every space should feel infused with the life meant

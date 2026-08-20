@@ -753,7 +753,7 @@ return (
               max-w-[420px]
               text-[12px]
               leading-[1.9]
-              text-[#6b7280]
+              text-black
               sm:text-[13px]
               lg:justify-self-end
             "
@@ -825,8 +825,8 @@ return (
                 justify-center
                 gap-3 overflow-hidden
                 px-6
-                text-[9px]
-                font-semibold
+                text-[10px]
+                font-bold
                 uppercase
                 tracking-[0.23em]
                 transition-colors
@@ -1623,7 +1623,7 @@ return (
                 text-[11px]
                 uppercase
                 tracking-[0.2em]
-                text-[#6b7280]
+                text-black
               "
             >
               Showing{" "}

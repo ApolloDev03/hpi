@@ -1657,13 +1657,13 @@ export default function ContactPage() {
 
                               text-[13px]
 
-                              font-semibold
+                              font-bold
 
                               uppercase
 
                               tracking-[0.27em]
 
-                              text-black
+                              text-gold
                             "
                           >
                             {
@@ -1687,6 +1687,7 @@ export default function ContactPage() {
 
                               transition-colors
                               duration-300
+                              font-medium
 
                               group-hover:text-gold
                             "

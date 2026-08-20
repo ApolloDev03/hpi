@@ -605,57 +605,16 @@ export default function Counters() {
 
                     items-center
 
-                    justify-between
+                    justify-end
 
                     gap-5
                   "
                 >
-                  <span
+                 
+
+                   <div
                     className="
-                      text-[9px]
-
-                      font-semibold
-
-                      uppercase
-
-                      tracking-[0.3em]
-
-                      text-[#6b7280]
-                    "
-                  >
-                    Since Our Beginning
-                  </span>
-
-                  <span
-                    className="
-                      h-px
-                      w-20
-
-                      bg-gradient-to-r
-
-                      from-[#115e28]
-
-                      to-transparent
-
-                      sm:w-32
-                    "
-                  />
-                </div>
-
-                {/* ========================================= */}
-                {/* MAIN COUNT */}
-                {/* ========================================= */}
-
-                <div
-                  className="
-                    my-10
-                  "
-                >
-                  {/* Project Icon */}
-
-                  <div
-                    className="
-                      mb-7
+                 
 
                       flex
                       h-16
@@ -677,6 +636,20 @@ export default function Counters() {
                       size={25}
                     />
                   </div>
+                </div>
+
+                {/* ========================================= */}
+                {/* MAIN COUNT */}
+                {/* ========================================= */}
+
+                <div
+                  className="
+                    my-10
+                  "
+                >
+                  {/* Project Icon */}
+
+                 
 
                   <p
                     className="

@@ -512,6 +512,7 @@ export default function AboutClient() {
                     tracking-[-0.03em]
 
                     text-white
+                    font-semibold
                   "
                 >
                   Hitarth Parikh
@@ -521,7 +522,7 @@ export default function AboutClient() {
                   className="
                     mt-3
 
-                    text-[9px]
+                    text-[11px]
 
                     font-semibold
 
@@ -529,7 +530,7 @@ export default function AboutClient() {
 
                     tracking-[0.27em]
 
-                    text-[#8bd19a]
+                    text-gold-light
                   "
                 >
                   Architecture | Interior
@@ -721,6 +722,7 @@ export default function AboutClient() {
                       text-black
 
                       sm:text-[13px]
+
                     "
                   >
                     HPI Studio began with a desire to create
@@ -800,6 +802,7 @@ export default function AboutClient() {
                       leading-[1.55]
 
                       text-gold
+                      font-semibold
                     "
                   >
                     “A meaningful space should feel like it
@@ -857,7 +860,8 @@ export default function AboutClient() {
 
                         tracking-[-0.05em]
 
-                        text-black
+                        text-gold
+                        font-semibold
                       "
                     >
                       12+
@@ -908,7 +912,8 @@ export default function AboutClient() {
 
                         tracking-[-0.05em]
 
-                        text-black
+                        text-gold
+                        font-semibold
                       "
                     >
                       120+
@@ -1814,6 +1819,7 @@ export default function AboutClient() {
                             group-hover:bg-gold
 
                             group-hover:text-white
+                            font-semibold
                           "
                         >
                           0
@@ -1828,12 +1834,13 @@ export default function AboutClient() {
 
                               text-xl
 
-                              text-black
+                      
 
                               transition-colors
                               duration-300
 
-                              group-hover:text-gold
+                              text-gold
+                             font-semibold
                             "
                           >
                             {

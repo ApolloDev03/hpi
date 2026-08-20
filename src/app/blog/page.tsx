@@ -1225,6 +1225,7 @@ export default function BlogPage() {
 
                                 transition-colors
                                 duration-400
+                                font-semibold
 
                                 group-hover:text-gold
                               "
@@ -1244,7 +1245,7 @@ export default function BlogPage() {
 
                                 leading-[1.85]
 
-                                text-[#6b7280]
+                                text-black
 
                                 sm:text-[13px]
                               "
@@ -1281,9 +1282,9 @@ export default function BlogPage() {
                           >
                             <span
                               className="
-                                text-[9px]
+                                text-[10px]
 
-                                font-semibold
+                                font-bold
 
                                 uppercase
 
