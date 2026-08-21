@@ -571,7 +571,7 @@ font-semibold
             "
           >
             <Link
-              href="#"
+              href="/privacy-policy"
               className="
                 transition-colors
                 duration-300
@@ -583,7 +583,7 @@ font-semibold
             </Link>
 
             <Link
-              href="#"
+              href="/terms-and-conditions"
               className="
                 transition-colors
                 duration-300
