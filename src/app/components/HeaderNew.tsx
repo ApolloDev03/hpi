@@ -8,12 +8,13 @@ import {
 } from "react";
 
 import axios from "axios";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+
 import {
   AnimatePresence,
   motion,
 } from "framer-motion";
-
-import Image from "next/image";
 
 import {
   FaFacebookF,
@@ -29,10 +30,6 @@ import {
 
 import logo from "../assets/logo-black.png";
 import { apiUrl } from "../config";
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
 
 const links = [
   {
@@ -57,10 +54,6 @@ const links = [
   },
 ] as const;
 
-/* =========================================================
-   SOCIAL LINKS
-========================================================= */
-
 const socialLinks = [
   {
     href: "https://www.instagram.com/",
@@ -78,10 +71,6 @@ const socialLinks = [
     icon: FaLinkedinIn,
   },
 ] as const;
-
-/* =========================================================
-   TYPES
-========================================================= */
 
 type ApiCategory = {
   id: number;
@@ -103,10 +92,6 @@ type HeaderProps = {
   logoVisible: boolean;
 };
 
-/* =========================================================
-   HELPERS
-========================================================= */
-
 function getProjectUrl(
   slug: string,
 ): string {
@@ -117,12 +102,63 @@ function getProjectUrl(
 
 function normalizePathname(
   pathname: string,
-) {
+): string {
   if (pathname === "/") {
     return "/";
   }
 
-  return pathname.replace(/\/+$/, "");
+  return pathname.replace(
+    /\/+$/,
+    "",
+  );
+}
+
+/*
+ * Current pathname based active tab.
+ *
+ * /                       -> Home
+ * /about                  -> About
+ * /product                -> Projects
+ * /product?slug=home      -> Projects
+ * /product-detail?...     -> Projects
+ * /blog                   -> Blog
+ * /blog-detail?...        -> Blog
+ * /contact                -> Contact
+ */
+function isNavigationActive(
+  pathname: string,
+  href: string,
+): boolean {
+  if (href === "/") {
+    return pathname === "/";
+  }
+
+  if (href === "/product") {
+    return (
+      pathname === "/product" ||
+      pathname === "/product-detail" ||
+      pathname.startsWith(
+        "/product/",
+      )
+    );
+  }
+
+  if (href === "/blog") {
+    return (
+      pathname === "/blog" ||
+      pathname === "/blog-detail" ||
+      pathname.startsWith(
+        "/blog/",
+      )
+    );
+  }
+
+  return (
+    pathname === href ||
+    pathname.startsWith(
+      `${href}/`,
+    )
+  );
 }
 
 function getApiErrorMessage(
@@ -139,7 +175,8 @@ function getApiErrorMessage(
     error.response?.data?.message;
 
   if (
-    typeof responseMessage === "string" &&
+    typeof responseMessage ===
+      "string" &&
     responseMessage.trim()
   ) {
     return responseMessage;
@@ -151,13 +188,21 @@ function getApiErrorMessage(
   );
 }
 
-/* =========================================================
-   COMPONENT
-========================================================= */
-
 export default function HeaderNew({
   logoVisible,
 }: HeaderProps) {
+  /*
+   * Direct Next.js pathname.
+   * No manual activePath state required.
+   */
+  const pathname =
+    usePathname();
+
+  const activePath =
+    normalizePathname(
+      pathname,
+    );
+
   const [
     scrolled,
     setScrolled,
@@ -174,11 +219,6 @@ export default function HeaderNew({
   ] = useState(false);
 
   const [
-    activePath,
-    setActivePath,
-  ] = useState("/");
-
-  const [
     activeProjectSlug,
     setActiveProjectSlug,
   ] = useState("");
@@ -186,7 +226,10 @@ export default function HeaderNew({
   const [
     projectCategories,
     setProjectCategories,
-  ] = useState<ApiCategory[]>([]);
+  ] =
+    useState<ApiCategory[]>(
+      [],
+    );
 
   const [
     projectCategoriesLoading,
@@ -198,10 +241,6 @@ export default function HeaderNew({
     setProjectCategoriesError,
   ] = useState("");
 
-  /* =======================================================
-     PROJECT CATEGORY API
-  ======================================================= */
-
   const fetchProjectCategories =
     useCallback(
       async (
@@ -211,7 +250,9 @@ export default function HeaderNew({
           true,
         );
 
-        setProjectCategoriesError("");
+        setProjectCategoriesError(
+          "",
+        );
 
         try {
           const response =
@@ -266,16 +307,20 @@ export default function HeaderNew({
         ) {
           if (
             signal?.aborted ||
-            (axios.isAxiosError(
-              error,
-            ) &&
+            (
+              axios.isAxiosError(
+                error,
+              ) &&
               error.code ===
-                "ERR_CANCELED")
+                "ERR_CANCELED"
+            )
           ) {
             return;
           }
 
-          setProjectCategories([]);
+          setProjectCategories(
+            [],
+          );
 
           setProjectCategoriesError(
             getApiErrorMessage(
@@ -308,46 +353,43 @@ export default function HeaderNew({
     fetchProjectCategories,
   ]);
 
-  /* =======================================================
-     CURRENT LOCATION
-  ======================================================= */
-
+  /*
+   * Query string mathi current
+   * project category slug get kare chhe.
+   *
+   * Example:
+   * /product?slug=home
+   */
   useEffect(() => {
-    const updateLocation = () => {
-      setActivePath(
-        normalizePathname(
-          window.location.pathname,
-        ),
-      );
+    const updateProjectSlug =
+      () => {
+        const params =
+          new URLSearchParams(
+            window.location.search,
+          );
 
-      const params =
-        new URLSearchParams(
-          window.location.search,
+        setActiveProjectSlug(
+          params.get("slug") ??
+            "",
         );
+      };
 
-      setActiveProjectSlug(
-        params.get("slug") ?? "",
-      );
-    };
-
-    updateLocation();
+    updateProjectSlug();
 
     window.addEventListener(
       "popstate",
-      updateLocation,
+      updateProjectSlug,
     );
 
     return () => {
       window.removeEventListener(
         "popstate",
-        updateLocation,
+        updateProjectSlug,
       );
     };
-  }, []);
-
-  /* =======================================================
-     SCROLL
-  ======================================================= */
+  }, [
+    pathname,
+  ]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -374,10 +416,6 @@ export default function HeaderNew({
     };
   }, []);
 
-  /* =======================================================
-     MOBILE BODY LOCK
-  ======================================================= */
-
   useEffect(() => {
     document.body.style.overflow =
       mobileMenuOpen
@@ -388,29 +426,41 @@ export default function HeaderNew({
       document.body.style.overflow =
         "";
     };
-  }, [mobileMenuOpen]);
-
-  /* =======================================================
-     HANDLERS
-  ======================================================= */
+  }, [
+    mobileMenuOpen,
+  ]);
 
   const handleNavigation = (
     _event:
       MouseEvent<HTMLAnchorElement>,
-    href: string,
+    _href: string,
   ) => {
-    setActivePath(href);
+    setMobileMenuOpen(
+      false,
+    );
 
-    setMobileMenuOpen(false);
-
-    setMobileProjectsOpen(false);
+    setMobileProjectsOpen(
+      false,
+    );
   };
 
   const handleProjectNavigation =
-    () => {
-      setMobileMenuOpen(false);
+    (
+      slug?: string,
+    ) => {
+      if (slug) {
+        setActiveProjectSlug(
+          slug,
+        );
+      }
 
-      setMobileProjectsOpen(false);
+      setMobileMenuOpen(
+        false,
+      );
+
+      setMobileProjectsOpen(
+        false,
+      );
     };
 
   const toggleMobileMenu =
@@ -431,18 +481,19 @@ export default function HeaderNew({
       );
     };
 
+  /*
+   * Projects parent menu
+   * active on project listing
+   * and project detail.
+   */
   const projectsMenuActive =
-    activePath === "/product" ||
-    activePath.startsWith(
-      "/product/",
+    isNavigationActive(
+      activePath,
+      "/product",
     );
 
   return (
     <>
-      {/* ================================================= */}
-      {/* HEADER */}
-      {/* ================================================= */}
-
       <header
         className={`
           fixed inset-x-0 top-0
@@ -468,8 +519,6 @@ export default function HeaderNew({
           }
         `}
       >
-        {/* Main Header Row */}
-
         <div
           className="
             mx-auto
@@ -491,9 +540,7 @@ export default function HeaderNew({
             lg:px-[5vw]
           "
         >
-          {/* ================================================= */}
-          {/* LOGO */}
-          {/* ================================================= */}
+          {/* Logo */}
 
           <motion.a
             href="/"
@@ -520,6 +567,7 @@ export default function HeaderNew({
             }
             transition={{
               duration: 0.65,
+
               ease: [
                 0.16,
                 1,
@@ -528,7 +576,8 @@ export default function HeaderNew({
               ],
             }}
             className="
-              relative z-[510]
+              relative
+              z-[510]
 
               flex
               h-full
@@ -562,9 +611,7 @@ export default function HeaderNew({
             />
           </motion.a>
 
-          {/* ================================================= */}
-          {/* DESKTOP NAV */}
-          {/* ================================================= */}
+          {/* Desktop Navigation */}
 
           <nav
             aria-label="Main navigation"
@@ -584,7 +631,6 @@ export default function HeaderNew({
                 items-center
 
                 gap-7
-               
 
                 lg:gap-9
 
@@ -594,20 +640,16 @@ export default function HeaderNew({
               {links.map(
                 (link) => {
                   const isActive =
-                    activePath ===
-                    link.href;
+                    isNavigationActive(
+                      activePath,
+                      link.href,
+                    );
 
                   const isProjects =
                     link.label ===
                     "Projects";
 
-                  /* ========================================= */
-                  /* PROJECTS */
-                  /* ========================================= */
-
-                  if (
-                    isProjects
-                  ) {
+                  if (isProjects) {
                     return (
                       <li
                         key={
@@ -616,7 +658,7 @@ export default function HeaderNew({
                         className="
                           group
                           relative
-                           font-bold
+                          font-bold
                         "
                       >
                         <button
@@ -632,7 +674,7 @@ export default function HeaderNew({
                             py-8
 
                             text-[11px]
-                           
+
                             uppercase
 
                             tracking-[0.19em]
@@ -675,12 +717,11 @@ export default function HeaderNew({
                             "
                           />
 
-                          {/* Active underline */}
-
                           <span
                             aria-hidden="true"
                             className={`
                               absolute
+
                               bottom-[18px]
                               left-0
 
@@ -703,9 +744,7 @@ export default function HeaderNew({
                           />
                         </button>
 
-                        {/* ================================= */}
-                        {/* PROJECT DROPDOWN */}
-                        {/* ================================= */}
+                        {/* Desktop Project Dropdown */}
 
                         <div
                           className="
@@ -732,11 +771,9 @@ export default function HeaderNew({
                             group-hover:opacity-100
                           "
                         >
-                          {/* Bridge so hover won't break */}
-
-                          <div className="h-3" />
-
-                          {/* Dropdown */}
+                          <div
+                            className="h-3"
+                          />
 
                           <div
                             className="
@@ -756,8 +793,6 @@ export default function HeaderNew({
                               shadow-[0_20px_55px_rgba(0,0,0,0.14)]
                             "
                           >
-                            {/* Green top accent */}
-
                             <span
                               aria-hidden="true"
                               className="
@@ -769,13 +804,12 @@ export default function HeaderNew({
                                 w-full
 
                                 bg-gradient-to-r
+
                                 from-transparent
                                 via-gold
                                 to-transparent
                               "
                             />
-
-                            {/* Loading */}
 
                             {projectCategoriesLoading && (
                               <div
@@ -784,12 +818,9 @@ export default function HeaderNew({
                                   p-1
                                 "
                               >
-                                {Array.from(
-                                  {
-                                    length:
-                                      4,
-                                  },
-                                ).map(
+                                {Array.from({
+                                  length: 4,
+                                }).map(
                                   (
                                     _,
                                     index,
@@ -800,7 +831,9 @@ export default function HeaderNew({
                                       }
                                       className="
                                         h-[46px]
+
                                         animate-pulse
+
                                         bg-black/[0.035]
                                       "
                                     />
@@ -808,8 +841,6 @@ export default function HeaderNew({
                                 )}
                               </div>
                             )}
-
-                            {/* Error */}
 
                             {!projectCategoriesLoading &&
                               projectCategoriesError && (
@@ -824,7 +855,9 @@ export default function HeaderNew({
                                   <p
                                     className="
                                       text-[10px]
+
                                       leading-5
+
                                       text-red-500
                                     "
                                   >
@@ -842,6 +875,7 @@ export default function HeaderNew({
                                       mt-3
 
                                       text-[9px]
+
                                       font-semibold
                                       uppercase
 
@@ -854,8 +888,6 @@ export default function HeaderNew({
                                   </button>
                                 </div>
                               )}
-
-                            {/* Empty */}
 
                             {!projectCategoriesLoading &&
                               !projectCategoriesError &&
@@ -879,8 +911,6 @@ export default function HeaderNew({
                                 </p>
                               )}
 
-                            {/* Category Items */}
-
                             {!projectCategoriesLoading &&
                               !projectCategoriesError &&
                               projectCategories.map(
@@ -899,8 +929,10 @@ export default function HeaderNew({
                                       href={getProjectUrl(
                                         category.slug,
                                       )}
-                                      onClick={
-                                        handleProjectNavigation
+                                      onClick={() =>
+                                        handleProjectNavigation(
+                                          category.slug,
+                                        )
                                       }
                                       aria-current={
                                         isSelected
@@ -936,8 +968,6 @@ export default function HeaderNew({
                                         }
                                       `}
                                     >
-                                      {/* Hover */}
-
                                       <span
                                         aria-hidden="true"
                                         className="
@@ -956,8 +986,6 @@ export default function HeaderNew({
                                           group-hover/item:translate-x-0
                                         "
                                       />
-
-                                      {/* Dot */}
 
                                       <span
                                         aria-hidden="true"
@@ -989,14 +1017,13 @@ export default function HeaderNew({
                                         `}
                                       />
 
-                                      {/* Text */}
-
                                       <span
                                         className={`
                                           relative
                                           z-10
 
                                           text-[10px]
+
                                           font-semibold
                                           uppercase
 
@@ -1032,10 +1059,6 @@ export default function HeaderNew({
                     );
                   }
 
-                  /* ========================================= */
-                  /* NORMAL LINKS */
-                  /* ========================================= */
-
                   return (
                     <li
                       key={
@@ -1063,6 +1086,7 @@ export default function HeaderNew({
                           py-8
 
                           text-[11px]
+
                           font-bold
                           uppercase
 
@@ -1095,6 +1119,7 @@ export default function HeaderNew({
                           aria-hidden="true"
                           className={`
                             absolute
+
                             bottom-[18px]
                             left-0
 
@@ -1110,6 +1135,7 @@ export default function HeaderNew({
                                 ? "w-full"
                                 : `
                                     w-0
+
                                     group-hover:w-full
                                   `
                             }
@@ -1123,9 +1149,7 @@ export default function HeaderNew({
             </ul>
           </nav>
 
-          {/* ================================================= */}
-          {/* DESKTOP SOCIAL */}
-          {/* ================================================= */}
+          {/* Desktop Social */}
 
           <div
             className="
@@ -1144,8 +1168,12 @@ export default function HeaderNew({
                 icon: Icon,
               }) => (
                 <a
-                  key={label}
-                  href={href}
+                  key={
+                    label
+                  }
+                  href={
+                    href
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={
@@ -1188,16 +1216,16 @@ export default function HeaderNew({
                   "
                 >
                   <Icon
-                    size={15}
+                    size={
+                      15
+                    }
                   />
                 </a>
               ),
             )}
           </div>
 
-          {/* ================================================= */}
-          {/* MOBILE BUTTON */}
-          {/* ================================================= */}
+          {/* Mobile Button */}
 
           <button
             type="button"
@@ -1246,17 +1274,17 @@ export default function HeaderNew({
           >
             <AnimatePresence
               mode="wait"
-              initial={false}
+              initial={
+                false
+              }
             >
               {mobileMenuOpen ? (
                 <motion.span
                   key="close"
                   initial={{
                     opacity: 0,
-                    rotate:
-                      -90,
-                    scale:
-                      0.7,
+                    rotate: -90,
+                    scale: 0.7,
                   }}
                   animate={{
                     opacity: 1,
@@ -1266,16 +1294,16 @@ export default function HeaderNew({
                   exit={{
                     opacity: 0,
                     rotate: 90,
-                    scale:
-                      0.7,
+                    scale: 0.7,
                   }}
                   transition={{
-                    duration:
-                      0.2,
+                    duration: 0.2,
                   }}
                 >
                   <FiX
-                    size={21}
+                    size={
+                      21
+                    }
                   />
                 </motion.span>
               ) : (
@@ -1284,8 +1312,7 @@ export default function HeaderNew({
                   initial={{
                     opacity: 0,
                     rotate: 90,
-                    scale:
-                      0.7,
+                    scale: 0.7,
                   }}
                   animate={{
                     opacity: 1,
@@ -1294,18 +1321,17 @@ export default function HeaderNew({
                   }}
                   exit={{
                     opacity: 0,
-                    rotate:
-                      -90,
-                    scale:
-                      0.7,
+                    rotate: -90,
+                    scale: 0.7,
                   }}
                   transition={{
-                    duration:
-                      0.2,
+                    duration: 0.2,
                   }}
                 >
                   <FiMenu
-                    size={22}
+                    size={
+                      22
+                    }
                   />
                 </motion.span>
               )}
@@ -1314,9 +1340,7 @@ export default function HeaderNew({
         </div>
       </header>
 
-      {/* ================================================= */}
-      {/* MOBILE MENU */}
-      {/* ================================================= */}
+      {/* Mobile Menu */}
 
       <AnimatePresence>
         {mobileMenuOpen && (
@@ -1351,12 +1375,14 @@ export default function HeaderNew({
                 mx-auto
 
                 flex
+
                 min-h-[calc(100svh-96px)]
 
                 w-full
                 max-w-sm
 
                 flex-col
+
                 justify-center
 
                 pb-10
@@ -1372,16 +1398,16 @@ export default function HeaderNew({
                       index,
                     ) => {
                       const isActive =
-                        activePath ===
-                        link.href;
+                        isNavigationActive(
+                          activePath,
+                          link.href,
+                        );
 
                       const isProjects =
                         link.label ===
                         "Projects";
 
-                      if (
-                        isProjects
-                      ) {
+                      if (isProjects) {
                         return (
                           <motion.li
                             key={
@@ -1396,8 +1422,7 @@ export default function HeaderNew({
                               y: 0,
                             }}
                             transition={{
-                              duration:
-                                0.4,
+                              duration: 0.4,
 
                               delay:
                                 index *
@@ -1443,6 +1468,7 @@ export default function HeaderNew({
                               <span
                                 className="
                                   text-[20px]
+
                                   font-medium
                                   uppercase
 
@@ -1453,7 +1479,9 @@ export default function HeaderNew({
                               </span>
 
                               <FiChevronDown
-                                size={18}
+                                size={
+                                  18
+                                }
                                 className={`
                                   transition-transform
                                   duration-300
@@ -1470,7 +1498,9 @@ export default function HeaderNew({
                             </button>
 
                             <AnimatePresence
-                              initial={false}
+                              initial={
+                                false
+                              }
                             >
                               {mobileProjectsOpen && (
                                 <motion.div
@@ -1481,6 +1511,7 @@ export default function HeaderNew({
                                   animate={{
                                     height:
                                       "auto",
+
                                     opacity: 1,
                                   }}
                                   exit={{
@@ -1498,6 +1529,7 @@ export default function HeaderNew({
                                   <div
                                     className="
                                       bg-[#f7faf8]
+
                                       py-2
                                     "
                                   >
@@ -1505,16 +1537,14 @@ export default function HeaderNew({
                                       <div
                                         className="
                                           space-y-2
+
                                           px-3
                                           py-2
                                         "
                                       >
-                                        {Array.from(
-                                          {
-                                            length:
-                                              4,
-                                          },
-                                        ).map(
+                                        {Array.from({
+                                          length: 4,
+                                        }).map(
                                           (
                                             _,
                                             loadingIndex,
@@ -1525,7 +1555,9 @@ export default function HeaderNew({
                                               }
                                               className="
                                                 h-11
+
                                                 animate-pulse
+
                                                 bg-black/[0.035]
                                               "
                                             />
@@ -1547,6 +1579,7 @@ export default function HeaderNew({
                                           <p
                                             className="
                                               text-[11px]
+
                                               text-red-500
                                             "
                                           >
@@ -1564,6 +1597,7 @@ export default function HeaderNew({
                                               mt-3
 
                                               text-[9px]
+
                                               font-semibold
                                               uppercase
 
@@ -1575,6 +1609,28 @@ export default function HeaderNew({
                                             Try Again
                                           </button>
                                         </div>
+                                      )}
+
+                                    {!projectCategoriesLoading &&
+                                      !projectCategoriesError &&
+                                      projectCategories.length ===
+                                        0 && (
+                                        <p
+                                          className="
+                                            px-4
+                                            py-5
+
+                                            text-center
+
+                                            text-[11px]
+
+                                            text-[#6b7280]
+                                          "
+                                        >
+                                          No project
+                                          categories
+                                          available.
+                                        </p>
                                       )}
 
                                     {!projectCategoriesLoading &&
@@ -1595,8 +1651,15 @@ export default function HeaderNew({
                                               href={getProjectUrl(
                                                 category.slug,
                                               )}
-                                              onClick={
-                                                handleProjectNavigation
+                                              onClick={() =>
+                                                handleProjectNavigation(
+                                                  category.slug,
+                                                )
+                                              }
+                                              aria-current={
+                                                isSelected
+                                                  ? "page"
+                                                  : undefined
                                               }
                                               className={`
                                                 flex
@@ -1638,6 +1701,7 @@ export default function HeaderNew({
                                               <span
                                                 className="
                                                   text-[11px]
+
                                                   font-medium
                                                   uppercase
 
@@ -1674,8 +1738,7 @@ export default function HeaderNew({
                             y: 0,
                           }}
                           transition={{
-                            duration:
-                              0.4,
+                            duration: 0.4,
 
                             delay:
                               index *
@@ -1703,6 +1766,7 @@ export default function HeaderNew({
                               py-4
 
                               text-[20px]
+
                               font-medium
                               uppercase
 
@@ -1792,7 +1856,9 @@ export default function HeaderNew({
                       "
                     >
                       <Icon
-                        size={16}
+                        size={
+                          16
+                        }
                       />
                     </a>
                   ),
@@ -1802,6 +1868,7 @@ export default function HeaderNew({
               <p
                 className="
                   mt-7
+
                   text-center
 
                   text-[9px]

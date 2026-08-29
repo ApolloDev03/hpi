@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  useCallback,
   useEffect,
   useRef,
   useState,
@@ -9,6 +8,7 @@ import {
 
 import {
   motion,
+  useInView,
   useReducedMotion,
 } from "framer-motion";
 
@@ -19,30 +19,9 @@ import {
   FaUsers,
 } from "react-icons/fa";
 
-/* =========================================================
-   SECONDARY STATS
-========================================================= */
-
-const secondaryStats = [
-  {
-    target: 115,
-    suffix: "+",
-    label: "Happy Clients",
-    icon: FaUsers,
-  },
-  {
-    target: 12,
-    suffix: "+",
-    label: "Years of Experience",
-    icon: FaAward,
-  },
-  {
-    target: 8,
-    suffix: "+",
-    label: "Cities Served",
-    icon: FaMapMarkerAlt,
-  },
-];
+import {
+  useHomeData,
+} from "./HomeDataContext";
 
 /* =========================================================
    ANIMATED NUMBER TYPES
@@ -70,82 +49,153 @@ function AnimatedNumber({
   const reduceMotion =
     useReducedMotion();
 
-  const [value, setValue] =
-    useState(0);
+  const [
+    value,
+    setValue,
+  ] = useState(0);
 
-  const startedRef =
-    useRef(false);
+  const counterRef =
+    useRef<HTMLSpanElement | null>(
+      null,
+    );
 
   const frameRef =
     useRef<number | null>(
       null,
     );
 
-  const startCounter =
-    useCallback(() => {
-      if (
-        startedRef.current
-      ) {
-        return;
-      }
+  /*
+   * once true રાખ્યું છે,
+   * એટલે viewport માં આવ્યા પછી API target change
+   * થાય તો effect ફરી run થઈ શકે.
+   */
 
-      startedRef.current =
-        true;
+  const isInView =
+    useInView(
+      counterRef,
+      {
+        once: true,
+        amount: 0.5,
+      },
+    );
 
-      if (reduceMotion) {
-        setValue(target);
-        return;
-      }
-
-      const startTime =
-        performance.now();
-
-      const animate = (
-        currentTime: number,
-      ) => {
-        const progress =
-          Math.min(
-            (currentTime -
-              startTime) /
-              duration,
-            1,
-          );
-
-        const easedProgress =
-          1 -
-          Math.pow(
-            1 - progress,
-            4,
-          );
-
-        setValue(
-          Math.floor(
-            target *
-              easedProgress,
-          ),
-        );
-
-        if (progress < 1) {
-          frameRef.current =
-            requestAnimationFrame(
-              animate,
-            );
-        } else {
-          setValue(target);
-        }
-      };
-
-      frameRef.current =
-        requestAnimationFrame(
-          animate,
-        );
-    }, [
-      duration,
-      reduceMotion,
-      target,
-    ]);
+  /* =======================================================
+     COUNTER ANIMATION
+  ======================================================= */
 
   useEffect(() => {
+    if (
+      frameRef.current !==
+      null
+    ) {
+      cancelAnimationFrame(
+        frameRef.current,
+      );
+
+      frameRef.current =
+        null;
+    }
+
+    const safeTarget =
+      Number.isFinite(
+        target,
+      )
+        ? Math.max(
+            0,
+            target,
+          )
+        : 0;
+
+    /*
+     * Element viewport ma
+     * nathi to 0.
+     */
+
+    if (!isInView) {
+      setValue(0);
+
+      return;
+    }
+
+    /*
+     * Reduced motion.
+     */
+
+    if (reduceMotion) {
+      setValue(
+        safeTarget,
+      );
+
+      return;
+    }
+
+    /*
+     * API null / zero
+     */
+
+    if (
+      safeTarget === 0
+    ) {
+      setValue(0);
+
+      return;
+    }
+
+    setValue(0);
+
+    const startTime =
+      performance.now();
+
+    const animate = (
+      currentTime: number,
+    ) => {
+      const progress =
+        Math.min(
+          (
+            currentTime -
+            startTime
+          ) /
+            duration,
+
+          1,
+        );
+
+      const easedProgress =
+        1 -
+        Math.pow(
+          1 - progress,
+          4,
+        );
+
+      setValue(
+        Math.floor(
+          safeTarget *
+            easedProgress,
+        ),
+      );
+
+      if (
+        progress < 1
+      ) {
+        frameRef.current =
+          requestAnimationFrame(
+            animate,
+          );
+      } else {
+        setValue(
+          safeTarget,
+        );
+
+        frameRef.current =
+          null;
+      }
+    };
+
+    frameRef.current =
+      requestAnimationFrame(
+        animate,
+      );
+
     return () => {
       if (
         frameRef.current !==
@@ -154,19 +204,21 @@ function AnimatedNumber({
         cancelAnimationFrame(
           frameRef.current,
         );
+
+        frameRef.current =
+          null;
       }
     };
-  }, []);
+  }, [
+    target,
+    duration,
+    reduceMotion,
+    isInView,
+  ]);
 
   return (
     <motion.span
-      onViewportEnter={
-        startCounter
-      }
-      viewport={{
-        once: true,
-        amount: 0.5,
-      }}
+      ref={counterRef}
       className="
         inline-flex
         items-start
@@ -201,10 +253,89 @@ export default function Counters() {
   const reduceMotion =
     useReducedMotion();
 
+  /* =======================================================
+     GET COUNTS FROM HOME API
+  ======================================================= */
+
+  const {
+    homeData,
+  } = useHomeData();
+
+  /*
+   * HomeDataContext ma already
+   * null / undefined value 0 ma
+   * normalize thai gai chhe.
+   */
+
+  const projectsCount =
+    homeData.count
+      .projects_counts;
+
+  const clientsCount =
+    homeData.count
+      .clients_count;
+
+  const experienceCount =
+    homeData.count
+      .experience_count;
+
+  const citiesCount =
+    homeData.count
+      .cities_count;
+
+  /* =======================================================
+     DYNAMIC SECONDARY STATS
+  ======================================================= */
+
+  const secondaryStats = [
+    {
+      target:
+        clientsCount,
+
+      suffix:
+        "+",
+
+      label:
+        "Happy Clients",
+
+      icon:
+        FaUsers,
+    },
+
+    {
+      target:
+        experienceCount,
+
+      suffix:
+        "+",
+
+      label:
+        "Years of Experience",
+
+      icon:
+        FaAward,
+    },
+
+    {
+      target:
+        citiesCount,
+
+      suffix:
+        "+",
+
+      label:
+        "Cities Served",
+
+      icon:
+        FaMapMarkerAlt,
+    },
+  ];
+
   /*
    * 0 = Happy Clients
-   * By default only Happy Clients is selected.
+   * Default selected.
    */
+
   const [
     selectedStat,
     setSelectedStat,
@@ -236,6 +367,7 @@ export default function Counters() {
           pointer-events-none
 
           absolute
+
           -left-48
           top-1/2
 
@@ -258,6 +390,7 @@ export default function Counters() {
           pointer-events-none
 
           absolute
+
           -right-40
           top-0
 
@@ -328,21 +461,28 @@ export default function Counters() {
         >
           <motion.div
             initial={{
-              opacity: 0,
+              opacity:
+                0,
 
-              x: reduceMotion
-                ? 0
-                : -30,
+              x:
+                reduceMotion
+                  ? 0
+                  : -30,
             }}
             whileInView={{
-              opacity: 1,
-              x: 0,
+              opacity:
+                1,
+
+              x:
+                0,
             }}
             viewport={{
-              once: true,
+              once:
+                true,
             }}
             transition={{
-              duration: 0.8,
+              duration:
+                0.8,
 
               ease: [
                 0.16,
@@ -357,6 +497,7 @@ export default function Counters() {
                 mb-5
 
                 flex
+
                 items-center
 
                 gap-4
@@ -415,34 +556,45 @@ export default function Counters() {
               <em
                 className="
                   font-semibold
+
                   italic
 
                   text-gold
                 "
               >
-                meaningful spaces.
+                meaningful
+                spaces.
               </em>
             </h2>
           </motion.div>
 
           <motion.p
             initial={{
-              opacity: 0,
+              opacity:
+                0,
 
-              y: reduceMotion
-                ? 0
-                : 20,
+              y:
+                reduceMotion
+                  ? 0
+                  : 20,
             }}
             whileInView={{
-              opacity: 1,
-              y: 0,
+              opacity:
+                1,
+
+              y:
+                0,
             }}
             viewport={{
-              once: true,
+              once:
+                true,
             }}
             transition={{
-              duration: 0.8,
-              delay: 0.12,
+              duration:
+                0.8,
+
+              delay:
+                0.12,
             }}
             className="
               max-w-[410px]
@@ -472,22 +624,31 @@ export default function Counters() {
 
         <motion.div
           initial={{
-            opacity: 0,
+            opacity:
+              0,
 
-            y: reduceMotion
-              ? 0
-              : 40,
+            y:
+              reduceMotion
+                ? 0
+                : 40,
           }}
           whileInView={{
-            opacity: 1,
-            y: 0,
+            opacity:
+              1,
+
+            y:
+              0,
           }}
           viewport={{
-            once: true,
-            amount: 0.2,
+            once:
+              true,
+
+            amount:
+              0.2,
           }}
           transition={{
-            duration: 0.9,
+            duration:
+              0.9,
 
             ease: [
               0.16,
@@ -502,6 +663,7 @@ export default function Counters() {
             overflow-hidden
 
             border-y
+
             border-black/10
 
             bg-white
@@ -510,6 +672,7 @@ export default function Counters() {
           <div
             className="
               grid
+
               grid-cols-1
 
               lg:grid-cols-[1.18fr_0.82fr]
@@ -526,6 +689,7 @@ export default function Counters() {
                 overflow-hidden
 
                 border-b
+
                 border-black/10
 
                 px-5
@@ -548,10 +712,6 @@ export default function Counters() {
                 xl:px-16
               "
             >
-              {/* Decorative HPI */}
-
-             
-
               <div
                 className="
                   relative
@@ -565,7 +725,7 @@ export default function Counters() {
                   justify-between
                 "
               >
-                {/* Top */}
+                {/* Top Icon */}
 
                 <div
                   className="
@@ -578,17 +738,15 @@ export default function Counters() {
                     gap-5
                   "
                 >
-                 
-
-                   <div
+                  <div
                     className="
-                 
-
                       flex
+
                       h-16
                       w-16
 
                       items-center
+
                       justify-center
 
                       border
@@ -601,7 +759,9 @@ export default function Counters() {
                     "
                   >
                     <FaBuilding
-                      size={25}
+                      size={
+                        25
+                      }
                     />
                   </div>
                 </div>
@@ -615,10 +775,6 @@ export default function Counters() {
                     my-10
                   "
                 >
-                  {/* Project Icon */}
-
-                 
-
                   <p
                     className="
                       mb-2
@@ -634,7 +790,8 @@ export default function Counters() {
                       text-gold
                     "
                   >
-                    Successfully completed
+                    Successfully
+                    completed
                   </p>
 
                   <div
@@ -648,8 +805,14 @@ export default function Counters() {
                       gap-y-3
                     "
                   >
+                    {/* =====================================
+                        DYNAMIC PROJECT COUNT
+                    ===================================== */}
+
                     <AnimatedNumber
-                      target={120}
+                      target={
+                        projectsCount
+                      }
                       suffix="+"
                       className="
                         font-serif
@@ -700,7 +863,9 @@ export default function Counters() {
                   </div>
                 </div>
 
-                {/* Bottom Description */}
+                {/* ========================================= */}
+                {/* DESCRIPTION */}
+                {/* ========================================= */}
 
                 <div
                   className="
@@ -758,7 +923,8 @@ export default function Counters() {
                       text-gold/70
                     "
                   >
-                    HPI Studio Interior
+                    HPI Studio
+                    Interior
                   </span>
                 </div>
               </div>
@@ -771,6 +937,7 @@ export default function Counters() {
             <div
               className="
                 grid
+
                 grid-cols-1
 
                 sm:grid-cols-3
@@ -802,19 +969,24 @@ export default function Counters() {
                         )
                       }
                       initial={{
-                        opacity: 0,
+                        opacity:
+                          0,
 
-                        x: reduceMotion
-                          ? 0
-                          : 30,
+                        x:
+                          reduceMotion
+                            ? 0
+                            : 30,
                       }}
                       whileInView={{
-                        opacity: 1,
+                        opacity:
+                          1,
 
-                        x: 0,
+                        x:
+                          0,
                       }}
                       viewport={{
-                        once: true,
+                        once:
+                          true,
                       }}
                       transition={{
                         duration:
@@ -879,6 +1051,7 @@ export default function Counters() {
                         lg:last:border-b-0
 
                         transition-colors
+
                         duration-500
 
                         ${
@@ -889,7 +1062,7 @@ export default function Counters() {
                       `}
                     >
                       {/* ===================================== */}
-                      {/* SELECTED / HOVER BACKGROUND */}
+                      {/* HOVER BACKGROUND */}
                       {/* ===================================== */}
 
                       {!isSelected && (
@@ -935,7 +1108,7 @@ export default function Counters() {
                         "
                       >
                         {/* =================================== */}
-                        {/* COUNT */}
+                        {/* DYNAMIC COUNT */}
                         {/* =================================== */}
 
                         <div>
@@ -1018,12 +1191,13 @@ export default function Counters() {
                         </div>
 
                         {/* =================================== */}
-                        {/* COUNT WISE ICON */}
+                        {/* ICON */}
                         {/* =================================== */}
 
                         <span
                           className={`
                             flex
+
                             h-14
                             w-14
 
