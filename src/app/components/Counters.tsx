@@ -15,7 +15,6 @@ import {
 import {
   FaAward,
   FaBuilding,
-  FaMapMarkerAlt,
   FaUsers,
 } from "react-icons/fa";
 
@@ -279,9 +278,6 @@ export default function Counters() {
     homeData.count
       .experience_count;
 
-  const citiesCount =
-    homeData.count
-      .cities_count;
 
   /* =======================================================
      DYNAMIC SECONDARY STATS
@@ -316,19 +312,7 @@ export default function Counters() {
         FaAward,
     },
 
-    {
-      target:
-        citiesCount,
-
-      suffix:
-        "+",
-
-      label:
-        "Cities Served",
-
-      icon:
-        FaMapMarkerAlt,
-    },
+   
   ];
 
   /*
@@ -698,16 +682,16 @@ export default function Counters() {
                 sm:px-8
                 sm:py-16
 
-                lg:min-h-[510px]
+             lg:min-h-[390px]
 
-                lg:border-b-0
+lg:border-b-0
 
-                lg:border-r
+lg:border-r
 
-                lg:border-black/10
+lg:border-black/10
 
-                lg:px-12
-                lg:py-14
+lg:px-12
+lg:py-8
 
                 xl:px-16
               "
@@ -772,7 +756,7 @@ export default function Counters() {
 
                 <div
                   className="
-                    my-10
+                    my-6
                   "
                 >
                   <p

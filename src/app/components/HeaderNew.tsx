@@ -56,12 +56,12 @@ const links = [
 
 const socialLinks = [
   {
-    href: "https://www.instagram.com/",
+    href: "https://www.instagram.com/studio_hpi/",
     label: "Instagram",
     icon: FaInstagram,
   },
   {
-    href: "https://www.facebook.com/",
+    href: "https://www.facebook.com/studio.hpi",
     label: "Facebook",
     icon: FaFacebookF,
   },

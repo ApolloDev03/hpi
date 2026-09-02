@@ -843,12 +843,12 @@ const quickLinks = [
 const socialLinks = [
   {
     name: "Instagram",
-    href: "https://instagram.com",
+    href: "https://www.instagram.com/studio_hpi/",
     icon: FaInstagram,
   },
   {
     name: "Facebook",
-    href: "https://facebook.com",
+    href: "https://www.facebook.com/studio.hpi",
     icon: FaFacebookF,
   },
   {

@@ -916,7 +916,7 @@ export default function AboutClient() {
                         font-semibold
                       "
                     >
-                      120+
+                      40+
                     </span>
 
                     <span

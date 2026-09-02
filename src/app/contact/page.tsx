@@ -1,13 +1,16 @@
 "use client";
 
 import {
-  useEffect,
   useState,
   type ChangeEvent,
   type FormEvent,
 } from "react";
 
 import axios from "axios";
+
+import {
+  useRouter,
+} from "next/navigation";
 
 import toast, {
   Toaster,
@@ -42,439 +45,6 @@ import aboutBreadcrumb from "@/app/assets/banner1.png";
 import {
   apiUrl,
 } from "../config";
-
-/* =========================================================
-   CONTACT SEO
-========================================================= */
-
-const CONTACT_SEO_ID = "3";
-
-const CONTACT_SEO_ATTRIBUTE =
-  "data-hpi-contact-api-seo";
-
-const CONTACT_FALLBACK_TITLE =
-  "Contact HPI Design Studio | Start Your Interior Project";
-
-const CONTACT_FALLBACK_DESCRIPTION =
-  "Contact HPI Design Studio to discuss residential, commercial, showroom, hospital and corporate interior design projects.";
-
-const CONTACT_FALLBACK_KEYWORDS =
-  "HPI Design Studio contact, interior designer Ahmedabad, interior design consultation, residential interior designer, commercial interior designer";
-
-type SeoData = {
-  id: number;
-  page_name: string | null;
-  meta_title: string | null;
-  meta_keyword: string | null;
-  meta_description: string | null;
-  head: string | null;
-  body: string | null;
-  h1_tag: string | null;
-  h1_tag_grey: string | null;
-  created_at: string | null;
-  updated_at: string | null;
-};
-
-type SeoApiResponse = {
-  success: boolean;
-  message: string;
-  data: SeoData | null;
-};
-
-/* =========================================================
-   REMOVE PREVIOUS SEO
-========================================================= */
-
-function removePreviousContactSeoElements() {
-  document
-    .querySelectorAll(
-      `[${CONTACT_SEO_ATTRIBUTE}="true"]`,
-    )
-    .forEach((element) => {
-      element.remove();
-    });
-}
-
-/* =========================================================
-   ADD META TAG
-========================================================= */
-
-function addContactMetaTag({
-  name,
-  property,
-  content,
-}: {
-  name?: string;
-  property?: string;
-  content?: string | null;
-}) {
-  const cleanContent =
-    content?.trim();
-
-  if (!cleanContent) {
-    return;
-  }
-
-  const meta =
-    document.createElement(
-      "meta",
-    );
-
-  if (name) {
-    meta.setAttribute(
-      "name",
-      name,
-    );
-  }
-
-  if (property) {
-    meta.setAttribute(
-      "property",
-      property,
-    );
-  }
-
-  meta.setAttribute(
-    "content",
-    cleanContent,
-  );
-
-  meta.setAttribute(
-    CONTACT_SEO_ATTRIBUTE,
-    "true",
-  );
-
-  document.head.appendChild(
-    meta,
-  );
-}
-
-/* =========================================================
-   CANONICAL
-========================================================= */
-
-function addContactCanonicalLink(
-  href: string,
-) {
-  const cleanHref =
-    href.trim();
-
-  if (!cleanHref) {
-    return;
-  }
-
-  const link =
-    document.createElement(
-      "link",
-    );
-
-  link.setAttribute(
-    "rel",
-    "canonical",
-  );
-
-  link.setAttribute(
-    "href",
-    cleanHref,
-  );
-
-  link.setAttribute(
-    CONTACT_SEO_ATTRIBUTE,
-    "true",
-  );
-
-  document.head.appendChild(
-    link,
-  );
-}
-
-/* =========================================================
-   JSON LD
-========================================================= */
-
-function addContactJsonLdScript(
-  content: string,
-  index: number,
-) {
-  const cleanContent =
-    content.trim();
-
-  if (!cleanContent) {
-    return;
-  }
-
-  try {
-    const schema =
-      JSON.parse(
-        cleanContent,
-      );
-
-    const script =
-      document.createElement(
-        "script",
-      );
-
-    script.id =
-      `contact-api-schema-${index}`;
-
-    script.type =
-      "application/ld+json";
-
-    script.textContent =
-      JSON.stringify(
-        schema,
-      );
-
-    script.setAttribute(
-      CONTACT_SEO_ATTRIBUTE,
-      "true",
-    );
-
-    document.head.appendChild(
-      script,
-    );
-  } catch (error) {
-    console.error(
-      "Invalid Contact JSON-LD schema:",
-      error,
-    );
-  }
-}
-
-/* =========================================================
-   APPLY HEAD HTML
-========================================================= */
-
-function applyContactApiHeadHtml(
-  headHtml: string | null,
-) {
-  if (!headHtml?.trim()) {
-    return;
-  }
-
-  const parser =
-    new DOMParser();
-
-  const parsedDocument =
-    parser.parseFromString(
-      headHtml,
-      "text/html",
-    );
-
-  parsedDocument
-    .querySelectorAll(
-      "meta",
-    )
-    .forEach(
-      (sourceMeta) => {
-        const name =
-          sourceMeta
-            .getAttribute(
-              "name",
-            )
-            ?.trim();
-
-        const property =
-          sourceMeta
-            .getAttribute(
-              "property",
-            )
-            ?.trim();
-
-        const content =
-          sourceMeta
-            .getAttribute(
-              "content",
-            )
-            ?.trim();
-
-        addContactMetaTag({
-          name,
-          property,
-          content,
-        });
-      },
-    );
-
-  parsedDocument
-    .querySelectorAll(
-      "link",
-    )
-    .forEach(
-      (sourceLink) => {
-        const rel =
-          sourceLink
-            .getAttribute(
-              "rel",
-            )
-            ?.trim()
-            .toLowerCase();
-
-        const href =
-          sourceLink
-            .getAttribute(
-              "href",
-            )
-            ?.trim();
-
-        if (
-          rel ===
-            "canonical" &&
-          href
-        ) {
-          addContactCanonicalLink(
-            href,
-          );
-        }
-      },
-    );
-
-  parsedDocument
-    .querySelectorAll(
-      'script[type="application/ld+json"]',
-    )
-    .forEach(
-      (
-        sourceScript,
-        index,
-      ) => {
-        addContactJsonLdScript(
-          sourceScript.textContent ||
-            "",
-          index + 1,
-        );
-      },
-    );
-}
-
-/* =========================================================
-   BODY SCHEMA
-========================================================= */
-
-function applyContactApiBodySchema(
-  bodyHtml: string | null,
-) {
-  if (!bodyHtml?.trim()) {
-    return;
-  }
-
-  const cleanBody =
-    bodyHtml.trim();
-
-  const parser =
-    new DOMParser();
-
-  const parsedDocument =
-    parser.parseFromString(
-      cleanBody,
-      "text/html",
-    );
-
-  const schemaScripts =
-    parsedDocument.querySelectorAll(
-      'script[type="application/ld+json"]',
-    );
-
-  schemaScripts.forEach(
-    (
-      sourceScript,
-      index,
-    ) => {
-      addContactJsonLdScript(
-        sourceScript.textContent ||
-          "",
-        index + 101,
-      );
-    },
-  );
-
-  if (
-    schemaScripts.length ===
-      0 &&
-    (
-      cleanBody.startsWith(
-        "{",
-      ) ||
-      cleanBody.startsWith(
-        "[",
-      )
-    )
-  ) {
-    addContactJsonLdScript(
-      cleanBody,
-      101,
-    );
-  }
-}
-
-/* =========================================================
-   APPLY SEO
-========================================================= */
-
-function applyContactSeoData(
-  seo: SeoData,
-) {
-  removePreviousContactSeoElements();
-
-  const pageTitle =
-    seo.meta_title?.trim() ||
-    seo.page_name?.trim() ||
-    CONTACT_FALLBACK_TITLE;
-
-  const pageDescription =
-    seo.meta_description?.trim() ||
-    CONTACT_FALLBACK_DESCRIPTION;
-
-  const pageKeywords =
-    seo.meta_keyword?.trim() ||
-    CONTACT_FALLBACK_KEYWORDS;
-
-  document.title =
-    pageTitle;
-
-  addContactMetaTag({
-    name: "description",
-    content:
-      pageDescription,
-  });
-
-  addContactMetaTag({
-    name: "keywords",
-    content:
-      pageKeywords,
-  });
-
-  applyContactApiHeadHtml(
-    seo.head,
-  );
-
-  applyContactApiBodySchema(
-    seo.body,
-  );
-}
-
-/* =========================================================
-   FALLBACK SEO
-========================================================= */
-
-function applyContactFallbackSeo() {
-  removePreviousContactSeoElements();
-
-  document.title =
-    CONTACT_FALLBACK_TITLE;
-
-  addContactMetaTag({
-    name: "description",
-    content:
-      CONTACT_FALLBACK_DESCRIPTION,
-  });
-
-  addContactMetaTag({
-    name: "keywords",
-    content:
-      CONTACT_FALLBACK_KEYWORDS,
-  });
-}
 
 /* =========================================================
    CONTACT DETAILS
@@ -533,7 +103,7 @@ const socialLinks = [
       "Instagram",
 
     href:
-      "https://www.instagram.com/",
+      "https://www.instagram.com/studio_hpi/",
 
     icon:
       FaInstagram,
@@ -544,7 +114,7 @@ const socialLinks = [
       "Facebook",
 
     href:
-      "https://www.facebook.com/",
+      "https://www.facebook.com/studio.hpi",
 
     icon:
       FaFacebookF,
@@ -728,94 +298,8 @@ export default function ContactPage() {
   const reduceMotion =
     useReducedMotion();
 
-  /* =======================================================
-     SEO API
-  ======================================================= */
-
-  useEffect(() => {
-    const controller =
-      new AbortController();
-
-    async function fetchContactSeo() {
-      try {
-        const response =
-          await fetch(
-            `${apiUrl}/getSeoById`,
-            {
-              method: "POST",
-
-              headers: {
-                Accept:
-                  "application/json",
-
-                "Content-Type":
-                  "application/json",
-              },
-
-              body:
-                JSON.stringify(
-                  {
-                    id:
-                      CONTACT_SEO_ID,
-                  },
-                ),
-
-              signal:
-                controller.signal,
-            },
-          );
-
-        if (
-          !response.ok
-        ) {
-          throw new Error(
-            `Contact SEO API request failed with status ${response.status}.`,
-          );
-        }
-
-        const result =
-          (await response.json()) as SeoApiResponse;
-
-        if (
-          !result.success ||
-          !result.data
-        ) {
-          throw new Error(
-            result.message ||
-              "Contact SEO data not found.",
-          );
-        }
-
-        applyContactSeoData(
-          result.data,
-        );
-      } catch (error) {
-        if (
-          error instanceof
-            DOMException &&
-          error.name ===
-            "AbortError"
-        ) {
-          return;
-        }
-
-        console.error(
-          "Contact SEO API error:",
-          error,
-        );
-
-        applyContactFallbackSeo();
-      }
-    }
-
-    void fetchContactSeo();
-
-    return () => {
-      controller.abort();
-
-      removePreviousContactSeoElements();
-    };
-  }, []);
+  const router =
+    useRouter();
 
   /* =======================================================
      FORM STATE
@@ -986,7 +470,7 @@ export default function ContactPage() {
   };
 
   /* =======================================================
-     SUBMIT
+     SUBMIT CONTACT INQUIRY
   ======================================================= */
 
   const handleSubmit =
@@ -1039,6 +523,7 @@ export default function ContactPage() {
         const response =
           await axios.post<ContactInquiryResponse>(
             `${apiUrl}/contact_inquiry`,
+
             {
               full_name:
                 formData.full_name.trim(),
@@ -1065,6 +550,7 @@ export default function ContactPage() {
               project_requirement:
                 formData.project_requirement.trim(),
             },
+
             {
               headers: {
                 Accept:
@@ -1085,13 +571,24 @@ export default function ContactPage() {
           );
         }
 
-        toast.success(
-          response.data.message ||
-            "Contact inquiry submitted successfully.",
-        );
+        /* =====================================
+           SUCCESS
+        ===================================== */
 
         setFormData(
           INITIAL_FORM_DATA,
+        );
+
+        setFieldErrors(
+          {},
+        );
+
+        /*
+         * Contact inquiry successful.
+         * Navigate to Thank You page.
+         */
+        router.push(
+          "/thank-you",
         );
       } catch (
         error: unknown
@@ -1109,12 +606,13 @@ export default function ContactPage() {
     };
 
   /* =======================================================
-     FIELD STYLE - WHITE THEME
+     FIELD STYLE
   ======================================================= */
 
   const getFieldClassName = (
     field:
       keyof ContactFormData,
+
     extraClasses = "",
   ): string => {
     const hasError =
@@ -1687,6 +1185,7 @@ export default function ContactPage() {
 
                               transition-colors
                               duration-300
+
                               font-medium
 
                               group-hover:text-gold
@@ -1709,9 +1208,7 @@ export default function ContactPage() {
                             item.label
                           }
                         >
-                          {
-                            content
-                          }
+                          {content}
                         </div>
                       );
                     }
@@ -1738,9 +1235,7 @@ export default function ContactPage() {
                           block
                         "
                       >
-                        {
-                          content
-                        }
+                        {content}
                       </a>
                     );
                   },
@@ -1820,7 +1315,6 @@ export default function ContactPage() {
                           rounded-full
 
                           border
-
                           border-black/10
 
                           bg-white
@@ -1910,9 +1404,6 @@ export default function ContactPage() {
                 xl:px-14
               "
             >
-              {/* Decorative C */}
-
-
               <div
                 className="
                   relative
@@ -1976,7 +1467,6 @@ export default function ContactPage() {
                       Share your project details.
                     </h2>
                   </div>
-
                 </div>
 
                 {/* ======================================= */}
@@ -2201,7 +1691,6 @@ export default function ContactPage() {
                               )}
                               className="
                                 bg-white
-
                                 text-[#111827]
                               "
                             >
@@ -2324,7 +1813,6 @@ export default function ContactPage() {
                               }
                               className="
                                 bg-white
-
                                 text-[#111827]
                               "
                             >
@@ -2419,7 +1907,7 @@ export default function ContactPage() {
 
                         leading-[1.7]
 
-                        text-[#9ca3af]
+                        text-gold
                       "
                     >
                       By submitting this form, you agree
@@ -2452,7 +1940,8 @@ export default function ContactPage() {
                         px-6
 
                         text-white
-
+hover:text-black
+hover:border border-black
                         transition-opacity
 
                         disabled:cursor-not-allowed
@@ -2468,7 +1957,8 @@ export default function ContactPage() {
 
                           -translate-x-full
 
-                          bg-[#2f8f46]
+                          bg-[#ffffff]
+                         
 
                           transition-transform
 
@@ -2731,8 +2221,6 @@ export default function ContactPage() {
                 "
               />
 
-              {/* Green tint */}
-
               <div
                 aria-hidden="true"
                 className="
@@ -2746,8 +2234,6 @@ export default function ContactPage() {
                   mix-blend-color
                 "
               />
-
-              {/* Inner frame */}
 
               <span
                 aria-hidden="true"
