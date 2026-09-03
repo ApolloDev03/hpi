@@ -125,7 +125,7 @@ const socialLinks = [
       "LinkedIn",
 
     href:
-      "https://www.linkedin.com/",
+      "https://www.linkedin.com/in/hpi-design-studio-051386431/",
 
     icon:
       FaLinkedinIn,

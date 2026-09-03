@@ -66,7 +66,7 @@ const socialLinks = [
     icon: FaFacebookF,
   },
   {
-    href: "https://www.linkedin.com/",
+    href: "https://www.linkedin.com/in/hpi-design-studio-051386431/",
     label: "LinkedIn",
     icon: FaLinkedinIn,
   },
